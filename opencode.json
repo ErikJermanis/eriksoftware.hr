@@ -8,6 +8,10 @@
     "design-language": {
       "path": "/Users/erikjermanis/webdev/personal-branding/operating-manual-design-review.html",
       "description": "The design language and guidelines for this new website."
+    },
+    "site-copy": {
+      "path": "/Users/erikjermanis/docs/Branding/Web copy.md",
+      "description": "Content for the main portion of the site."
     }
   }
 }
