@@ -40,7 +40,7 @@ func Blog() templ.Component {
 		})
 		templ_7745c5c3_Err = layout(metadata{
 			Title:       "Blog | Erik Software",
-			Description: "Blog Erika Jermaniša o razvoju softvera i automatizaciji poslovanja. Uskoro više sadržaja.",
+			Description: "Pišem o razvoju softvera i automatizaciji poslovanja. Dajem korisne savjete i podučavam poduzetnike kako koristiti AI alate.",
 			Canonical:   "https://eriksoftware.hr/blog",
 			NoIndex:     true,
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)

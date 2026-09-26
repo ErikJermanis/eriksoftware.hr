@@ -118,14 +118,14 @@ func layout(meta metadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta name=\"twitter:card\" content=\"summary\"><meta name=\"twitter:title\" content=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image\" content=\"https://eriksoftware.hr/assets/social-sharing.jpg\"><meta property=\"og:image:type\" content=\"image/jpeg\"><meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\"><meta property=\"og:image:alt\" content=\"Erik Software — software i automatizacija za poduzetnike\"><meta name=\"twitter:card\" content=\"summary_large_image\"><meta name=\"twitter:title\" content=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 29, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 34, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
@@ -138,13 +138,13 @@ func layout(meta metadata) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Description)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 30, Col: 62}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 35, Col: 62}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"/assets/styles.css\"><script type=\"application/ld+json\">\n\t\t\t\t{\n\t\t\t\t\t\"@context\": \"https://schema.org\",\n\t\t\t\t\t\"@graph\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Person\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#erik\",\n\t\t\t\t\t\t\t\"name\": \"Erik Jermaniš\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"WebSite\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#website\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"inLanguage\": \"hr\",\n\t\t\t\t\t\t\t\"publisher\": { \"@id\": \"https://eriksoftware.hr/#erik\" }\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t</script></head><body><a class=\"skip-link\" href=\"#main\">Preskoči na sadržaj</a><header class=\"site-header\"><div class=\"wrap header-inner\"><a class=\"brand\" href=\"/\" aria-label=\"Erik Software — naslovnica\"><img src=\"/assets/eriksoftware_logo.svg\" width=\"42\" height=\"42\" alt=\"\"> <span>Erik Software</span></a><nav aria-label=\"Glavna navigacija\"><a href=\"/#kako-radim\">Kako radim</a> <a href=\"/#konzultacije\">Konzultacije</a> <a href=\"/blog\">Blog</a></nav></div></header><main id=\"main\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta name=\"twitter:image\" content=\"https://eriksoftware.hr/assets/social-sharing.jpg\"><meta name=\"twitter:image:alt\" content=\"Erik Software — software i automatizacija za poduzetnike\"><link rel=\"icon\" href=\"/favicon.ico\"><link rel=\"icon\" type=\"image/svg+xml\" sizes=\"any\" href=\"/assets/favicon.svg\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/apple-touch-icon.png\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"/assets/styles.css\"><script type=\"application/ld+json\">\n\t\t\t\t{\n\t\t\t\t\t\"@context\": \"https://schema.org\",\n\t\t\t\t\t\"@graph\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Person\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#erik\",\n\t\t\t\t\t\t\t\"name\": \"Erik Jermaniš\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"sameAs\": \"https://www.linkedin.com/in/erik-jermanis/\",\n\t\t\t\t\t\t\t\"worksFor\": { \"@id\": \"https://eriksoftware.hr/#organization\" }\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Organization\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#organization\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"email\": \"erik@eriksoftware.hr\",\n\t\t\t\t\t\t\t\"logo\": \"https://eriksoftware.hr/assets/eriksoftware_logo.svg\",\n\t\t\t\t\t\t\t\"owner\": { \"@id\": \"https://eriksoftware.hr/#erik\" },\n\t\t\t\t\t\t\t\"employee\": { \"@id\": \"https://eriksoftware.hr/#erik\" }\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"WebSite\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#website\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"inLanguage\": \"hr\",\n\t\t\t\t\t\t\t\"publisher\": { \"@id\": \"https://eriksoftware.hr/#organization\" }\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t</script></head><body><a class=\"skip-link\" href=\"#main\">Preskoči na sadržaj</a><header class=\"site-header\"><div class=\"wrap header-inner\"><a class=\"brand\" href=\"/\" aria-label=\"Erik Software — naslovnica\"><img src=\"/assets/eriksoftware_logo.svg\" width=\"42\" height=\"42\" alt=\"\"> <span>Erik Software</span></a><nav aria-label=\"Glavna navigacija\"><a href=\"/#kako-radim\">Kako radim</a> <a href=\"/#konzultacije\">Konzultacije</a> <a href=\"/blog\">Blog</a></nav></div></header><main id=\"main\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -152,7 +152,7 @@ func layout(meta metadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main><footer class=\"site-footer\"><div class=\"wrap footer-inner\"><span>Erik Jermaniš / software i automatizacija</span> <a href=\"#main\">Natrag na vrh ↑</a></div></footer></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main><footer class=\"site-footer\"><div class=\"wrap footer-inner\"><span>Erik Jermaniš / software i automatizacija</span> <a href=\"mailto:erik@eriksoftware.hr\">erik@eriksoftware.hr</a> <a href=\"#main\">Natrag na vrh ↑</a></div></footer></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

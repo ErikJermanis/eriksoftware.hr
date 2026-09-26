@@ -40,7 +40,7 @@ func Home() templ.Component {
 		})
 		templ_7745c5c3_Err = layout(metadata{
 			Title:       "Erik Jermaniš | Software i automatizacija za poduzetnike",
-			Description: "Prilagođene aplikacije, procesi i alati za male i srednje poduzetnike. Erik Jermaniš pomaže Vam raditi efikasnije uz jednostavna softverska rješenja.",
+			Description: "Prilagođene aplikacije, procesi i alati za male i srednje poduzetnike. Pomažem vam automatizirati repetitivne djelove posla kako biste se mogli fokusirati na ono što je važno.",
 			Canonical:   "https://eriksoftware.hr/",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {

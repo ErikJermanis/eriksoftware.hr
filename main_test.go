@@ -21,6 +21,15 @@ func TestHomepageMetadataAndSchema(t *testing.T) {
 		`<link rel="canonical" href="https://eriksoftware.hr/">`,
 		`<meta name="description" content=`,
 		`<meta property="og:locale" content="hr_HR">`,
+		`<meta property="og:image" content="https://eriksoftware.hr/assets/social-sharing.jpg">`,
+		`<meta property="og:image:width" content="1200">`,
+		`<meta property="og:image:height" content="630">`,
+		`<meta name="twitter:card" content="summary_large_image">`,
+		`<meta name="twitter:image" content="https://eriksoftware.hr/assets/social-sharing.jpg">`,
+		`<link rel="icon" href="/favicon.ico">`,
+		`<link rel="icon" type="image/svg+xml" sizes="any" href="/assets/favicon.svg">`,
+		`<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">`,
+		`href="mailto:erik@eriksoftware.hr"`,
 		`<h1 id="home-title">`,
 		`id="kako-radim"`,
 		`id="konzultacije"`,
@@ -45,14 +54,26 @@ func TestHomepageMetadataAndSchema(t *testing.T) {
 	var schema struct {
 		Context string `json:"@context"`
 		Graph   []struct {
-			Type string `json:"@type"`
+			Type      string `json:"@type"`
+			ID        string `json:"@id"`
+			Name      string `json:"name"`
+			Email     string `json:"email"`
+			SameAs    string `json:"sameAs"`
+			WorkFor   struct{ ID string `json:"@id"` } `json:"worksFor"`
+			Owner     struct{ ID string `json:"@id"` } `json:"owner"`
+			Employee  struct{ ID string `json:"@id"` } `json:"employee"`
+			Publisher struct{ ID string `json:"@id"` } `json:"publisher"`
 		} `json:"@graph"`
 	}
 	if err := json.Unmarshal([]byte(script), &schema); err != nil {
 		t.Fatalf("invalid JSON-LD: %v", err)
 	}
-	if schema.Context != "https://schema.org" || len(schema.Graph) != 2 || schema.Graph[0].Type != "Person" || schema.Graph[1].Type != "WebSite" {
+	if schema.Context != "https://schema.org" || len(schema.Graph) != 3 || schema.Graph[0].Type != "Person" || schema.Graph[1].Type != "Organization" || schema.Graph[2].Type != "WebSite" {
 		t.Fatalf("unexpected JSON-LD: %+v", schema)
+	}
+	person, organization, website := schema.Graph[0], schema.Graph[1], schema.Graph[2]
+	if person.SameAs != "https://www.linkedin.com/in/erik-jermanis/" || person.WorkFor.ID != organization.ID || organization.Name != "Erik Software" || organization.Email != "erik@eriksoftware.hr" || organization.Owner.ID != person.ID || organization.Employee.ID != person.ID || website.Publisher.ID != organization.ID {
+		t.Fatalf("incorrect entity relationships: %+v", schema.Graph)
 	}
 }
 
@@ -77,7 +98,7 @@ func TestBlogPlaceholderIsNotIndexed(t *testing.T) {
 
 func TestStaticAssetsAndUnknownRoutes(t *testing.T) {
 	handler := testHandler(t)
-	for _, path := range []string{"/assets/eriksoftware_logo.svg", "/assets/styles.css", "/robots.txt", "/sitemap.xml"} {
+	for _, path := range []string{"/assets/eriksoftware_logo.svg", "/assets/styles.css", "/assets/social-sharing.jpg", "/assets/favicon.svg", "/assets/apple-touch-icon.png", "/favicon.ico", "/robots.txt", "/sitemap.xml"} {
 		if status := request(t, handler, path).Code; status != http.StatusOK {
 			t.Errorf("%s status = %d", path, status)
 		}

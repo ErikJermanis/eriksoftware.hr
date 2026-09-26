@@ -25,9 +25,19 @@ templ layout(meta metadata) {
 			<meta property="og:title" content={ meta.Title }/>
 			<meta property="og:description" content={ meta.Description }/>
 			<meta property="og:url" content={ meta.Canonical }/>
-			<meta name="twitter:card" content="summary"/>
+			<meta property="og:image" content="https://eriksoftware.hr/assets/social-sharing.jpg"/>
+			<meta property="og:image:type" content="image/jpeg"/>
+			<meta property="og:image:width" content="1200"/>
+			<meta property="og:image:height" content="630"/>
+			<meta property="og:image:alt" content="Erik Software — software i automatizacija za poduzetnike"/>
+			<meta name="twitter:card" content="summary_large_image"/>
 			<meta name="twitter:title" content={ meta.Title }/>
 			<meta name="twitter:description" content={ meta.Description }/>
+			<meta name="twitter:image" content="https://eriksoftware.hr/assets/social-sharing.jpg"/>
+			<meta name="twitter:image:alt" content="Erik Software — software i automatizacija za poduzetnike"/>
+			<link rel="icon" href="/favicon.ico"/>
+			<link rel="icon" type="image/svg+xml" sizes="any" href="/assets/favicon.svg"/>
+			<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
 			<link rel="preconnect" href="https://fonts.googleapis.com"/>
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 			<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -40,7 +50,19 @@ templ layout(meta metadata) {
 							"@type": "Person",
 							"@id": "https://eriksoftware.hr/#erik",
 							"name": "Erik Jermaniš",
-							"url": "https://eriksoftware.hr/"
+							"url": "https://eriksoftware.hr/",
+							"sameAs": "https://www.linkedin.com/in/erik-jermanis/",
+							"worksFor": { "@id": "https://eriksoftware.hr/#organization" }
+						},
+						{
+							"@type": "Organization",
+							"@id": "https://eriksoftware.hr/#organization",
+							"name": "Erik Software",
+							"url": "https://eriksoftware.hr/",
+							"email": "erik@eriksoftware.hr",
+							"logo": "https://eriksoftware.hr/assets/eriksoftware_logo.svg",
+							"owner": { "@id": "https://eriksoftware.hr/#erik" },
+							"employee": { "@id": "https://eriksoftware.hr/#erik" }
 						},
 						{
 							"@type": "WebSite",
@@ -48,7 +70,7 @@ templ layout(meta metadata) {
 							"name": "Erik Software",
 							"url": "https://eriksoftware.hr/",
 							"inLanguage": "hr",
-							"publisher": { "@id": "https://eriksoftware.hr/#erik" }
+							"publisher": { "@id": "https://eriksoftware.hr/#organization" }
 						}
 					]
 				}
@@ -73,6 +95,7 @@ templ layout(meta metadata) {
 			<footer class="site-footer">
 				<div class="wrap footer-inner">
 					<span>Erik Jermaniš / software i automatizacija</span>
+					<a href="mailto:erik@eriksoftware.hr">erik@eriksoftware.hr</a>
 					<a href="#main">Natrag na vrh ↑</a>
 				</div>
 			</footer>

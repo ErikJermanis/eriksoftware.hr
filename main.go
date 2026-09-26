@@ -27,6 +27,9 @@ func newHandler() (http.Handler, error) {
 		templ.Handler(pages.Blog()).ServeHTTP(w, r)
 	}))
 	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(static))))
+	mux.HandleFunc("GET /favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFileFS(w, r, static, "favicon.ico")
+	})
 	mux.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFileFS(w, r, static, "robots.txt")
 	})
