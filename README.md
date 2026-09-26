@@ -11,7 +11,7 @@ Small Croatian-language site built with Go, [templ](https://templ.guide/), and p
 | `just build` | Generate templates and build `bin/eriksoftware` with static files embedded. Run it with `./bin/eriksoftware`. |
 | `just test` | Generate templates and run Go tests. |
 
-Routes: `/` (homepage), `/blog` (WIP), `/favicon.ico`, `/robots.txt`, `/sitemap.xml`. Unmatched paths return 404.
+Routes: `/` (homepage), `/blog` (placeholder posts), `/favicon.ico`, `/robots.txt`, `/sitemap.xml`. Unmatched paths return 404.
 
 ## Content and assets
 
@@ -19,7 +19,7 @@ The page templates are in `pages/`. Add CSS, images, and other static files to `
 
 ## SEO checklist for the next iteration
 
-The current layout provides per-page titles and descriptions, canonical URLs, Croatian language and social image tags, favicon links, Person + Organization + WebSite JSON-LD, robots.txt, and a sitemap. The empty blog is `noindex` and excluded from the sitemap until there are posts. Before publishing or when the relevant details exist:
+The current layout provides per-page titles and descriptions, canonical URLs, Croatian language and social image tags, favicon links, Person + Organization + WebSite JSON-LD, robots.txt, and a sitemap. The blog has placeholder cards and is `noindex` and excluded from the sitemap until there are real posts. Before publishing or when the relevant details exist:
 
 1. Review the drafted homepage title and meta description in `pages/home.templ` against the final positioning and copy. Update `/blog` metadata when it has real content.
 2. `https://eriksoftware.hr/` (without `www`) is the preferred public URL. Keep canonical tags, JSON-LD, sitemap and robots.txt consistent if it changes.

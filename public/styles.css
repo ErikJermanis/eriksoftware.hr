@@ -3,6 +3,7 @@
   --stock: #f0ede4;
   --paper: #faf7ee;
   --blue: #3d56e7;
+  --gold: #d9c952;
   --muted: #55554e;
   --rule: #bcb9af;
   --sans: "Space Grotesk", sans-serif;
@@ -331,30 +332,63 @@ p {
   margin-bottom: 0;
 }
 
-.blog-placeholder {
-  min-height: 65vh;
-  padding: clamp(90px, 12vw, 160px) 0;
-  background: var(--paper);
+.blog-section {
+  background: var(--carbon);
+  color: var(--paper);
 }
-.blog-placeholder h1 {
-  margin: 25px 0 48px;
-  font-size: clamp(56px, 8vw, 96px);
-  line-height: 1.04;
+.blog-section .eyebrow::before {
+  background: var(--gold);
+}
+.blog-section .section-head h1 {
+  margin: 0 0 18px;
+  font-size: clamp(38px, 5vw, 66px);
+  line-height: 1.07;
   letter-spacing: -0.035em;
 }
-.placeholder-card {
-  max-width: 560px;
-  padding: 28px;
-  border: 1px solid var(--carbon);
-  background: var(--stock);
+.blog-section .section-head p {
+  color: #cbc9bd;
 }
-.placeholder-card .mono {
-  color: var(--blue);
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
-.placeholder-card p {
-  margin: 32px 0 0;
-  font-size: 26px;
-  line-height: 1.2;
+.blog-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(22px, 3vw, 36px);
+  border: 1px solid #76766e;
+}
+.blog-card time {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--gold);
+}
+.blog-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  margin-bottom: 22px;
+  object-fit: cover;
+}
+.blog-card h2 {
+  margin: auto 0 8px;
+  font-size: 25px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.blog-card p {
+  margin: 0;
+  color: #ceccc1;
+  font-size: 16px;
+}
+.blog-section a:hover {
+  color: var(--gold);
+}
+.blog-section :focus-visible {
+  outline-color: var(--gold);
 }
 
 .site-footer {
@@ -385,7 +419,7 @@ p {
   color: var(--paper);
 }
 .site-footer a:hover {
-  color: #d9c952;
+  color: var(--gold);
 }
 
 @media (max-width: 960px) {
@@ -499,6 +533,9 @@ p {
     grid-column: 2;
   }
   .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog-grid {
     grid-template-columns: 1fr;
   }
   .consulting-card {

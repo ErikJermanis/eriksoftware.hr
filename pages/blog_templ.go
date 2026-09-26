@@ -29,7 +29,7 @@ func Blog() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"blog-placeholder\" aria-labelledby=\"blog-title\"><div class=\"wrap\"><span class=\"eyebrow\">Erik Software / Blog</span><h1 id=\"blog-title\">Blog.</h1><div class=\"placeholder-card\"><span class=\"mono\">Status / u pripremi</span><p>WIP — uskoro više.</p></div></div></section>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section blog-section\" aria-labelledby=\"blog-title\"><div class=\"wrap\"><div class=\"section-head\"><span class=\"eyebrow\">Erik Jermaniš</span><div><h1 id=\"blog-title\">Blog</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div></div><div class=\"blog-grid\"><article class=\"blog-card\"><time class=\"mono\" datetime=\"2026-09-01\">01/09/2026</time> <img src=\"/assets/blog-process.svg\" width=\"800\" height=\"400\" alt=\"\" loading=\"lazy\"><h2>Naslov objave 01</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo eget felis tincidunt suscipit.</p></article><article class=\"blog-card\"><time class=\"mono\" datetime=\"2026-09-15\">15/09/2026</time> <img src=\"/assets/blog-decision.svg\" width=\"800\" height=\"400\" alt=\"\" loading=\"lazy\"><h2>Naslov objave 02</h2><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla.</p></article></div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

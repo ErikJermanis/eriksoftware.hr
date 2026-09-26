@@ -77,7 +77,7 @@ func TestHomepageMetadataAndSchema(t *testing.T) {
 	}
 }
 
-func TestBlogPlaceholderIsNotIndexed(t *testing.T) {
+func TestBlogPlaceholdersAreNotIndexed(t *testing.T) {
 	handler := testHandler(t)
 	response := request(t, handler, "/blog")
 	if response.Code != http.StatusOK {
@@ -86,10 +86,23 @@ func TestBlogPlaceholderIsNotIndexed(t *testing.T) {
 	if response.Header().Get("X-Robots-Tag") != "noindex, follow" {
 		t.Error("blog missing X-Robots-Tag")
 	}
-	for _, want := range []string{`content="noindex, follow"`, `href="https://eriksoftware.hr/blog"`, `WIP — uskoro više.`} {
-		if !strings.Contains(response.Body.String(), want) {
+	page := response.Body.String()
+	for _, want := range []string{
+		`content="noindex, follow"`,
+		`href="https://eriksoftware.hr/blog"`,
+		`<h1 id="blog-title">Blog</h1>`,
+		`Erik Jermaniš`,
+		`datetime="2026-09-01">01/09/2026</time>`,
+		`datetime="2026-09-15">15/09/2026</time>`,
+		`/assets/blog-process.svg`,
+		`/assets/blog-decision.svg`,
+	} {
+		if !strings.Contains(page, want) {
 			t.Errorf("blog missing %q", want)
 		}
+	}
+	if count := strings.Count(page, `<article class="blog-card">`); count != 2 {
+		t.Errorf("blog cards = %d, want 2", count)
 	}
 	if strings.Contains(request(t, handler, "/sitemap.xml").Body.String(), "/blog") {
 		t.Error("unfinished blog listed in sitemap")
@@ -98,7 +111,7 @@ func TestBlogPlaceholderIsNotIndexed(t *testing.T) {
 
 func TestStaticAssetsAndUnknownRoutes(t *testing.T) {
 	handler := testHandler(t)
-	for _, path := range []string{"/assets/eriksoftware_logo.svg", "/assets/styles.css", "/assets/social-sharing.jpg", "/assets/favicon.svg", "/assets/apple-touch-icon.png", "/favicon.ico", "/robots.txt", "/sitemap.xml"} {
+	for _, path := range []string{"/assets/eriksoftware_logo.svg", "/assets/styles.css", "/assets/social-sharing.jpg", "/assets/favicon.svg", "/assets/apple-touch-icon.png", "/assets/blog-process.svg", "/assets/blog-decision.svg", "/favicon.ico", "/robots.txt", "/sitemap.xml"} {
 		if status := request(t, handler, path).Code; status != http.StatusOK {
 			t.Errorf("%s status = %d", path, status)
 		}
