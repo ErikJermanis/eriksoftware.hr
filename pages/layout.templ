@@ -41,6 +41,7 @@ templ layout(meta metadata) {
 			<link rel="preconnect" href="https://fonts.googleapis.com"/>
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 			<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+			<script>document.documentElement.classList.add("js");</script>
 			<link rel="stylesheet" href="/assets/styles.css"/>
 			<script type="application/ld+json">
 				{
@@ -84,9 +85,14 @@ templ layout(meta metadata) {
 						<img src="/assets/eriksoftware_logo.svg" width="42" height="42" alt=""/>
 						<span>Erik Software</span>
 					</a>
-					<nav aria-label="Glavna navigacija">
+					<button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
+						<span class="menu-icon" aria-hidden="true"></span>
+						<span>Izbornik</span>
+					</button>
+					<nav id="site-nav" aria-label="Glavna navigacija">
 						<a href="/#kako-radim">Kako radim</a>
 						<a href="/#konzultacije">Konzultacije</a>
+						<a href="/#o-meni">O meni</a>
 						<a href="/blog">Blog</a>
 					</nav>
 				</div>
@@ -99,6 +105,33 @@ templ layout(meta metadata) {
 					<a href="#main">Natrag na vrh ↑</a>
 				</div>
 			</footer>
+			<script>
+				const header = document.querySelector(".site-header");
+				const toggle = header.querySelector(".menu-toggle");
+				const nav = header.querySelector("#site-nav");
+				const closeMenu = () => {
+					header.classList.remove("menu-open");
+					toggle.setAttribute("aria-expanded", "false");
+				};
+
+				toggle.addEventListener("click", () => {
+					const open = header.classList.toggle("menu-open");
+					toggle.setAttribute("aria-expanded", String(open));
+				});
+				nav.addEventListener("click", (event) => {
+					if (event.target.closest("a")) closeMenu();
+				});
+				document.addEventListener("click", (event) => {
+					if (!header.contains(event.target)) closeMenu();
+				});
+				document.addEventListener("keydown", (event) => {
+					if (event.key === "Escape" && header.classList.contains("menu-open")) {
+						closeMenu();
+						toggle.focus();
+					}
+				});
+				matchMedia("(max-width: 700px)").addEventListener("change", closeMenu);
+			</script>
 		</body>
 	</html>
 }
