@@ -358,16 +358,28 @@ p {
 }
 
 .site-footer {
-  padding: 28px 0;
+  padding: 30px 0;
   background: var(--carbon);
   color: var(--paper);
 }
 .footer-inner {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 32px;
   font: 600 12px/1.5 var(--mono);
+}
+.footer-identity {
+  display: grid;
+  gap: 4px;
+}
+.footer-identity span:first-child {
+  color: var(--rule);
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
 }
 .site-footer a {
   color: var(--paper);
@@ -386,6 +398,14 @@ p {
   }
   .section-head {
     gap: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
   }
 }
 
