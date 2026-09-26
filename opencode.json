@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "references": {
+    "personal-site": {
+      "path": "/Users/erikjermanis/webdev/erikjermanis.me",
+      "description": "User's personal web. Use this as an inspiration for how to structure this site technically - using templ, having a blog etc."
+    },
+    "design-language": {
+      "path": "/Users/erikjermanis/webdev/personal-branding/operating-manual-design-review.html",
+      "description": "The design language and guidelines for this new website."
+    }
+  }
+}
