@@ -20,3 +20,6 @@ push:
     git add .
     git commit -m "push"
     git push
+
+buildforlinux: generate
+    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o bin/eriksoftware-linux
