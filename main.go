@@ -51,6 +51,7 @@ func main() {
 		port = "8080"
 	}
 
-	log.Printf("Listening on :%s", port)
-	log.Fatal(http.ListenAndServe(":"+port, handler))
+	addr := "127.0.0.1:" + port
+	log.Printf("Listening on %s", addr)
+	log.Fatal(http.ListenAndServe(addr, handler))
 }
