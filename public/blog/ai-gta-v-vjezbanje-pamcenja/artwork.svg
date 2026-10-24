@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="800" viewBox="0 0 2000 800" role="img" aria-labelledby="title desc">
+  <title id="title">Pamćenje puta</title>
+  <desc id="desc">Originalna apstraktna ilustracija: plava ruta s nekoliko skretanja prolazi kroz mrežu ulica uz geometrijske orijentire. Nije karta ni snimka igre GTA V.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#bcb9af" stroke-width="1" opacity=".4"/>
+    </pattern>
+  </defs>
+  <path fill="#f0ede4" d="M0 0H2000V800H0z"/>
+  <path fill="url(#grid)" d="M0 0H2000V800H0z"/>
+  <g fill="#faf7ee" stroke="#bcb9af" stroke-width="2">
+    <path d="M60 60H280V220H60zM360 60H600V220H360zM680 60H920V220H680zM1000 60H1320V220H1000zM1400 60H1640V220H1400zM1720 60H1940V220H1720z"/>
+    <path d="M60 300H280V500H60zM360 300H600V500H360zM680 300H920V500H680zM1000 300H1320V500H1000zM1400 300H1640V500H1400zM1720 300H1940V500H1720z"/>
+    <path d="M60 580H280V740H60zM360 580H600V740H360zM680 580H920V740H680zM1000 580H1320V740H1000zM1400 580H1640V740H1400zM1720 580H1940V740H1720z"/>
+  </g>
+  <g fill="none" stroke="#bcb9af" stroke-width="2" stroke-dasharray="8 12">
+    <path d="M0 260H2000M0 540H2000M320 0V800M640 0V800M960 0V800M1360 0V800M1680 0V800"/>
+  </g>
+  <g fill="#f0ede4" stroke="#1c1c16" stroke-width="3">
+    <path d="M420 380H540V440H420zM460 340H500V380H460z"/>
+    <circle cx="800" cy="140" r="38"/>
+    <path d="M1120 680V620L1160 592L1200 620V680z"/>
+    <path d="M1480 400L1520 340L1560 400L1520 460z"/>
+  </g>
+  <path d="M160 540H640V260H960V540H1360V260H1840" fill="none" stroke="#faf7ee" stroke-width="28" stroke-linejoin="round"/>
+  <path d="M160 540H640V260H960V540H1360V260H1840" fill="none" stroke="#3d56e7" stroke-width="12" stroke-linejoin="round"/>
+  <g fill="#faf7ee" stroke="#3d56e7" stroke-width="5">
+    <circle cx="640" cy="540" r="12"/>
+    <circle cx="640" cy="260" r="12"/>
+    <circle cx="960" cy="260" r="12"/>
+    <circle cx="960" cy="540" r="12"/>
+    <circle cx="1360" cy="540" r="12"/>
+    <circle cx="1360" cy="260" r="12"/>
+  </g>
+  <circle cx="160" cy="540" r="24" fill="#3d56e7"/>
+  <circle cx="160" cy="540" r="8" fill="#faf7ee"/>
+  <path d="M1820 240H1860V280H1820z" fill="#d9c952" stroke="#1c1c16" stroke-width="4"/>
+  <g fill="none" stroke="#1c1c16" stroke-width="2">
+    <path d="M20 60V20H60M1940 20H1980V60M20 740V780H60M1940 780H1980V740"/>
+  </g>
+</svg>

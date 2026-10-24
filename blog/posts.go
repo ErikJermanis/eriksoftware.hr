@@ -4,6 +4,7 @@ package blog
 // example disabled as a reference for future authors.
 func Posts() []Post {
 	return []Post{
+		GTAVMemoryPost(),
 		// ExamplePost(), // Reference only; do not publish.
 	}
 }

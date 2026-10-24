@@ -59,6 +59,14 @@ func TestRegisteredPosts(t *testing.T) {
 				if r.Code != 404 {
 					t.Error("unpublished article is reachable")
 				}
+				if request(t, h, p.Path()+"/").Code != http.StatusNotFound {
+					t.Error("unpublished article is reachable with a trailing slash")
+				}
+				for _, endpoint := range []string{"/blog", "/sitemap.xml", "/blog/feed.xml"} {
+					if strings.Contains(request(t, h, endpoint).Body.String(), p.Slug) {
+						t.Errorf("unpublished article leaked into %s", endpoint)
+					}
+				}
 				return
 			}
 			page := r.Body.String()

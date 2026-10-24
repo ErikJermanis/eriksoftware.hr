@@ -38,7 +38,7 @@ func Blog(posts []blog.Post, noIndex bool) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section blog-section\" aria-labelledby=\"blog-title\"><div class=\"wrap\"><div class=\"section-head\"><span class=\"eyebrow\">Erik Jermaniš / bilješke iz prakse</span><div><h1 id=\"blog-title\">Blog</h1><p>O softveru, automatizaciji i AI alatima. Bez nepotrebnih komplikacija.</p></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"section blog-section\" aria-labelledby=\"blog-title\"><div class=\"wrap\"><div class=\"section-head\"><span class=\"eyebrow\">Erik Jermaniš</span><div><h1 id=\"blog-title\">Blog</h1><p>O softveru, automatizaciji i AI alatima.</p></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
