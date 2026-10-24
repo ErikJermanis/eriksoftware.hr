@@ -1,0 +1,113 @@
+package pages
+
+import (
+	"fmt"
+
+	"github.com/ErikJermanis/eriksoftware.hr/blog"
+)
+
+templ BlogPost(post blog.Post, related []blog.Post) {
+	@layout(metadata{
+		Title:       post.Title + " | Erik Software",
+		Description: post.Description,
+		Canonical:   post.URL(),
+		NoIndex:     post.Status != blog.Published,
+		Kind:        "article",
+		Social:      post.Social,
+		PublishedAt: post.PublishedAt,
+		ModifiedAt:  post.ModifiedAt,
+		Schema:      articleSchema(post),
+	}) {
+		<article aria-labelledby="article-title">
+			<header class="article-hero">
+				<img class="article-hero-image" src={ post.Hero.Src } srcset={ post.Hero.Srcset() } sizes="100vw" width={ fmt.Sprint(post.Hero.Width) } height={ fmt.Sprint(post.Hero.Height) } alt="" aria-hidden="true" fetchpriority="high" decoding="async"/>
+				<div class="wrap article-hero-inner">
+					<nav class="breadcrumbs" aria-label="Putanja stranice">
+						<ol>
+							<li><a href="/">Naslovnica</a></li>
+							<li><a href="/blog">Blog</a></li>
+							<li aria-current="page">Članak</li>
+						</ol>
+					</nav>
+					<div class="article-heading">
+						<a class="article-byline" href="/#o-meni">
+							<img src="/assets/profil_web.jpg" width="48" height="48" alt=""/>
+							<span>Erik Jermaniš<span class="article-author-role">Software i automatizacija</span></span>
+						</a>
+						<h1 id="article-title">{ post.Title }</h1>
+						<div class="article-meta mono">
+							<time datetime={ post.PublishedAt }>{ post.Date() }</time>
+							<span>{ fmt.Sprint(post.ReadingMinutes) } min čitanja</span>
+							if post.ModifiedAt != "" {
+								<span>Ažurirano <time datetime={ post.ModifiedAt }>{ post.UpdatedDate() }</time></span>
+							}
+						</div>
+						if len(post.Topics) > 0 {
+							<ul class="article-topics" aria-label="Teme">
+								for _, topic := range post.Topics {
+									<li>{ topic }</li>
+								}
+							</ul>
+						}
+					</div>
+				</div>
+			</header>
+			<div class="article-reading-area">
+				<div class={ templ.KV("wrap article-layout", len(post.Headings) > 0), templ.KV("wrap article-layout article-layout-no-toc", len(post.Headings) == 0) }>
+					if len(post.Headings) > 0 {
+						<aside class="article-sidebar">
+							<details class="article-toc" open>
+								<summary class="mono">U ovom tekstu</summary>
+								<nav aria-label="Sadržaj članka">
+									<ol>
+										for _, heading := range post.Headings {
+											<li><a href={ templ.SafeURL("#" + heading.ID) }>{ heading.Title }</a></li>
+										}
+									</ol>
+								</nav>
+							</details>
+						</aside>
+					}
+					<div class="article-column">
+						if post.Status == blog.Example {
+							<div class="article-example-notice" role="note">
+								<strong>Primjer strukture, ne studija slučaja.</strong>
+								Ovaj tekst služi kao predložak za buduće objave. Svi brojevi su ilustrativni; nisu rezultati rada s klijentima.
+							</div>
+						}
+						<div class="article-body">
+							@post.Body
+						</div>
+						<footer class="article-end">
+							<div class="article-author-note">
+								<img src="/assets/profil_web.jpg" width="64" height="64" alt="Erik Jermaniš" loading="lazy" decoding="async"/>
+								<div>
+									<p class="mono">O autoru</p>
+									<strong><a href="/#o-meni">Erik Jermaniš</a></strong>
+									<p>Softverski inženjer iz Rijeke. Gradim jednostavan i siguran software koji poduzetnicima pomaže smanjiti ručni rad.</p>
+								</div>
+							</div>
+							<div class="article-contact">
+								<p>Imate proces koji biste htjeli pojednostaviti?</p>
+								<a href="mailto:erik@eriksoftware.hr">Opišite mi kako danas radite ↗</a>
+							</div>
+							<a class="article-back-link" href="/blog">← Svi tekstovi</a>
+						</footer>
+					</div>
+				</div>
+			</div>
+		</article>
+		if len(related) > 0 {
+			<section class="section blog-section" aria-labelledby="related-title">
+				<div class="wrap">
+					<div class="related-heading"><span class="eyebrow">Nastavite čitati</span><h2 id="related-title">Povezani tekstovi</h2></div>
+					<div class="blog-grid">
+						for _, candidate := range related {
+							@postCard(candidate)
+						}
+					</div>
+				</div>
+			</section>
+		}
+	}
+}

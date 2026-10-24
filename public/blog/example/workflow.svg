@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" fill="none">
+  <title>Primjer tijeka obrade upita</title>
+  <desc>Potpun upit ide iz provjere u nacrt pa na ljudsku potvrdu. Nepotpun upit ide na dopunu i vraća se na provjeru.</desc>
+  <rect width="960" height="560" fill="#F0EDE4"/>
+  <g stroke="#BCB9AF" stroke-width="1"><path d="M40 100H920M40 500H920"/></g>
+  <text x="40" y="60" fill="#55554E" font-family="monospace" font-size="17">TIJEK RADA / PRAVILO + IZNIMKA + POTVRDA</text>
+  <g stroke="#1C1C16" stroke-width="2"><path d="M220 225H270M470 225H520M710 225H760M370 290V350M270 402H242V268H270"/></g>
+  <g fill="#1C1C16"><path d="m260 218 10 7-10 7ZM510 218l10 7-10 7ZM750 218l10 7-10 7ZM363 340l7 10 7-10ZM260 261l10 7-10 7Z"/></g>
+  <rect x="40" y="160" width="180" height="130" fill="#FAF7EE" stroke="#1C1C16"/>
+  <rect x="270" y="160" width="200" height="130" fill="#3D56E7" stroke="#1C1C16"/>
+  <rect x="520" y="160" width="190" height="130" fill="#FAF7EE" stroke="#1C1C16"/>
+  <rect x="760" y="160" width="160" height="130" fill="#FAF7EE" stroke="#1C1C16"/>
+  <rect x="270" y="350" width="260" height="105" fill="#D9C952" stroke="#1C1C16"/>
+  <g fill="#55554E" font-family="monospace" font-size="15"><text x="60" y="188">01 / ULAZ</text><text x="540" y="188">03 / NACRT</text><text x="780" y="188">04 / OSOBA</text><text x="290" y="380" fill="#1C1C16">IZNIMKA / DOPUNA</text></g>
+  <text x="290" y="188" fill="#FAF7EE" font-family="monospace" font-size="15">02 / PROVJERA</text>
+  <g fill="#1C1C16" font-family="Arial, sans-serif" font-size="23" font-weight="600"><text x="60" y="236">Novi upit</text><text x="540" y="236">Priprema</text><text x="780" y="236">Potvrda</text><text x="290" y="416">Osoba traži podatke</text></g>
+  <text x="290" y="236" fill="#FAF7EE" font-family="Arial, sans-serif" font-size="23" font-weight="600">Podaci potpuni?</text>
+  <g fill="#55554E" font-family="monospace" font-size="16"><text x="486" y="146">DA</text><text x="386" y="325">NE</text><text x="40" y="532">ILUSTRACIJA / PONUDA SE ŠALJE TEK NAKON LJUDSKE POTVRDE</text></g>
+</svg>

@@ -1,6 +1,6 @@
 default: dev
 
-# Generate Go code from pages/*.templ (templ is pinned in go.mod).
+# Generate Go code from all .templ files (templ is pinned in go.mod).
 generate:
     go run -mod=mod github.com/a-h/templ/cmd/templ generate
 

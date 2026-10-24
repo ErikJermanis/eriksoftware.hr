@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" fill="none">
+  <title>Radna bilješka prije automatizacije</title>
+  <rect width="960" height="600" fill="#F0EDE4"/>
+  <rect x="56" y="40" width="848" height="520" fill="#FAF7EE" stroke="#1C1C16"/>
+  <path d="M56 126H904M56 466H904M480 126V466M56 296H904" stroke="#BCB9AF"/>
+  <rect x="80" y="68" width="10" height="10" fill="#3D56E7"/>
+  <g fill="#55554E" font-family="monospace" font-size="16">
+    <text x="104" y="80">RADNA BILJEŠKA / 01</text>
+    <text x="80" y="163">01 / OKIDAČ</text><text x="504" y="163">02 / OBVEZNI PODACI</text>
+    <text x="80" y="333">03 / IZNIMKA</text><text x="504" y="333">04 / ODGOVORNOST</text>
+    <text x="80" y="510">ILUSTRACIJA PROCESA, NE STVARNI PROJEKT</text>
+  </g>
+  <g fill="#1C1C16" font-family="Arial, sans-serif" font-size="30" font-weight="600">
+    <text x="80" y="218">Stiže novi upit</text>
+    <text x="504" y="218">Kontakt i opis zahtjeva</text>
+    <text x="80" y="388">Nedostaju podaci?</text>
+    <text x="504" y="388">Osoba potvrđuje izlaz</text>
+  </g>
+  <g fill="#55554E" font-family="Arial, sans-serif" font-size="20">
+    <text x="80" y="253">E-mail → evidencija upita</text>
+    <text x="504" y="253">Bez nagađanja i tihih dopuna.</text>
+    <text x="80" y="423">Zaustavi nacrt i zatraži dopunu.</text>
+    <text x="504" y="423">Ponuda se ne šalje automatski.</text>
+  </g>
+  <path d="M80 535H880" stroke="#3D56E7" stroke-width="3"/>
+</svg>

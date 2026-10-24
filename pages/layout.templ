@@ -1,13 +1,9 @@
 package pages
 
-import "time"
-
-type metadata struct {
-	Title       string
-	Description string
-	Canonical   string
-	NoIndex     bool
-}
+import (
+	"fmt"
+	"time"
+)
 
 templ layout(meta metadata) {
 	<!DOCTYPE html>
@@ -20,23 +16,33 @@ templ layout(meta metadata) {
 			<link rel="canonical" href={ meta.Canonical }/>
 			if meta.NoIndex {
 				<meta name="robots" content="noindex, follow"/>
+			} else {
+				<meta name="robots" content="max-image-preview:large"/>
 			}
-			<meta property="og:type" content="website"/>
+			<meta property="og:type" content={ meta.kind() }/>
 			<meta property="og:locale" content="hr_HR"/>
 			<meta property="og:site_name" content="Erik Software"/>
 			<meta property="og:title" content={ meta.Title }/>
 			<meta property="og:description" content={ meta.Description }/>
 			<meta property="og:url" content={ meta.Canonical }/>
-			<meta property="og:image" content="https://eriksoftware.hr/assets/social-sharing.jpg"/>
-			<meta property="og:image:type" content="image/jpeg"/>
-			<meta property="og:image:width" content="1200"/>
-			<meta property="og:image:height" content="630"/>
-			<meta property="og:image:alt" content="Erik Software — software i automatizacija za poduzetnike"/>
+			<meta property="og:image" content={ meta.social().URL() }/>
+			<meta property="og:image:type" content={ meta.social().MIME() }/>
+			<meta property="og:image:width" content={ fmt.Sprint(meta.social().Width) }/>
+			<meta property="og:image:height" content={ fmt.Sprint(meta.social().Height) }/>
+			<meta property="og:image:alt" content={ meta.social().Alt }/>
 			<meta name="twitter:card" content="summary_large_image"/>
 			<meta name="twitter:title" content={ meta.Title }/>
 			<meta name="twitter:description" content={ meta.Description }/>
-			<meta name="twitter:image" content="https://eriksoftware.hr/assets/social-sharing.jpg"/>
-			<meta name="twitter:image:alt" content="Erik Software — software i automatizacija za poduzetnike"/>
+			<meta name="twitter:image" content={ meta.social().URL() }/>
+			<meta name="twitter:image:alt" content={ meta.social().Alt }/>
+			if meta.PublishedAt != "" {
+				<meta property="article:published_time" content={ meta.PublishedAt }/>
+				<meta property="article:author" content="https://eriksoftware.hr/#o-meni"/>
+			}
+			if meta.ModifiedAt != "" {
+				<meta property="article:modified_time" content={ meta.ModifiedAt }/>
+			}
+			<link rel="alternate" type="application/rss+xml" title="Erik Software — Blog" href="https://eriksoftware.hr/blog/feed.xml"/>
 			<link rel="icon" href="/favicon.ico"/>
 			<link rel="icon" type="image/svg+xml" sizes="any" href="/assets/favicon.svg"/>
 			<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/>
@@ -54,6 +60,7 @@ templ layout(meta metadata) {
 							"@id": "https://eriksoftware.hr/#erik",
 							"name": "Erik Jermaniš",
 							"url": "https://eriksoftware.hr/",
+							"image": "https://eriksoftware.hr/assets/profil_web.jpg",
 							"sameAs": "https://www.linkedin.com/in/erik-jermanis/",
 							"worksFor": { "@id": "https://eriksoftware.hr/#organization" }
 						},
@@ -78,6 +85,9 @@ templ layout(meta metadata) {
 					]
 				}
 			</script>
+			if meta.Schema != nil {
+				@structuredData(meta.Schema)
+			}
 		</head>
 		<body>
 			<a class="skip-link" href="#main">Preskoči na sadržaj</a>
@@ -99,7 +109,9 @@ templ layout(meta metadata) {
 					</nav>
 				</div>
 			</header>
-			<main id="main">{ children... }</main>
+			<main id="main">
+				{ children... }
+			</main>
 			<footer class="site-footer">
 				<div class="wrap footer-inner">
 					<div class="footer-identity">
@@ -108,6 +120,7 @@ templ layout(meta metadata) {
 					</div>
 					<div class="footer-links">
 						<a href="mailto:erik@eriksoftware.hr">erik@eriksoftware.hr</a>
+						<a href="/blog/feed.xml">RSS</a>
 						<a href="#main">Natrag na vrh ↑</a>
 					</div>
 				</div>
@@ -138,6 +151,8 @@ templ layout(meta metadata) {
 					}
 				});
 				matchMedia("(max-width: 700px)").addEventListener("change", closeMenu);
+				const contents = document.querySelector(".article-toc");
+				if (contents) contents.open = matchMedia("(min-width: 961px)").matches;
 			</script>
 		</body>
 	</html>

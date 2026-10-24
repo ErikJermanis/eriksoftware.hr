@@ -6,6 +6,8 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/ErikJermanis/eriksoftware.hr/blog"
 )
 
 func TestHomepageMetadataAndSchema(t *testing.T) {
@@ -54,15 +56,23 @@ func TestHomepageMetadataAndSchema(t *testing.T) {
 	var schema struct {
 		Context string `json:"@context"`
 		Graph   []struct {
-			Type      string `json:"@type"`
-			ID        string `json:"@id"`
-			Name      string `json:"name"`
-			Email     string `json:"email"`
-			SameAs    string `json:"sameAs"`
-			WorkFor   struct{ ID string `json:"@id"` } `json:"worksFor"`
-			Owner     struct{ ID string `json:"@id"` } `json:"owner"`
-			Employee  struct{ ID string `json:"@id"` } `json:"employee"`
-			Publisher struct{ ID string `json:"@id"` } `json:"publisher"`
+			Type    string `json:"@type"`
+			ID      string `json:"@id"`
+			Name    string `json:"name"`
+			Email   string `json:"email"`
+			SameAs  string `json:"sameAs"`
+			WorkFor struct {
+				ID string `json:"@id"`
+			} `json:"worksFor"`
+			Owner struct {
+				ID string `json:"@id"`
+			} `json:"owner"`
+			Employee struct {
+				ID string `json:"@id"`
+			} `json:"employee"`
+			Publisher struct {
+				ID string `json:"@id"`
+			} `json:"publisher"`
 		} `json:"@graph"`
 	}
 	if err := json.Unmarshal([]byte(script), &schema); err != nil {
@@ -77,8 +87,8 @@ func TestHomepageMetadataAndSchema(t *testing.T) {
 	}
 }
 
-func TestBlogPlaceholdersAreNotIndexed(t *testing.T) {
-	handler := testHandler(t)
+func TestExampleBlogIsNotIndexed(t *testing.T) {
+	handler := fixtureHandler(t, blog.ExamplePost())
 	response := request(t, handler, "/blog")
 	if response.Code != http.StatusOK {
 		t.Fatalf("blog status = %d", response.Code)
@@ -92,17 +102,17 @@ func TestBlogPlaceholdersAreNotIndexed(t *testing.T) {
 		`href="https://eriksoftware.hr/blog"`,
 		`<h1 id="blog-title">Blog</h1>`,
 		`Erik Jermaniš`,
-		`datetime="2026-09-01">01/09/2026</time>`,
-		`datetime="2026-09-15">15/09/2026</time>`,
-		`/assets/blog-process.svg`,
-		`/assets/blog-decision.svg`,
+		`datetime="2026-10-24T00:00:00+02:00">24/10/2026</time>`,
+		`/assets/blog/example/hero.jpg`,
+		`href="/blog/primjer-blog-objave"`,
+		`Primjer strukture`,
 	} {
 		if !strings.Contains(page, want) {
 			t.Errorf("blog missing %q", want)
 		}
 	}
-	if count := strings.Count(page, `<article class="blog-card">`); count != 2 {
-		t.Errorf("blog cards = %d, want 2", count)
+	if count := strings.Count(page, `<article class="blog-card">`); count != 1 {
+		t.Errorf("blog cards = %d, want 1", count)
 	}
 	if strings.Contains(request(t, handler, "/sitemap.xml").Body.String(), "/blog") {
 		t.Error("unfinished blog listed in sitemap")
@@ -111,12 +121,12 @@ func TestBlogPlaceholdersAreNotIndexed(t *testing.T) {
 
 func TestStaticAssetsAndUnknownRoutes(t *testing.T) {
 	handler := testHandler(t)
-	for _, path := range []string{"/assets/eriksoftware_logo.svg", "/assets/styles.css", "/assets/social-sharing.jpg", "/assets/favicon.svg", "/assets/apple-touch-icon.png", "/assets/blog-process.svg", "/assets/blog-decision.svg", "/favicon.ico", "/robots.txt", "/sitemap.xml"} {
+	for _, path := range []string{"/assets/eriksoftware_logo.svg", "/assets/styles.css", "/assets/social-sharing.jpg", "/assets/favicon.svg", "/assets/apple-touch-icon.png", "/assets/blog-process.svg", "/assets/blog-decision.svg", "/assets/blog/example/hero.jpg", "/assets/blog/example/hero-800.jpg", "/assets/blog/example/hero-1200.jpg", "/assets/blog/example/social.jpg", "/assets/blog/example/workflow.svg", "/assets/blog/example/process-notes.svg", "/favicon.ico", "/robots.txt", "/sitemap.xml", "/blog/feed.xml"} {
 		if status := request(t, handler, path).Code; status != http.StatusOK {
 			t.Errorf("%s status = %d", path, status)
 		}
 	}
-	for _, path := range []string{"/missing", "/blog/post"} {
+	for _, path := range []string{"/missing", "/blog/post", "/blog/post/extra", "/assets/sitemap.xml"} {
 		if status := request(t, handler, path).Code; status != http.StatusNotFound {
 			t.Errorf("%s status = %d", path, status)
 		}
