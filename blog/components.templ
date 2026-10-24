@@ -1,0 +1,22 @@
+package blog
+
+import "fmt"
+
+templ sectionHeading(heading Heading) {
+	<h2 id={ heading.ID }>{ heading.Title }</h2>
+}
+
+// Callout is for a short, useful annotation, not another full-color section.
+templ Callout(label string) {
+	<aside class="article-callout" aria-label={ label }>
+		<p class="mono">{ label }</p>
+		{ children... }
+	</aside>
+}
+
+templ Figure(src, alt, caption string, width, height int) {
+	<figure>
+		<img src={ src } width={ fmt.Sprint(width) } height={ fmt.Sprint(height) } alt={ alt } loading="lazy" decoding="async"/>
+		<figcaption>{ caption } <a href={ templ.SafeURL(src) } aria-label={ "Uvećaj sliku: " + alt }>Uvećaj sliku ↗</a></figcaption>
+	</figure>
+}

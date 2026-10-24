@@ -1,0 +1,130 @@
+package blog
+
+const exampleRule = `// Ilustrativno pravilo, ne gotova integracija.
+if upit.Email == "" || upit.Opis == "" {
+    return "ljudska-provjera"
+}
+return "pripremi-nacrt"`
+
+templ exampleBody() {
+	<p class="article-lead">Najbolji prvi kandidat za automatizaciju poslovanja obično nije najveći problem u tvrtki. To je mali proces koji se često ponavlja, ima razumljiva pravila i ostavlja dovoljno prostora da osoba provjeri rezultat.</p>
+	<p>Zamislite da svaki novi upit kupca prepisujete iz e-maila u tablicu, tražite nedostajuće podatke i ručno pripremate ponudu. Svaki pojedini korak izgleda kratko. Zajedno prekidaju posao više puta dnevno. Prije odabira alata vrijedi odgovoriti na jednostavnije pitanje: <strong>što se točno ponavlja, a gdje je Vaša procjena nezamjenjiva?</strong></p>
+	@Callout("Ukratko") {
+		<ul>
+			<li>Počnite od jednog procesa s jasnim početkom i krajem.</li>
+			<li>Izmjerite ručni rad prije nego što obećate uštedu.</li>
+			<li>Odvojite ponovljive korake od odluka koje treba donijeti osoba.</li>
+			<li>Testirajte na malom uzorku i dokumentirajte iznimke.</li>
+		</ul>
+	}
+	@sectionHeading(exampleHeadings[0])
+	<p>Dobar kandidat možete objasniti kolegi bez otvaranja pet različitih aplikacija. Znate što pokreće proces, koji podaci moraju biti prisutni i kako izgleda dovršen posao. Ako taj opis još ne postoji, njegovo pisanje često je korisniji prvi korak od programiranja.</p>
+	<h3>Tri pitanja za početak</h3>
+	<ol>
+		<li><strong>Koliko često se posao ponavlja?</strong> Zabilježite stvaran broj slučajeva tijekom uobičajenog tjedna, ne samo tijekom najprometnijeg dana.</li>
+		<li><strong>Možete li pravila zapisati?</strong> „Ako nedostaje e-mail, zaustavi pripremu” provjerljivo je pravilo. „Prepoznaj dobrog kupca” nije dovoljno precizno.</li>
+		<li><strong>Možete li prepoznati pogrešku?</strong> Ako rezultat nije lako provjeriti, prvo osmislite provjeru i siguran način povratka na ručni rad.</li>
+	</ol>
+	<p>Nemojte birati samo prema količini posla. Pogrešno poslana ponuda ili nenamjerno podijeljeni osobni podaci mogu koštati više od vremena koje ste uštedjeli. Poslove s većim posljedicama treba razdvojiti u manje korake i uvesti dodatnu kontrolu.</p>
+	<blockquote>
+		<p>Ne automatizirajte nejasnoću. Prvo razjasnite proces, a zatim ubrzajte ono što se ponavlja.</p>
+		<cite>Radno načelo u ovom ilustrativnom primjeru</cite>
+	</blockquote>
+	@Figure("/assets/blog/example/process-notes.svg", "Primjer bilješke s okidačem procesa, obveznim podacima, iznimkom i osobom koja potvrđuje ponudu", "Ilustrativna radna bilješka. Četiri jasna odgovora prije odabira alata; nije dokumentacija stvarnog klijenta.", 960, 600)
+	@sectionHeading(exampleHeadings[1])
+	<p>Nije svaki problem razlog za novu aplikaciju. Ponekad je dovoljno urediti obrazac, dodati predložak ili povezati dva postojeća alata. Usporedite najjednostavniji mogući zahvat s posljedicama njegova održavanja.</p>
+	<div class="article-table-scroll" role="region" aria-label="Usporedba pristupa automatizaciji" tabindex="0">
+		<table>
+			<caption>Primjer odluke: kako obrađivati upite kupaca</caption>
+			<thead><tr><th scope="col">Pristup</th><th scope="col">Kada ima smisla</th><th scope="col">Na što paziti</th></tr></thead>
+			<tbody>
+				<tr><th scope="row">Urediti postojeći proces</th><td>Malo upita, ali nejasni podaci i odgovornosti.</td><td>Dogovor mora biti jednostavan i stvarno korišten.</td></tr>
+				<tr><th scope="row">Povezati postojeće alate</th><td>Koraci i pravila već su stabilni.</td><td>Prava pristupa, prekidi integracije i ograničenja alata.</td></tr>
+				<tr><th scope="row">Izraditi prilagođeno rješenje</th><td>Posebna pravila ili iznimke koje postojeći alati ne pokrivaju.</td><td>Održavanje, dokumentacija i predaja znanja.</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<p>U ovom zamišljenom slučaju prvo bismo standardizirali ulazne podatke. Tek nakon toga ima smisla automatski pripremati nacrt ponude. Time ne preskačemo važan posao; smanjujemo broj pretpostavki koje bi budući sustav morao pogađati.</p>
+	@sectionHeading(exampleHeadings[2])
+	<p>Mjerite vrijeme aktivnog rada, odvojeno od čekanja kupca ili kolege. Zapišite koliko je upita bilo potpuno, koliko ih je trebalo dopuniti i koliko je rezultata naknadno ispravljeno. Prosjek bez tih podataka lako daje pogrešnu sliku.</p>
+	<p>Graf ispod prikazuje <strong>izmišljenu usporedbu</strong>: 18 minuta ručnog rada nasuprot 7 minuta uz podršku alata, po jednom upitu. To je demonstracija prikaza podataka, ne prognoza rezultata automatizacije.<sup id="biljeska-1-ref"><a href="#biljeska-1" role="doc-noteref" aria-label="Bilješka 1: podaci primjera">1</a></sup></p>
+	<figure class="article-chart">
+		<div class="article-chart-plot" role="region" aria-label="Graf vremena rada po upitu; vodoravno pomičan" tabindex="0">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img" aria-labelledby="chart-title chart-description">
+				<title id="chart-title">Ilustracija vremena aktivnog rada po upitu</title>
+				<desc id="chart-description">Izmišljeni podaci: ručni rad traje 18 minuta, a rad uz podršku alata 7 minuta. Nije riječ o rezultatima projekta.</desc>
+				<text x="32" y="35" class="chart-kicker">MINUTE PO UPITU / IZMIŠLJENI PODACI</text>
+				<g class="chart-grid"><path d="M168 64V240M268 64V240M368 64V240M468 64V240M568 64V240"></path></g>
+				<text x="32" y="115" class="chart-label">Ručno</text>
+				<rect x="168" y="82" width="360" height="48" class="chart-bar-manual"></rect>
+				<text x="540" y="113" class="chart-value">18</text>
+				<text x="32" y="193" class="chart-label">Uz podršku</text>
+				<rect x="168" y="160" width="140" height="48" class="chart-bar-assisted"></rect>
+				<text x="320" y="191" class="chart-value">7</text>
+				<g class="chart-axis"><text x="168" y="266">0</text><text x="268" y="266">5</text><text x="368" y="266">10</text><text x="468" y="266">15</text><text x="568" y="266">20</text></g>
+			</svg>
+		</div>
+		<figcaption>Slika 2. Ilustrativni prikaz, ne obećanje uštede. Osoba i dalje provjerava nacrt prije slanja. Na uskom ekranu graf možete pomicati vodoravno; podaci su dostupni i u tablici ispod.</figcaption>
+	</figure>
+	<details class="article-chart-data">
+		<summary>Podaci grafa i način izračuna</summary>
+		<div class="article-table-scroll" role="region" aria-label="Podaci ilustrativnog grafa" tabindex="0">
+			<table>
+				<caption>Izmišljeno vrijeme aktivnog rada po upitu, u minutama</caption>
+				<thead><tr><th scope="col">Korak</th><th scope="col">Ručno</th><th scope="col">Uz podršku alata</th></tr></thead>
+				<tbody>
+					<tr><th scope="row">Provjera podataka</th><td>5</td><td>2</td></tr>
+					<tr><th scope="row">Priprema nacrta</th><td>9</td><td>3</td></tr>
+					<tr><th scope="row">Evidencija i potvrda</th><td>4</td><td>2</td></tr>
+				</tbody>
+				<tfoot><tr><th scope="row">Ukupno</th><td>18</td><td>7</td></tr></tfoot>
+			</table>
+		</div>
+		<p>Za zamišljenih 40 upita tjedno: <code>(18 − 7) × 40 = 440</code> minuta razlike. Trošak izrade, održavanja i dodatnih provjera nije uključen. To nije izračun povrata ulaganja.</p>
+	</details>
+	@Callout("Važno ograničenje") {
+		<p>Brži postupak nije bolji ako stvara više ispravaka. Uz vrijeme pratite točnost, broj iznimki i može li druga osoba razumjeti što se dogodilo.</p>
+	}
+	@sectionHeading(exampleHeadings[3])
+	<p>Dobar tijek rada mora objasniti i što se događa kad nešto nedostaje. Ako je upit nepotpun, sustav ga ne bi trebao tiho odbaciti niti nadopuniti nagađanjem. Označi iznimku, sačuva ulazne podatke i preda odluku osobi.</p>
+	@Figure("/assets/blog/example/workflow.svg", "Upit prolazi provjeru podataka. Potpun upit ide u pripremu nacrta i ljudsku potvrdu; nepotpun upit ide osobi na dopunu pa se vraća na provjeru.", "Slika 3. Primjer procesa s vidljivom iznimkom, povratnom vezom i ljudskom potvrdom. Automatizacija ne znači slanje ponude bez odobrenja.", 960, 560)
+	<h3>Što treba ostati vidljivo</h3>
+	<ul>
+		<li><strong>Ulaz:</strong> odakle je upit stigao i koji su podaci zaprimljeni.</li>
+		<li><strong>Pravilo:</strong> zašto je sustav odabrao određeni korak.</li>
+		<li><strong>Iznimka:</strong> što nedostaje i tko je odgovoran za nastavak.</li>
+		<li><strong>Potvrda:</strong> tko je odobrio izlaz i kada.</li>
+	</ul>
+	<p>Ako koristite AI za tumačenje slobodnog teksta, provjerite rizike pogrešnog izlaza i način zaštite podataka. Okvir NIST AI RMF može poslužiti kao polazište za razmišljanje o rizicima, ali ne zamjenjuje procjenu konkretnog procesa.<sup><a href="#izvor-nist" role="doc-noteref" aria-label="Izvor: NIST AI Risk Management Framework">2</a></sup></p>
+	@sectionHeading(exampleHeadings[4])
+	<p>Pravila opišite običnim jezikom prije nego što ih pretvorite u kod. „Nacrt se priprema samo kada postoje kontakt i opis zahtjeva” korisna je rečenica i za vlasnika procesa i za budućeg održavatelja.</p>
+	<div class="article-code">
+		<p class="mono">Primjer pravila / pseudokod</p>
+		<pre tabindex="0" aria-label="Pseudokod za provjeru obveznih podataka"><code>{ exampleRule }</code></pre>
+	</div>
+	<p>Ovaj kratki primjer provjerava samo jesu li polja prazna. Pravo rješenje traži i provjeru formata, ovlasti, obrade pogrešaka i ponašanja kod ponovljenog upita. Za sigurnosnu provjeru web-rješenja koristan početni pregled daje <a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a>.</p>
+	<p>Na kraju pripremite kratke upute: gdje se proces zaustavlja, kako ponoviti korak, kome prijaviti problem i kako privremeno nastaviti ručno. To je dio rješenja, ne dodatak koji se piše samo ako ostane vremena.</p>
+	@sectionHeading(exampleHeadings[5])
+	<p>Ne morate odmah odlučiti o novoj aplikaciji. Odaberite jedan proces, zapišite njegovo današnje ponašanje i odredite što bi mali test trebao dokazati. Dobar prvi test može pokazati i da se dio posla <em>ne isplati</em> automatizirati.</p>
+	<ul class="article-checklist">
+		<li>Imamo jasan početak, kraj i odgovornu osobu.</li>
+		<li>Imamo zabilježeno polazište i način usporedbe.</li>
+		<li>Znamo koje podatke smijemo koristiti.</li>
+		<li>Imamo dogovorenu provjeru i obradu iznimki.</li>
+		<li>Možemo se vratiti na ručni postupak.</li>
+	</ul>
+	<p>Ako Vam treba druga perspektiva, <a href="/#kako-radim">pogledajte moj način rada</a>. Krećem od razumijevanja potrebe i idejnog rješenja, a ne od prodaje unaprijed odabranog alata.</p>
+	@sectionHeading(exampleHeadings[6])
+	<h3>Treba li za automatizaciju odmah koristiti AI?</h3>
+	<p>Ne. Ako su podaci strukturirani, a pravila jasna, obična integracija ili mali program mogu biti jednostavnije rješenje. AI ima smisla razmotriti kada je potrebno tumačiti nestrukturirani sadržaj, uz provjeru rezultata i rizika.</p>
+	<h3>Može li se krenuti bez promjene postojećih alata?</h3>
+	<p>Ponekad može. Najprije provjerite nude li alati siguran način povezivanja i smijete li pristupati potrebnim podacima. Ako ne nude, ne treba obećavati integraciju prije tehničke provjere.</p>
+	<h3>Kako ću znati je li mali test uspio?</h3>
+	<p>Dogovorite kriterije unaprijed: manje aktivnog ručnog rada, prihvatljiva točnost, razumljive iznimke i mogućnost nastavka bez ovisnosti o jednoj osobi. Vrijeme je samo jedan dio procjene.</p>
+	@sectionHeading(exampleHeadings[7])
+	<ol class="article-references">
+		<li id="biljeska-1">Svi brojevi u tekstu, grafu i tablici izmišljeni su za demonstraciju formata. U stvarnom članku navedite izvor, razdoblje mjerenja, uzorak i ograničenja. <a href="#biljeska-1-ref" role="doc-backlink" aria-label="Natrag na bilješku 1">↩</a></li>
+		<li id="izvor-nist"><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST — AI Risk Management Framework</a>. Polazište za razumijevanje i upravljanje rizicima primjene AI-a, ne izvor ilustrativnih brojki.</li>
+		<li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a>. Pregled važnih rizika sigurnosti web-aplikacija; nije potpuna sigurnosna provjera.</li>
+	</ol>
+}

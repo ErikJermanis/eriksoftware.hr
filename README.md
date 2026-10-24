@@ -1,27 +1,27 @@
 # Erik Software
 
-Small Croatian-language site built with Go, [templ](https://templ.guide/), and plain CSS. Go 1.22+ and [just](https://just.systems/) are the only local prerequisites. The templ command runs through the version pinned in `go.mod`; no Node or global templ installation is needed.
-
-## Local commands
+Croatian-language site built with Go, [templ](https://templ.guide/), and plain CSS. Requires Go 1.22+ and [just](https://just.systems/). No Node, database, or global templ installation; the templ version is pinned in `go.mod`.
 
 | Command | Purpose |
 | --- | --- |
-| `just dev` | Generate templates and start the site at `http://localhost:8080`. Set `PORT=3000 just dev` to use another port. Restart after editing templates or assets. |
-| `just generate` | Regenerate `pages/*_templ.go` after editing `.templ` files. |
-| `just build` | Generate templates and build `bin/eriksoftware` with static files embedded. Run it with `./bin/eriksoftware`. |
+| `just dev` | Generate templates and serve `http://localhost:8080`. Override with `PORT=3000`; restart after edits. |
+| `just generate` | Regenerate all `*_templ.go` files after editing `.templ` sources. Never hand-edit generated files. |
 | `just test` | Generate templates and run Go tests. |
+| `just build` | Build `bin/eriksoftware`, including all content and assets. Run with `./bin/eriksoftware`. |
+| `just deploy` | Build for Linux, upload to the configured server, and restart its service. Requires SSH access. |
 
-Routes: `/` (homepage), `/blog` (placeholder posts), `/favicon.ico`, `/robots.txt`, `/sitemap.xml`. Unmatched paths return 404.
+## Content
 
-## Content and assets
+- `pages/`: site layout, homepage, blog listing, and shared article page.
+- `blog/`: compiled post bodies, metadata, and reusable article components. **Read [the authoring guide](blog/README.md) before adding a post.**
+- `public/`: embedded files served at `/assets/<path>`. Keep post images in `public/blog/<slug>/`.
 
-The page templates are in `pages/`. Add CSS, images, and other static files to `public/` and refer to them at `/assets/<filename>`; Go embeds that directory into the binary. The navbar logo is `public/eriksoftware_logo.svg`. The shared social image is `public/social-sharing.jpg`. The SVG and Apple touch icons live in `public/`, and the ICO is also served at `/favicon.ico` for browser fallback.
+Routes: `/`, `/blog`, `/blog/{slug}`, `/blog/feed.xml`, `/sitemap.xml`, `/robots.txt`, `/favicon.ico`. Unknown or unpublished posts return 404; trailing blog slashes redirect to the canonical path.
 
-## SEO checklist for the next iteration
+## Publication and SEO
 
-The current layout provides per-page titles and descriptions, canonical URLs, Croatian language and social image tags, favicon links, Person + Organization + WebSite JSON-LD, robots.txt, and a sitemap. The blog has placeholder cards and is `noindex` and excluded from the sitemap until there are real posts. Before publishing or when the relevant details exist:
+`blog/posts.go` is the only publication registry. Cards, related posts, structured data, sitemap, and RSS derive from it. Drafts and future-dated posts stay hidden. The example is disabled and retained in `blog/` only as an authoring reference.
 
-1. Review the drafted homepage title and meta description in `pages/home.templ` against the final positioning and copy. Update `/blog` metadata when it has real content.
-2. `https://eriksoftware.hr/` (without `www`) is the preferred public URL. Keep canonical tags, JSON-LD, sitemap and robots.txt consistent if it changes.
-3. If public business details such as a service area or registered legal name are provided later, add only verified, site-visible information to the Organization schema. Erik Jermaniš's LinkedIn is associated with the Person, not the business.
-4. When publishing posts, add them to `public/sitemap.xml`, give each a unique canonical/title/description and suitable BlogPosting JSON-LD, and remove the blog index's `noindex`. Submit the sitemap in Google Search Console after launch.
+The preferred origin is `https://eriksoftware.hr` (no `www`). Real posts receive unique canonical/social metadata and BlogPosting + breadcrumb JSON-LD; the listing becomes indexable automatically with the first real post. Shared Person, Organization, and WebSite schema stays in `pages/layout.templ`; add only verified, visible business details.
+
+After publishing, submit `/sitemap.xml` in Google Search Console and check a real article with Google's Rich Results Test and PageSpeed Insights. Do not manually maintain sitemap entries or invent modification dates.

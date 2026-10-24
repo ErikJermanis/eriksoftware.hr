@@ -10,14 +10,10 @@ import "context"
 import "io"
 import "bytes"
 
-import "time"
-
-type metadata struct {
-	Title       string
-	Description string
-	Canonical   string
-	NoIndex     bool
-}
+import (
+	"fmt"
+	"time"
+)
 
 func layout(meta metadata) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -39,7 +35,7 @@ func layout(meta metadata) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 18, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 14, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -52,7 +48,7 @@ func layout(meta metadata) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Description)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 19, Col: 54}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 15, Col: 54}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -65,7 +61,7 @@ func layout(meta metadata) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Canonical)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 20, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 16, Col: 46}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -80,17 +76,35 @@ func layout(meta metadata) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
+		} else {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta name=\"robots\" content=\"max-image-preview:large\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta property=\"og:type\" content=\"website\"><meta property=\"og:locale\" content=\"hr_HR\"><meta property=\"og:site_name\" content=\"Erik Software\"><meta property=\"og:title\" content=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta property=\"og:type\" content=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Title)
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(meta.kind())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 27, Col: 49}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 22, Col: 49}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:locale\" content=\"hr_HR\"><meta property=\"og:site_name\" content=\"Erik Software\"><meta property=\"og:title\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 25, Col: 49}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -98,12 +112,12 @@ func layout(meta metadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Description)
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Description)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 28, Col: 61}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 26, Col: 61}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -111,25 +125,90 @@ func layout(meta metadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var7 string
-		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Canonical)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 29, Col: 51}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image\" content=\"https://eriksoftware.hr/assets/social-sharing.jpg\"><meta property=\"og:image:type\" content=\"image/jpeg\"><meta property=\"og:image:width\" content=\"1200\"><meta property=\"og:image:height\" content=\"630\"><meta property=\"og:image:alt\" content=\"Erik Software — software i automatizacija za poduzetnike\"><meta name=\"twitter:card\" content=\"summary_large_image\"><meta name=\"twitter:title\" content=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
 		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Title)
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Canonical)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 36, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 27, Col: 51}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(meta.social().URL())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 28, Col: 58}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image:type\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var10 string
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(meta.social().MIME())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 29, Col: 64}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image:width\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(meta.social().Width))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 30, Col: 76}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image:height\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var12 string
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(meta.social().Height))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 31, Col: 78}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:image:alt\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var13 string
+		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(meta.social().Alt)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 32, Col: 60}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta name=\"twitter:card\" content=\"summary_large_image\"><meta name=\"twitter:title\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var14 string
+		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 34, Col: 50}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -137,16 +216,94 @@ func layout(meta metadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var9 string
-		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Description)
+		var templ_7745c5c3_Var15 string
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(meta.Description)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 37, Col: 62}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 35, Col: 62}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta name=\"twitter:image\" content=\"https://eriksoftware.hr/assets/social-sharing.jpg\"><meta name=\"twitter:image:alt\" content=\"Erik Software — software i automatizacija za poduzetnike\"><link rel=\"icon\" href=\"/favicon.ico\"><link rel=\"icon\" type=\"image/svg+xml\" sizes=\"any\" href=\"/assets/favicon.svg\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/apple-touch-icon.png\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap\" rel=\"stylesheet\"><script>document.documentElement.classList.add(\"js\");</script><link rel=\"stylesheet\" href=\"/assets/styles.css\"><script type=\"application/ld+json\">\n\t\t\t\t{\n\t\t\t\t\t\"@context\": \"https://schema.org\",\n\t\t\t\t\t\"@graph\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Person\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#erik\",\n\t\t\t\t\t\t\t\"name\": \"Erik Jermaniš\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"sameAs\": \"https://www.linkedin.com/in/erik-jermanis/\",\n\t\t\t\t\t\t\t\"worksFor\": { \"@id\": \"https://eriksoftware.hr/#organization\" }\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Organization\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#organization\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"email\": \"erik@eriksoftware.hr\",\n\t\t\t\t\t\t\t\"logo\": \"https://eriksoftware.hr/assets/eriksoftware_logo.svg\",\n\t\t\t\t\t\t\t\"owner\": { \"@id\": \"https://eriksoftware.hr/#erik\" },\n\t\t\t\t\t\t\t\"employee\": { \"@id\": \"https://eriksoftware.hr/#erik\" }\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"WebSite\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#website\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"inLanguage\": \"hr\",\n\t\t\t\t\t\t\t\"publisher\": { \"@id\": \"https://eriksoftware.hr/#organization\" }\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t</script></head><body><a class=\"skip-link\" href=\"#main\">Preskoči na sadržaj</a><header class=\"site-header\"><div class=\"wrap header-inner\"><a class=\"brand\" href=\"/\" aria-label=\"Erik Software — naslovnica\"><img src=\"/assets/eriksoftware_logo.svg\" width=\"42\" height=\"42\" alt=\"\"> <span>Erik Software</span></a> <button class=\"menu-toggle\" type=\"button\" aria-controls=\"site-nav\" aria-expanded=\"false\"><span class=\"menu-icon\" aria-hidden=\"true\"></span> <span>Izbornik</span></button><nav id=\"site-nav\" aria-label=\"Glavna navigacija\"><a href=\"/#kako-radim\">Kako radim</a> <a href=\"/#konzultacije\">Konzultacije</a> <a href=\"/#o-meni\">O meni</a> <a href=\"/blog\">Blog</a></nav></div></header><main id=\"main\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta name=\"twitter:image\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var16 string
+		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(meta.social().URL())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 36, Col: 59}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta name=\"twitter:image:alt\" content=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var17 string
+		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(meta.social().Alt)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 37, Col: 61}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if meta.PublishedAt != "" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta property=\"article:published_time\" content=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var18 string
+			templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(meta.PublishedAt)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 39, Col: 70}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"article:author\" content=\"https://eriksoftware.hr/#o-meni\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if meta.ModifiedAt != "" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta property=\"article:modified_time\" content=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var19 string
+			templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(meta.ModifiedAt)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 43, Col: 68}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Erik Software — Blog\" href=\"https://eriksoftware.hr/blog/feed.xml\"><link rel=\"icon\" href=\"/favicon.ico\"><link rel=\"icon\" type=\"image/svg+xml\" sizes=\"any\" href=\"/assets/favicon.svg\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/apple-touch-icon.png\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap\" rel=\"stylesheet\"><script>document.documentElement.classList.add(\"js\");</script><link rel=\"stylesheet\" href=\"/assets/styles.css\"><script type=\"application/ld+json\">\n\t\t\t\t{\n\t\t\t\t\t\"@context\": \"https://schema.org\",\n\t\t\t\t\t\"@graph\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Person\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#erik\",\n\t\t\t\t\t\t\t\"name\": \"Erik Jermaniš\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"image\": \"https://eriksoftware.hr/assets/profil_web.jpg\",\n\t\t\t\t\t\t\t\"sameAs\": \"https://www.linkedin.com/in/erik-jermanis/\",\n\t\t\t\t\t\t\t\"worksFor\": { \"@id\": \"https://eriksoftware.hr/#organization\" }\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"Organization\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#organization\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"email\": \"erik@eriksoftware.hr\",\n\t\t\t\t\t\t\t\"logo\": \"https://eriksoftware.hr/assets/eriksoftware_logo.svg\",\n\t\t\t\t\t\t\t\"owner\": { \"@id\": \"https://eriksoftware.hr/#erik\" },\n\t\t\t\t\t\t\t\"employee\": { \"@id\": \"https://eriksoftware.hr/#erik\" }\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@type\": \"WebSite\",\n\t\t\t\t\t\t\t\"@id\": \"https://eriksoftware.hr/#website\",\n\t\t\t\t\t\t\t\"name\": \"Erik Software\",\n\t\t\t\t\t\t\t\"url\": \"https://eriksoftware.hr/\",\n\t\t\t\t\t\t\t\"inLanguage\": \"hr\",\n\t\t\t\t\t\t\t\"publisher\": { \"@id\": \"https://eriksoftware.hr/#organization\" }\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t</script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if meta.Schema != nil {
+			templ_7745c5c3_Err = structuredData(meta.Schema).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head><body><a class=\"skip-link\" href=\"#main\">Preskoči na sadržaj</a><header class=\"site-header\"><div class=\"wrap header-inner\"><a class=\"brand\" href=\"/\" aria-label=\"Erik Software — naslovnica\"><img src=\"/assets/eriksoftware_logo.svg\" width=\"42\" height=\"42\" alt=\"\"> <span>Erik Software</span></a> <button class=\"menu-toggle\" type=\"button\" aria-controls=\"site-nav\" aria-expanded=\"false\"><span class=\"menu-icon\" aria-hidden=\"true\"></span> <span>Izbornik</span></button><nav id=\"site-nav\" aria-label=\"Glavna navigacija\"><a href=\"/#kako-radim\">Kako radim</a> <a href=\"/#konzultacije\">Konzultacije</a> <a href=\"/#o-meni\">O meni</a> <a href=\"/blog\">Blog</a></nav></div></header><main id=\"main\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -158,16 +315,16 @@ func layout(meta metadata) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 string
-		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006"))
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(time.Now().Format("2006"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 107, Col: 42}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/layout.templ`, Line: 119, Col: 42}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" ERIK SOFTWARE</span></div><div class=\"footer-links\"><a href=\"mailto:erik@eriksoftware.hr\">erik@eriksoftware.hr</a> <a href=\"#main\">Natrag na vrh ↑</a></div></div></footer><script>\n\t\t\t\tconst header = document.querySelector(\".site-header\");\n\t\t\t\tconst toggle = header.querySelector(\".menu-toggle\");\n\t\t\t\tconst nav = header.querySelector(\"#site-nav\");\n\t\t\t\tconst closeMenu = () => {\n\t\t\t\t\theader.classList.remove(\"menu-open\");\n\t\t\t\t\ttoggle.setAttribute(\"aria-expanded\", \"false\");\n\t\t\t\t};\n\n\t\t\t\ttoggle.addEventListener(\"click\", () => {\n\t\t\t\t\tconst open = header.classList.toggle(\"menu-open\");\n\t\t\t\t\ttoggle.setAttribute(\"aria-expanded\", String(open));\n\t\t\t\t});\n\t\t\t\tnav.addEventListener(\"click\", (event) => {\n\t\t\t\t\tif (event.target.closest(\"a\")) closeMenu();\n\t\t\t\t});\n\t\t\t\tdocument.addEventListener(\"click\", (event) => {\n\t\t\t\t\tif (!header.contains(event.target)) closeMenu();\n\t\t\t\t});\n\t\t\t\tdocument.addEventListener(\"keydown\", (event) => {\n\t\t\t\t\tif (event.key === \"Escape\" && header.classList.contains(\"menu-open\")) {\n\t\t\t\t\t\tcloseMenu();\n\t\t\t\t\t\ttoggle.focus();\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t\tmatchMedia(\"(max-width: 700px)\").addEventListener(\"change\", closeMenu);\n\t\t\t</script></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" ERIK SOFTWARE</span></div><div class=\"footer-links\"><a href=\"mailto:erik@eriksoftware.hr\">erik@eriksoftware.hr</a> <a href=\"/blog/feed.xml\">RSS</a> <a href=\"#main\">Natrag na vrh ↑</a></div></div></footer><script>\n\t\t\t\tconst header = document.querySelector(\".site-header\");\n\t\t\t\tconst toggle = header.querySelector(\".menu-toggle\");\n\t\t\t\tconst nav = header.querySelector(\"#site-nav\");\n\t\t\t\tconst closeMenu = () => {\n\t\t\t\t\theader.classList.remove(\"menu-open\");\n\t\t\t\t\ttoggle.setAttribute(\"aria-expanded\", \"false\");\n\t\t\t\t};\n\n\t\t\t\ttoggle.addEventListener(\"click\", () => {\n\t\t\t\t\tconst open = header.classList.toggle(\"menu-open\");\n\t\t\t\t\ttoggle.setAttribute(\"aria-expanded\", String(open));\n\t\t\t\t});\n\t\t\t\tnav.addEventListener(\"click\", (event) => {\n\t\t\t\t\tif (event.target.closest(\"a\")) closeMenu();\n\t\t\t\t});\n\t\t\t\tdocument.addEventListener(\"click\", (event) => {\n\t\t\t\t\tif (!header.contains(event.target)) closeMenu();\n\t\t\t\t});\n\t\t\t\tdocument.addEventListener(\"keydown\", (event) => {\n\t\t\t\t\tif (event.key === \"Escape\" && header.classList.contains(\"menu-open\")) {\n\t\t\t\t\t\tcloseMenu();\n\t\t\t\t\t\ttoggle.focus();\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t\tmatchMedia(\"(max-width: 700px)\").addEventListener(\"change\", closeMenu);\n\t\t\t\tconst contents = document.querySelector(\".article-toc\");\n\t\t\t\tif (contents) contents.open = matchMedia(\"(min-width: 961px)\").matches;\n\t\t\t</script></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

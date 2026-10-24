@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="800" viewBox="0 0 2000 800" fill="none">
+  <title>Od upita do provjerene ponude — ilustracija procesa</title>
+  <rect width="2000" height="800" fill="#F0EDE4"/>
+  <path d="M0 100H2000M0 700H2000M140 0V800M1860 0V800" stroke="#BCB9AF"/>
+  <path d="M140 125H1860M140 675H1860" stroke="#BCB9AF" stroke-dasharray="6 8"/>
+  <g transform="translate(180 170) rotate(-4 180 220)">
+    <path d="M12 12H372V472H12Z" fill="#1C1C16" opacity=".08"/>
+    <rect width="360" height="460" fill="#FAF7EE" stroke="#1C1C16" stroke-width="2"/>
+    <rect x="28" y="30" width="10" height="10" fill="#3D56E7"/>
+    <text x="54" y="41" font-family="monospace" font-size="16" fill="#55554E">01 / ULAZNI UPIT</text>
+    <path d="M28 70H332" stroke="#BCB9AF"/>
+    <g fill="#1C1C16" font-family="Arial, sans-serif" font-size="29"><text x="28" y="132">Novi zahtjev.</text><text x="28" y="172">Jasan sljedeći korak.</text></g>
+    <g stroke="#BCB9AF" stroke-width="2"><path d="M28 230H332M28 278H332M28 326H332M28 374H250"/></g>
+    <path d="M28 229H160M28 277H240M28 325H190" stroke="#55554E" stroke-width="5"/>
+    <rect x="28" y="405" width="108" height="25" fill="#D9C952"/>
+  </g>
+  <g stroke="#1C1C16" stroke-width="3"><path d="M550 395H680M1030 395H1160M1480 395H1590M855 495V558M1030 608H1090V445H1160"/></g>
+  <g fill="#1C1C16"><path d="m666 384 14 11-14 11ZM1146 384l14 11-14 11ZM1576 384l14 11-14 11ZM844 544l11 14 11-14ZM1146 434l14 11-14 11Z"/></g>
+  <rect x="680" y="275" width="350" height="220" fill="#3D56E7" stroke="#1C1C16" stroke-width="2"/>
+  <g stroke="#FFFFFF" opacity=".12"><path d="M680 315H1030M680 355H1030M680 395H1030M680 435H1030M720 275V495M760 275V495M800 275V495M840 275V495M880 275V495M920 275V495M960 275V495M1000 275V495"/></g>
+  <g fill="#FAF7EE" font-family="monospace" font-size="17"><text x="714" y="320">02 / PROVJERA</text></g>
+  <g fill="#FAF7EE" font-family="Arial, sans-serif" font-size="37" font-weight="600"><text x="714" y="387">Podaci potpuni?</text></g>
+  <text x="714" y="451" font-family="Arial, sans-serif" font-size="21" fill="#FAF7EE">Pravilo prije automatizacije.</text>
+  <rect x="1160" y="275" width="320" height="220" fill="#FAF7EE" stroke="#1C1C16" stroke-width="2"/>
+  <g fill="#55554E" font-family="monospace" font-size="17"><text x="1194" y="320">03 / PRIPREMA</text></g>
+  <text x="1194" y="387" fill="#1C1C16" font-family="Arial, sans-serif" font-size="37" font-weight="600">Nacrt ponude</text>
+  <path d="M1194 435H1446M1194 455H1360" stroke="#BCB9AF" stroke-width="3"/>
+  <rect x="1590" y="275" width="250" height="220" fill="#FAF7EE" stroke="#1C1C16" stroke-width="2"/>
+  <text x="1624" y="320" fill="#55554E" font-family="monospace" font-size="17">04 / OSOBA</text>
+  <text x="1624" y="387" fill="#1C1C16" font-family="Arial, sans-serif" font-size="37" font-weight="600">Potvrda</text>
+  <rect x="1624" y="426" width="34" height="34" fill="#F0EDE4" stroke="#3D56E7" stroke-width="2"/>
+  <path d="m1631 443 7 7 13-16" stroke="#3D56E7" stroke-width="3"/>
+  <rect x="680" y="558" width="350" height="100" fill="#D9C952" stroke="#1C1C16" stroke-width="2"/>
+  <text x="714" y="600" fill="#1C1C16" font-family="monospace" font-size="16">IZNIMKA / LJUDSKA PROVJERA</text>
+  <text x="714" y="635" fill="#1C1C16" font-family="Arial, sans-serif" font-size="19">Nedostaju podaci? Dopunite upit.</text>
+  <g fill="#55554E" font-family="monospace" font-size="16"><text x="180" y="68">OPERATING MANUAL / ILUSTRACIJA PROCESA</text><text x="1420" y="746">JASNA PRAVILA. VIŠE KONTROLE.</text></g>
+</svg>

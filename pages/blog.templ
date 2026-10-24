@@ -1,36 +1,61 @@
 package pages
 
-templ Blog() {
+import (
+	"fmt"
+
+	"github.com/ErikJermanis/eriksoftware.hr/blog"
+)
+
+const blogDescription = "Praktični tekstovi o softveru, automatizaciji poslovanja i odgovornom korištenju AI alata za male i srednje poduzetnike."
+const blogTitle = "Blog o softveru i automatizaciji | Erik Software"
+
+templ Blog(posts []blog.Post, noIndex bool) {
 	@layout(metadata{
-		Title: "Blog | Erik Software",
-		Description: "Pišem o razvoju softvera i automatizaciji poslovanja. Dajem korisne savjete i podučavam poduzetnike kako koristiti AI alate.",
-		Canonical: "https://eriksoftware.hr/blog",
-		NoIndex: true,
+		Title:       blogTitle,
+		Description: blogDescription,
+		Canonical:   blog.BaseURL + "/blog",
+		NoIndex:     noIndex,
+		Schema:      collectionSchema(posts),
 	}) {
 		<section class="section blog-section" aria-labelledby="blog-title">
 			<div class="wrap">
 				<div class="section-head">
-					<span class="eyebrow">Erik Jermaniš</span>
+					<span class="eyebrow">Erik Jermaniš / bilješke iz prakse</span>
 					<div>
 						<h1 id="blog-title">Blog</h1>
-						<p>Sadržaj stiže uskoro! :)</p>
+						<p>O softveru, automatizaciji i AI alatima. Bez nepotrebnih komplikacija.</p>
 					</div>
 				</div>
-				<div class="blog-grid" style="height: 400px">
-					// <article class="blog-card">
-					// 	<time class="mono" datetime="2026-09-01">01/09/2026</time>
-					// 	<img src="/assets/blog-process.svg" width="800" height="320" alt="" loading="lazy"/>
-					// 	<h2>Naslov objave 01</h2>
-					// 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo eget felis tincidunt suscipit.</p>
-					// </article>
-					// <article class="blog-card">
-					// 	<time class="mono" datetime="2026-09-15">15/09/2026</time>
-					// 	<img src="/assets/blog-decision.svg" width="800" height="320" alt="" loading="lazy"/>
-					// 	<h2>Naslov objave 02</h2>
-					// 	<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla.</p>
-					// </article>
-				</div>
+				if len(posts) == 0 {
+					<div class="blog-empty">
+						<p class="mono">U pripremi</p>
+						<h2>Prvi tekstovi stižu uskoro.</h2>
+						<p>U međuvremenu, <a href="/#kako-radim">pogledajte kako radim</a> ili mi se javite s pitanjem.</p>
+					</div>
+				} else {
+					<div class="blog-grid">
+						for _, post := range posts {
+							@postCard(post)
+						}
+					</div>
+				}
 			</div>
 		</section>
 	}
+}
+
+templ postCard(post blog.Post) {
+	<article class="blog-card">
+		<div class="blog-card-meta">
+			<time class="mono" datetime={ post.PublishedAt }>{ post.Date() }</time>
+			if post.Status == blog.Example {
+				<span class="mono example-label">Primjer strukture</span>
+			}
+		</div>
+		<a class="blog-card-link" href={ templ.SafeURL(post.Path()) }>
+			<img src={ post.Hero.Src } srcset={ post.Hero.Srcset() } sizes="(max-width: 700px) calc(100vw - 80px), (max-width: 1248px) calc((100vw - 180px) / 2), 526px" width={ fmt.Sprint(post.Hero.Width) } height={ fmt.Sprint(post.Hero.Height) } alt="" loading="lazy" decoding="async"/>
+			<h2>{ post.Title }</h2>
+		</a>
+		<p>{ post.Excerpt }</p>
+	</article>
 }
