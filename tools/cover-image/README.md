@@ -58,7 +58,7 @@ While editing, open the template in a browser at 100% zoom to preview it. The PN
 | `.kicker` | Format label (blue pill) + meta line ("45 min · online · besplatno"). Wraps to two lines at 36px. |
 | `.eyebrow` | Short blue mono line above the headline (education name). |
 | `h1` | Main message. The blue `.dot` at the end is the brand accent. Shrink `font-size` for longer text. |
-| `.byline` | Name / site, pinned to the bottom left. |
+| `.byline` | Logo (`public/eriksoftware_logo.svg`, referenced directly) next to name and site stacked on two lines, pinned to the bottom left. If you change the byline `font-size`, set the logo size to 2 × font-size + the 14px line gap. |
 | `.frame` | Paper card with blue offset shadow. Runs off the bottom edge on purpose. |
 | `.window` | Clips the portrait to the card's inner width, so the card sides cut the shoulders (hiding the photo's own crop edges) while the head breaks out above the card. If you move or resize `.frame`, update `.window`: `left` = frame left + 3px border, `width` = frame width − 6px. |
 | `.person` | Portrait size (`width`) and horizontal position (`left`, relative to `.window`). Bottom-anchored to the canvas. |
