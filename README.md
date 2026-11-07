@@ -15,6 +15,7 @@ Croatian-language site built with Go, [templ](https://templ.guide/), and plain C
 - `pages/`: site layout, homepage, blog listing, and shared article page.
 - `blog/`: compiled post bodies, metadata, and reusable article components. **Read [the authoring guide](blog/README.md) before adding a post.**
 - `public/`: embedded files served at `/assets/<path>`. Keep post images in `public/blog/<slug>/`.
+- `tools/cover-image/`: HTML templates and scripts for rendering cover images (e.g. Eduza educations) in the site's style. Not part of the build; see [its README](tools/cover-image/README.md).
 
 Routes: `/`, `/blog`, `/blog/{slug}`, `/blog/feed.xml`, `/sitemap.xml`, `/robots.txt`, `/favicon.ico`. Unknown or unpublished posts return 404; trailing blog slashes redirect to the canonical path.
 

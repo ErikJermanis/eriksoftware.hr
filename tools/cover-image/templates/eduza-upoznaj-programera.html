@@ -1,0 +1,156 @@
+<!doctype html>
+<!--
+  Eduza education cover: "Upoznaj programera" (1 na 1 radionica).
+  Canvas: 1908x1136 (1.68:1, Eduza's minimum). Render: tools/cover-image/scripts/render.sh
+  See tools/cover-image/README.md.
+-->
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<title>Upoznaj programera</title>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Brand tokens: keep in sync with public/styles.css */
+  :root {
+    --carbon: #1c1c16;
+    --stock: #f0ede4;
+    --paper: #faf7ee;
+    --blue: #3d56e7;
+    --gold: #d9c952;
+    --muted: #55554e;
+    --rule: #bcb9af;
+    --sans: "Space Grotesk", sans-serif;
+    --mono: "Azeret Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1908px; height: 1136px; overflow: hidden; }
+  body {
+    position: relative;
+    background: var(--stock);
+    color: var(--carbon);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(188,185,175,.38) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(188,185,175,.38) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: -1px -1px;
+  }
+  .corners { position: absolute; inset: 0; }
+
+  /* ---------- left: copy ---------- */
+  .copy {
+    position: absolute;
+    left: 120px; top: 138px;
+    width: 980px;
+  }
+  .kicker {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 18px 26px;
+    font: 600 36px/1 var(--mono);
+    letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+  .kicker .pill {
+    background: var(--blue); color: #fff;
+    padding: 18px 22px 16px;
+  }
+  .kicker .meta { color: var(--muted); }
+  .eyebrow {
+    margin-top: 76px;
+    font: 600 30px/1 var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  h1 {
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 114px;
+    line-height: .98;
+    letter-spacing: -0.04em;
+  }
+  h1 .dot { color: var(--blue); }
+  .byline {
+    position: absolute;
+    left: 120px; bottom: 98px;
+    display: flex; align-items: center; gap: 18px;
+    font: 600 24px/1 var(--mono);
+    letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+  .byline .sq { width: 22px; height: 22px; background: var(--gold); border: 3px solid var(--carbon); }
+  .byline .muted { color: var(--muted); }
+
+  /* ---------- right: portrait ---------- */
+  .frame {
+    position: absolute;
+    left: 1150px; top: 318px;
+    width: 640px; height: 900px;          /* runs off the bottom edge on purpose */
+    background: var(--paper);
+    border: 3px solid var(--carbon);
+    box-shadow: 18px 18px 0 var(--blue);
+  }
+  .frame::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(188,185,175,.35) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(188,185,175,.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .frame .label {
+    position: absolute;
+    left: 26px; top: 24px;
+    font: 600 20px/1 var(--mono);
+    letter-spacing: .05em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  /* .window = the frame's inner width, full canvas height. The frame sides cut the shoulders
+     (hiding the photo's own hard crop edges) while the head breaks out above the frame top.
+     Keep left/width = frame left + border, frame width - 2 * border. */
+  .window {
+    position: absolute;
+    left: 1153px; width: 634px;
+    top: 0; bottom: 0;
+    overflow: hidden;
+  }
+  /* Size/position of the person. left is relative to .window; bottom-anchored to the canvas edge. */
+  .person {
+    position: absolute;
+    left: -153px; bottom: 0;
+    width: 940px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <svg class="corners" width="1908" height="1136" viewBox="0 0 1908 1136">
+    <g fill="none" stroke="#1c1c16" stroke-width="3">
+      <path d="M40 92V40H92M1816 40H1868V92M40 1044V1096H92"/>
+    </g>
+  </svg>
+
+  <div class="copy">
+    <div class="kicker">
+      <span class="pill">1 na 1 radionica</span>
+      <span class="meta">45 min · online · besplatno</span>
+    </div>
+    <p class="eyebrow">Upoznaj programera</p>
+    <h1>Riješi nedoumice oko AI alata i personaliziranog softvera<span class="dot">.</span></h1>
+  </div>
+
+  <div class="byline">
+    <span class="sq"></span>
+    <span>Erik Jermaniš</span>
+    <span class="muted">/ eriksoftware.hr</span>
+  </div>
+
+  <div class="frame"><span class="label">Edukator</span></div>
+  <div class="window"><img class="person" src="../assets/erik-cutout.png" alt=""></div>
+</body>
+</html>
