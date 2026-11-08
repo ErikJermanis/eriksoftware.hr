@@ -245,24 +245,145 @@ templ Home() {
 				<div class="section-head">
 					<span class="eyebrow">Konzultacije</span>
 					<div>
-						<h2 id="consulting-title">Koristite AI za samostalan razvoj softwarea i trebate pomoć?</h2>
-						<p>AI alati su postali nezamislivo napredni, i zbilja je istina da <em>danas svatko može programirati</em>. Nemam ništa protiv da ljudi izrađuju svoj software sami, štoviše podržavam to. Ako negdje u tom procesu trebate pomoć, savjet ili provjeru sigurnosti Vaše kreacije, uvijek sam spreman pomoći.</p>
+						<h2 id="consulting-title">Gradite vlastiti software uz&nbsp;AI?</h2>
+						<p>Podržavam to, danas zbilja svatko može graditi vlastiti software. Pružam podršku i savjetovanje kako bi Vaš proizvod bio kvalitetan alat te štitim Vaše poslovanje od gubitka podataka ili drugih sigurnosnih rizika.</p>
 					</div>
 				</div>
-				<div class="card-grid">
-					<article class="consulting-card">
-						<span class="mono">Podrška pri razvoju</span>
-						<h3>Nauči koristiti AI.</h3>
-						<p>Ako već radite, ili želite početi raditi svoje alate koristeći AI ali osjećate se izgubljeno u određenim koracima, tu sam da Vam pomognem. Cilj mi je zbilja pomoći. Ako netko želi sam razvijati software, pružam pomoć i podršku umjesto nametanja svojih rješenja.</p>
-					</article>
-					<article class="consulting-card">
-						<span class="mono">Nastavak razvoja</span>
-						<h3>Manjak vremena?</h3>
-						<p>Već ste izgradili ozbiljna rješenja koja koristite i štede Vam vrijeme, ali nemate vremena za daljnji razvoj, održavanje ili hosting? Nema problema, ja preuzimam gdje ste stali i dodajem ono što fali. Pružam usluge održavanja i hostinga za Vaše ideje i postojeće aplikacije.</p>
-					</article>
+				<div class="mirror">
+					<div class="mirror-pick">
+						<p class="mirror-q mono" id="mirror-q">Prepoznajete li se?</p>
+						<div class="mirror-list" role="radiogroup" aria-labelledby="mirror-q">
+							<button class="mirror-opt" type="button" role="radio" aria-checked="true" aria-controls="mirror-a-1"><span>„AI se vrti u krug.”</span></button>
+							<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-2" tabindex="-1"><span>„Ne znam odakle početi.”</span></button>
+							<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-3" tabindex="-1"><span>„Je li ovo sigurno?”</span></button>
+							<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-4" tabindex="-1"><span>„Kako ovo staviti online?”</span></button>
+							<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-5" tabindex="-1"><span>„Nemam vremena za dalje.”</span></button>
+						</div>
+					</div>
+					<div class="mirror-answers" aria-live="polite">
+						<div class="mirror-a is-active" id="mirror-a-1">
+							<img src="/assets/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+							<div>
+								<p class="mirror-quote">„AI se vrti u krug.”</p>
+								<p class="mirror-reply">Nađemo grešku zajedno.</p>
+								<p class="mirror-detail">I pokažem Vam kako je sljedeći put riješiti sami.</p>
+								<span class="mirror-tag">Podrška pri razvoju</span>
+							</div>
+						</div>
+						<div class="mirror-a" id="mirror-a-2">
+							<img src="/assets/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+							<div>
+								<p class="mirror-quote">„Ne znam odakle početi.”</p>
+								<p class="mirror-reply">Krenimo od prvog koraka.</p>
+								<p class="mirror-detail">Pomažem Vam odabrati alate i složiti plan, bez nametanja svojih rješenja.</p>
+								<span class="mirror-tag">Podrška pri razvoju</span>
+							</div>
+						</div>
+						<div class="mirror-a" id="mirror-a-3">
+							<img src="/assets/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+							<div>
+								<p class="mirror-quote">„Je li ovo sigurno?”</p>
+								<p class="mirror-reply">Pregledam aplikaciju prije nego što je pustite u rad.</p>
+								<p class="mirror-detail">I jasno Vam kažem što je u redu, a što treba popraviti.</p>
+								<span class="mirror-tag">Provjera sigurnosti</span>
+							</div>
+						</div>
+						<div class="mirror-a" id="mirror-a-4">
+							<img src="/assets/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+							<div>
+								<p class="mirror-quote">„Kako ovo staviti online?”</p>
+								<p class="mirror-reply">Online, sigurno i s kopijama.</p>
+								<p class="mirror-detail">Pomažem Vam postaviti aplikaciju ili je hostam umjesto Vas.</p>
+								<span class="mirror-tag">Nastavak razvoja</span>
+							</div>
+						</div>
+						<div class="mirror-a" id="mirror-a-5">
+							<img src="/assets/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+							<div>
+								<p class="mirror-quote">„Nemam vremena za dalje.”</p>
+								<p class="mirror-reply">Preuzimam tamo gdje ste stali.</p>
+								<p class="mirror-detail">Dodajem što fali, održavam i hostam. Vi se bavite poslom.</p>
+								<span class="mirror-tag">Nastavak razvoja</span>
+							</div>
+						</div>
+						<span class="mirror-timer" aria-hidden="true"><i></i></span>
+					</div>
+				</div>
+				<div class="consulting-cta">
+					<a href="mailto:erik@eriksoftware.hr?subject=Konzultacije">Pišite mi →</a>
+					<span>erik@eriksoftware.hr</span>
 				</div>
 			</div>
 		</section>
+		<script>
+			(() => {
+				const root = document.querySelector(".mirror");
+				const opts = [...root.querySelectorAll(".mirror-opt")];
+				const answers = [...root.querySelectorAll(".mirror-a")];
+				const timer = root.querySelector(".mirror-timer i");
+				let index = 0;
+				let autoplay = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+				const show = (i) => {
+					index = (i + opts.length) % opts.length;
+					opts.forEach((opt, n) => {
+						const on = n === index;
+						opt.setAttribute("aria-checked", String(on));
+						opt.tabIndex = on ? 0 : -1;
+						answers[n].classList.toggle("is-active", on);
+					});
+					// Restart the countdown bar.
+					timer.style.animation = "none";
+					void timer.offsetWidth;
+					timer.style.animation = "";
+				};
+
+				// Any manual choice ends the auto-cycle for good.
+				const takeOver = (i) => {
+					autoplay = false;
+					root.classList.remove("is-playing");
+					show(i);
+				};
+
+				opts.forEach((opt, n) => {
+					opt.addEventListener("click", () => takeOver(n));
+					opt.addEventListener("keydown", (event) => {
+						const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+						if (!step) return;
+						event.preventDefault();
+						takeOver(index + step);
+						opts[index].focus();
+					});
+				});
+
+				timer.addEventListener("animationend", () => {
+					if (!autoplay) return;
+					if (index === opts.length - 1) {
+						autoplay = false;
+						root.classList.remove("is-playing");
+						return;
+					}
+					show(index + 1);
+				});
+
+				// Pause while hovered or focused, and while off-screen.
+				const pause = (on) => root.classList.toggle("is-paused", on);
+				root.addEventListener("mouseenter", () => pause(true));
+				root.addEventListener("mouseleave", () => pause(false));
+				root.addEventListener("focusin", () => pause(true));
+				root.addEventListener("focusout", () => pause(false));
+
+				if ("IntersectionObserver" in window) {
+					new IntersectionObserver(([entry]) => {
+						if (entry.isIntersecting && autoplay) root.classList.add("is-playing");
+						if (!entry.isIntersecting) pause(true);
+						else if (!root.matches(":hover")) pause(false);
+					}, { threshold: 0.5 }).observe(root);
+				}
+
+				show(0);
+			})();
+		</script>
 
 		<section class="section about-section" id="o-meni" aria-labelledby="about-title">
 			<div class="wrap">
