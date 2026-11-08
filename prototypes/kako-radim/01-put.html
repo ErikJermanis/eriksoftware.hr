@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kako radim · 01 Put s kontrolnom točkom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="../../public/styles.css">
+<link rel="stylesheet" href="proto.css">
+<style>
+/* ==========================================================================
+   01 · Put s kontrolnom točkom
+   Two phases drawn as a path: a dashed "exploration" box (free, together),
+   a decision gate, then a solid blue "build" box. The line draws itself once.
+   ========================================================================== */
+.path {
+  display: grid;
+}
+.path-phase {
+  position: relative;
+  padding: 20px 20px 0;
+  border: 1px solid var(--carbon);
+}
+.path-phase--together {
+  border-style: dashed;
+  background: var(--paper);
+}
+.path-phase--build {
+  background: var(--blue);
+  color: #fff;
+}
+.path-phase-head {
+  display: flex;
+  min-height: 30px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 22px;
+}
+.path-cost {
+  padding: 5px 10px;
+  background: var(--gold);
+  color: var(--carbon);
+}
+.path-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.path-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 16px;
+  padding-bottom: 26px;
+}
+.path-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  grid-row: span 2;
+  place-items: center;
+  border: 1px solid var(--carbon);
+  background: var(--carbon);
+  color: var(--paper);
+  font: 600 12px/1 var(--mono);
+}
+.path-phase--build .path-node {
+  border-color: #fff;
+  background: #fff;
+  color: var(--blue);
+}
+.path-step h3 {
+  margin: 8px 0 6px;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.path-step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.path-phase--build .path-step p {
+  color: rgb(255 255 255 / 84%);
+}
+/* Rail between nodes inside a phase. */
+.path-step:not(:last-child)::before {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  left: 19px;
+  width: 2px;
+  background: currentColor;
+  content: "";
+  transform-origin: top;
+}
+
+/* Decision gate between the phases. */
+.path-gate {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 16px;
+  align-items: center;
+  padding: 22px 21px;
+}
+.path-gate::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;
+  width: 2px;
+  background: var(--carbon);
+  content: "";
+  transform-origin: top;
+}
+.path-diamond {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  font: 700 17px/1 var(--sans);
+}
+.path-diamond::before {
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--carbon);
+  background: var(--gold);
+  content: "";
+  transform: rotate(45deg);
+}
+.path-diamond span {
+  position: relative;
+  grid-area: 1 / 1;
+}
+.path-q {
+  opacity: 0;
+}
+.path-gate strong {
+  display: block;
+  font-size: 19px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.path-gate ul {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.path-gate li {
+  padding-left: 1.4em;
+  text-indent: -1.4em;
+}
+.path-gate li::before {
+  display: inline-block;
+  text-indent: 0;
+  width: 1.4em;
+  color: var(--blue);
+  font-weight: 700;
+  content: "✓";
+}
+.path-gate li + li::before {
+  color: var(--muted);
+  content: "✕";
+}
+
+@media (min-width: 961px) {
+  .path {
+    grid-template-columns: minmax(0, 1fr) 200px minmax(0, 1fr);
+  }
+  .path-phase {
+    padding: 26px 26px 8px;
+  }
+  .path-steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .path-step {
+    display: block;
+    padding: 0 22px 22px 0;
+  }
+  .path-node {
+    margin-bottom: 20px;
+  }
+  .path-step h3 {
+    margin-top: 0;
+  }
+  /* Horizontal rail: node → next node, and across the gate. */
+  .path-step:not(:last-child)::before,
+  .path-phase--together .path-step:last-child::before,
+  .path-phase--build .path-step:first-child::after {
+    position: absolute;
+    top: 19px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: currentColor;
+    content: "";
+    transform-origin: left;
+  }
+  .path-step:not(:last-child)::before {
+    right: 0;
+    left: 40px;
+  }
+  .path-phase--together .path-step:last-child::before {
+    right: -27px;
+    left: 40px;
+  }
+  .path-phase--build .path-step:first-child::after {
+    left: -27px;
+    width: 27px;
+  }
+  .path-gate {
+    display: block;
+    padding: 79px 18px 24px;
+    text-align: center;
+  }
+  .path-gate::before {
+    top: 98px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 2px;
+    transform-origin: left;
+  }
+  .path-diamond {
+    margin: 0 auto 16px;
+  }
+  .path-gate ul {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  .path-gate li {
+    padding-left: 0;
+    text-indent: 0;
+  }
+  .path-gate li + li {
+    margin-top: 6px;
+  }
+}
+
+/* ---- One-time draw animation (JS adds .is-in; without JS the final state shows). */
+.path-phase,
+.path-gate-copy {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.path-node {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+.path-step::before,
+.path-step::after,
+.path-gate::before {
+  transition: transform 0.45s ease;
+}
+.path-diamond::before {
+  transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.6, 1), background-color 0.3s ease;
+}
+.path-diamond span {
+  transition: opacity 0.25s ease;
+}
+
+.js .path:not(.is-in) .path-phase {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.js .path:not(.is-in) .path-phase--together .path-node {
+  background: transparent;
+  color: var(--carbon);
+}
+.js .path:not(.is-in) .path-phase--build .path-node {
+  background: transparent;
+  color: #fff;
+}
+.js .path:not(.is-in) .path-step::before,
+.js .path:not(.is-in) .path-step::after,
+.js .path:not(.is-in) .path-gate::before {
+  transform: scaleY(0);
+}
+.js .path:not(.is-in) .path-diamond::before {
+  background: var(--paper);
+  transform: rotate(45deg) scale(0.3);
+}
+.js .path:not(.is-in) .path-q {
+  opacity: 1;
+}
+.js .path:not(.is-in) .path-check {
+  opacity: 0;
+}
+.js .path:not(.is-in) .path-gate-copy {
+  opacity: 0;
+  transform: translateY(8px);
+}
+@media (min-width: 961px) {
+  .js .path:not(.is-in) .path-step::before,
+  .js .path:not(.is-in) .path-step::after,
+  .js .path:not(.is-in) .path-gate::before {
+    transform: scaleX(0);
+  }
+}
+
+/* Choreography: phase 1 → nodes → gate (? becomes ✓) → phase 2. */
+.path.is-in .path-phase--together .path-step:nth-child(1) .path-node { transition-delay: 0.25s; }
+.path.is-in .path-phase--together .path-step:nth-child(1)::before { transition-delay: 0.4s; }
+.path.is-in .path-phase--together .path-step:nth-child(2) .path-node { transition-delay: 0.8s; }
+.path.is-in .path-phase--together .path-step:nth-child(2)::before { transition-delay: 0.9s; }
+.path.is-in .path-gate::before { transition-delay: 1s; }
+.path.is-in .path-diamond::before { transition-delay: 1.15s, 1.7s; }
+.path.is-in .path-diamond span { transition-delay: 1.7s; }
+.path.is-in .path-gate-copy { transition-delay: 1.35s; }
+.path.is-in .path-phase--build { transition-delay: 1.9s; }
+.path.is-in .path-phase--build .path-step:nth-child(1)::after { transition-delay: 2.1s; }
+.path.is-in .path-phase--build .path-step:nth-child(1) .path-node { transition-delay: 2.2s; }
+.path.is-in .path-phase--build .path-step:nth-child(1)::before { transition-delay: 2.3s; }
+.path.is-in .path-phase--build .path-step:nth-child(2) .path-node { transition-delay: 2.7s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .path *,
+  .path *::before,
+  .path *::after {
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<main id="main">
+  <section class="section process-section" id="kako-radim" aria-labelledby="process-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Proces</span>
+        <div>
+          <h2 id="process-title">Kako radim?</h2>
+          <p>Četiri koraka u dvije faze. Prvo zajedno provjeravamo ima li smisla, a tek onda gradim.</p>
+        </div>
+      </div>
+
+      <div class="path">
+        <div class="path-phase path-phase--together">
+          <div class="path-phase-head">
+            <span class="mono">Zajedno</span>
+            <span class="mono path-cost">Vaš trošak: samo vrijeme</span>
+          </div>
+          <ol class="path-steps">
+            <li class="path-step">
+              <span class="path-node">01</span>
+              <h3>Otkrivanje potrebe</h3>
+              <p>Razgovaramo o Vašem poslovanju i zajedno pronalazimo što se može automatizirati.</p>
+            </li>
+            <li class="path-step">
+              <span class="path-node">02</span>
+              <h3>Idejno rješenje</h3>
+              <p>Skiciram rješenje i konkretno Vam pokazujem kakve će rezultate donijeti.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="path-gate">
+          <span class="path-diamond" aria-hidden="true">
+            <span class="path-q">?</span>
+            <span class="path-check">✓</span>
+          </span>
+          <div class="path-gate-copy">
+            <strong>Vi odlučujete</strong>
+            <ul>
+              <li>Očarani ste? Krećem s izradom.</li>
+              <li>Nema koristi? Tu stajemo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="path-phase path-phase--build">
+          <div class="path-phase-head">
+            <span class="mono">Ja preuzimam</span>
+          </div>
+          <ol class="path-steps" start="3">
+            <li class="path-step">
+              <span class="path-node">03</span>
+              <h3>Izrada</h3>
+              <p>Gradim koristeći AI, uz stroge standarde sigurnosti i kvalitete.</p>
+            </li>
+            <li class="path-step">
+              <span class="path-node">04</span>
+              <h3>Puštanje u rad</h3>
+              <p>Gotovo rješenje koristite odmah, bez učenja i prilagodbe.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="proto.js"></script>
+<script>
+  (() => {
+    const path = document.querySelector(".path");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+      path.classList.add("is-in");
+      return;
+    }
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      path.classList.add("is-in");
+      io.disconnect();
+    }, { threshold: 0.3 });
+    io.observe(path);
+  })();
+</script>
+</body>
+</html>

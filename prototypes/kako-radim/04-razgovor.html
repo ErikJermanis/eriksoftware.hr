@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kako radim · 04 Razgovor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="../../public/styles.css">
+<link rel="stylesheet" href="proto.css">
+<style>
+/* ==========================================================================
+   04 · Razgovor
+   The process told as a short message thread between the client and Erik —
+   a format every business owner reads daily on their phone. Ends in a
+   "compose" bar that is really a mailto link.
+   ========================================================================== */
+.chat-layout {
+  display: grid;
+  gap: 36px;
+}
+.chat-intro .eyebrow {
+  margin-bottom: 20px;
+}
+.chat-intro h2 {
+  margin: 0 0 18px;
+  font-size: clamp(38px, 5vw, 66px);
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+}
+.chat-intro p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+}
+.chat-steps {
+  display: none;
+}
+
+.chat {
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--blue);
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--carbon);
+}
+.chat-head img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+.chat-head strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.chat-head span {
+  color: var(--muted);
+  font: 600 10px/1.4 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.chat-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 18px 14px 24px;
+  background: var(--stock);
+  list-style: none;
+}
+.chat-row {
+  position: relative;
+  display: flex;
+}
+.chat-row--you {
+  justify-content: flex-end;
+}
+.chat-bubble {
+  position: relative;
+  max-width: 90%;
+  padding: 9px 13px 10px;
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  font-size: 15px;
+  line-height: 1.45;
+}
+/* Speech tails: a carbon triangle with a filled triangle on top. */
+.chat-bubble::before,
+.chat-bubble::after {
+  position: absolute;
+  top: 100%;
+  content: "";
+}
+.chat-bubble::before {
+  left: -1px;
+  width: 15px;
+  height: 12px;
+  background: var(--carbon);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.chat-bubble::after {
+  left: 0;
+  width: 12px;
+  height: 9.5px;
+  background: var(--paper);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.chat-row--you .chat-bubble {
+  background: var(--blue);
+  color: #fff;
+}
+.chat-row--you .chat-bubble::before {
+  right: -1px;
+  left: auto;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.chat-row--you .chat-bubble::after {
+  right: 0;
+  left: auto;
+  background: var(--blue);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.chat-sr {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.chat-step {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--blue);
+  font: 600 11px/1.4 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.chat-file {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  padding: 6px;
+  border: 1px solid var(--carbon);
+  background: var(--stock);
+}
+.chat-file-art {
+  display: flex;
+  width: 52px;
+  height: 34px;
+  flex: none;
+  align-items: flex-end;
+  gap: 5px;
+  padding: 4px 7px;
+  border: 1px dashed var(--carbon);
+  background: var(--paper);
+}
+.chat-file-art i {
+  width: 8px;
+  background: var(--blue);
+}
+.chat-file-art i:nth-child(1) { height: 35%; }
+.chat-file-art i:nth-child(2) { height: 60%; }
+.chat-file-art i:nth-child(3) { height: 95%; }
+.chat-file span {
+  font: 600 11px/1.4 var(--mono);
+  overflow-wrap: anywhere;
+}
+.chat-note {
+  justify-content: center;
+}
+.chat-note p {
+  max-width: 92%;
+  margin: 2px 0;
+  padding: 8px 12px;
+  border: 1px solid var(--carbon);
+  background: var(--gold);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+}
+.chat-typing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 5px;
+  padding: 13px 14px;
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  opacity: 0;
+  pointer-events: none;
+}
+.chat-typing i {
+  width: 7px;
+  height: 7px;
+  background: var(--carbon);
+  animation: chat-dot 1.1s ease-in-out infinite;
+}
+.chat-typing i:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes chat-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+.chat-compose {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px 10px 16px;
+  border-top: 1px solid var(--carbon);
+  color: var(--muted);
+  text-decoration: none;
+}
+.chat-compose span:first-child {
+  flex: 1;
+}
+.chat-send {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  place-items: center;
+  background: var(--blue);
+  color: #fff;
+  font-size: 20px;
+  transition: background-color 0.2s ease;
+}
+.chat-compose:hover {
+  color: var(--carbon);
+}
+.chat-compose:hover .chat-send {
+  background: var(--carbon);
+}
+
+@media (min-width: 961px) {
+  .chat-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(48px, 7vw, 110px);
+    align-items: start;
+  }
+  .chat-intro {
+    position: sticky;
+    top: 120px;
+  }
+  .chat-steps {
+    display: grid;
+    gap: 0;
+    max-width: 420px;
+    margin: 40px 0 0;
+    padding: 0;
+    border-top: 1px solid var(--carbon);
+    list-style: none;
+  }
+  .chat-steps li {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-weight: 600;
+  }
+  .chat-steps .step-number {
+    width: 24px;
+  }
+}
+
+/* ---- Messages appear in order as they scroll in (JS); all visible without JS. */
+.chat-bubble,
+.chat-note p {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.js .chat-row:not(.is-in) .chat-bubble,
+.js .chat-row:not(.is-in) .chat-note p,
+.js .chat-note:not(.is-in) p {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.chat-row.is-typing .chat-typing {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat *,
+  .chat *::before,
+  .chat *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<main id="main">
+  <section class="section process-section" id="kako-radim" aria-labelledby="process-title">
+    <div class="wrap chat-layout">
+      <div class="chat-intro">
+        <span class="eyebrow">Proces</span>
+        <h2 id="process-title">Kako radim?</h2>
+        <p>Ovako izgleda suradnja, od prve poruke do gotovog rješenja.</p>
+        <ol class="chat-steps" aria-hidden="true">
+          <li><span class="step-number">01</span>Otkrivanje potrebe</li>
+          <li><span class="step-number">02</span>Idejno rješenje</li>
+          <li><span class="step-number">03</span>Izrada</li>
+          <li><span class="step-number">04</span>Puštanje u rad</li>
+        </ol>
+      </div>
+
+      <div class="chat">
+        <div class="chat-head">
+          <img src="../../public/profil_web.jpg" width="40" height="40" alt="">
+          <div>
+            <strong>Erik Jermaniš</strong>
+            <span>Software i automatizacija</span>
+          </div>
+        </div>
+
+        <ol class="chat-thread" aria-label="Primjer suradnje">
+          <li class="chat-row chat-row--you">
+            <p class="chat-bubble"><span class="chat-sr">Vi: </span>Previše vremena mi odlazi na posao koji se stalno ponavlja.</p>
+          </li>
+          <li class="chat-row" data-from="erik">
+            <span class="chat-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+            <p class="chat-bubble"><span class="chat-sr">Erik: </span><span class="chat-step">01 · Otkrivanje potrebe</span>Ispričajte mi kako radite. Zajedno ćemo naći što se može automatizirati.</p>
+          </li>
+          <li class="chat-row" data-from="erik">
+            <span class="chat-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div class="chat-bubble">
+              <span class="chat-sr">Erik: </span><span class="chat-step">02 · Idejno rješenje</span>Evo idejnog rješenja i konkretnih rezultata koje donosi.
+              <span class="chat-file" aria-hidden="true">
+                <span class="chat-file-art"><i></i><i></i><i></i></span>
+                <span>idejno-rjesenje.pdf</span>
+              </span>
+            </div>
+          </li>
+          <li class="chat-row chat-row--you">
+            <p class="chat-bubble"><span class="chat-sr">Vi: </span>Ovo je točno ono što mi treba. Idemo!</p>
+          </li>
+          <li class="chat-row chat-note">
+            <p>Do ovdje Vas je koštalo samo vrijeme. Da nije bilo koristi, tu bismo stali.</p>
+          </li>
+          <li class="chat-row" data-from="erik">
+            <span class="chat-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+            <p class="chat-bubble"><span class="chat-sr">Erik: </span><span class="chat-step">03 · Izrada</span>Krećem s izradom, uz AI i stroge standarde sigurnosti i kvalitete.</p>
+          </li>
+          <li class="chat-row" data-from="erik">
+            <span class="chat-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+            <p class="chat-bubble"><span class="chat-sr">Erik: </span><span class="chat-step">04 · Puštanje u rad</span>Gotovo! Koristite ga odmah, bez učenja i prilagodbe.</p>
+          </li>
+        </ol>
+
+        <a class="chat-compose" href="mailto:erik@eriksoftware.hr" aria-label="Pošaljite mi e-mail na erik@eriksoftware.hr">
+          <span>Opišite mi svoj posao…</span>
+          <span class="chat-send" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="proto.js"></script>
+<script>
+  (() => {
+    const rows = [...document.querySelectorAll(".chat-row")];
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) {
+      rows.forEach((row) => row.classList.add("is-in"));
+      return;
+    }
+
+    // Reveal strictly in order: a row that scrolls in also releases every
+    // row above it, so fast scrolling never leaves gaps.
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    let shown = -1;
+    let target = -1;
+    let running = false;
+    const run = async () => {
+      if (running) return;
+      running = true;
+      while (shown < target) {
+        const row = rows[++shown];
+        if (row.dataset.from === "erik") {
+          row.classList.add("is-typing");
+          await wait(600);
+          row.classList.remove("is-typing");
+        }
+        row.classList.add("is-in");
+        await wait(280);
+      }
+      running = false;
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        target = Math.max(target, rows.indexOf(e.target));
+        io.unobserve(e.target);
+      });
+      run();
+    }, { rootMargin: "0px 0px -15% 0px" });
+    rows.forEach((row) => io.observe(row));
+  })();
+</script>
+</body>
+</html>
