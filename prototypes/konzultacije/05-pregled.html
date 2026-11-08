@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konzultacije · 05 Pregled aplikacije</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="../../public/styles.css">
+<link rel="stylesheet" href="proto.css">
+<style>
+/* ==========================================================================
+   05 · Pregled aplikacije
+   Shows the deliverable instead of describing it: a sample check-up of an
+   app someone built with AI. The scan finds a few things; the two services
+   are then the two ways forward, and the report updates to match.
+   Plays once when in view (scan → path 1 → path 2); any tap takes over.
+   ========================================================================== */
+.review {
+  display: grid;
+  gap: 28px;
+}
+
+/* ---- Report card -------------------------------------------------------- */
+.report {
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--blue);
+}
+.report-head {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--carbon);
+  font: 600 10px/1.4 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.report-state {
+  color: var(--blue);
+}
+.report-progress {
+  position: relative;
+  height: 3px;
+  background: var(--stock);
+}
+.report-progress i {
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.review[data-state="scan"] .report-progress i {
+  animation: grow 2.6s linear both;
+}
+.report-list {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+.report-list li {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+}
+.report-list li + li {
+  border-top: 1px solid var(--rule);
+}
+.report-icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--carbon);
+  font: 700 13px/1 var(--sans);
+}
+.report-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.report-chip {
+  flex: none;
+  padding: 2px 7px;
+  border: 1px solid var(--carbon);
+  font: 600 10px/1.5 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Status, set per row by JS: ok · warn · self · me (and "wait" while scanning). */
+[data-status="ok"] .report-icon,
+[data-status="me"] .report-icon {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+[data-status="ok"] .report-icon::before,
+[data-status="me"] .report-icon::before,
+[data-status="self"] .report-icon::before {
+  content: "✓";
+}
+[data-status="warn"] .report-icon {
+  background: var(--gold);
+}
+[data-status="warn"] .report-icon::before {
+  content: "!";
+}
+[data-status="warn"] .report-chip {
+  background: var(--gold);
+}
+[data-status="self"] .report-icon {
+  background: var(--gold);
+}
+[data-status="self"] .report-chip {
+  border-style: dashed;
+}
+[data-status="me"] .report-chip {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+[data-status="ok"] .report-chip {
+  border-color: var(--rule);
+  color: var(--muted);
+}
+[data-status="wait"] .report-name {
+  color: var(--muted);
+}
+[data-status="wait"] .report-icon {
+  border-color: var(--rule);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+[data-status="wait"] .report-chip {
+  visibility: hidden;
+}
+.report-list li.is-new .report-chip,
+.report-list li.is-new .report-icon {
+  animation: stamp 0.35s cubic-bezier(0.3, 1.6, 0.6, 1) both;
+}
+
+.report-sum {
+  display: grid;
+  min-height: 74px;
+  align-content: center;
+  padding: 12px 14px;
+  border-top: 1px solid var(--carbon);
+  background: var(--stock);
+}
+.report-sum p {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.review[data-state="scan"] [data-sum="scan"],
+.review[data-state="found"] [data-sum="found"],
+.review[data-state="self"] [data-sum="self"],
+.review[data-state="me"] [data-sum="me"] {
+  visibility: visible;
+  opacity: 1;
+}
+[data-sum="scan"] {
+  color: var(--muted);
+}
+
+/* ---- The two ways forward ---------------------------------------------- */
+.paths {
+  display: grid;
+  gap: 12px;
+}
+.paths-ask {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.paths-ask::before {
+  width: 8px;
+  height: 8px;
+  background: var(--blue);
+  content: "";
+}
+.path {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px 18px 22px;
+  border: 1px solid var(--carbon);
+  background: var(--stock);
+  color: var(--carbon);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.path::before {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  width: 5px;
+  background: var(--gold);
+  content: "";
+}
+.path--me::before {
+  background: var(--blue);
+}
+.path:hover {
+  background: var(--paper);
+}
+.path[aria-pressed="true"] {
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--carbon);
+  transform: translate(-2px, -2px);
+}
+.path .mono {
+  color: var(--muted);
+}
+.path[aria-pressed="true"] .mono {
+  color: var(--blue);
+}
+.path strong {
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.path-desc {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (min-width: 961px) {
+  .review {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  .report-head {
+    padding: 0 20px;
+  }
+  .report-list li {
+    min-height: 56px;
+    padding: 10px 20px;
+  }
+  .report-name {
+    font-size: 17px;
+  }
+  .report-sum {
+    padding: 14px 20px;
+  }
+  .report-sum p {
+    font-size: 19px;
+  }
+  .paths {
+    gap: 16px;
+  }
+  .path {
+    padding: 20px 24px 22px 28px;
+  }
+  .path strong {
+    font-size: 25px;
+    letter-spacing: -0.025em;
+  }
+  .path-desc {
+    font-size: 16px;
+  }
+}
+
+@keyframes grow {
+  from { transform: scaleX(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes stamp {
+  from { opacity: 0; transform: scale(1.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review *,
+  .review *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<main id="main">
+  <section class="section consulting-section" id="konzultacije" aria-labelledby="consulting-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Konzultacije</span>
+        <div>
+          <h2 id="consulting-title">Gradite vlastiti software uz&nbsp;AI?</h2>
+          <p>Podržavam to, danas zbilja svatko može programirati. Pokažite mi što ste napravili: pregledam aplikaciju, pa zajedno odlučimo kako dalje.</p>
+        </div>
+      </div>
+
+      <div class="review" data-state="found">
+        <div class="report" aria-label="Primjer pregleda aplikacije">
+          <div class="report-head">
+            <span>Primjer pregleda</span>
+            <span class="report-state" aria-hidden="true">Gotovo</span>
+          </div>
+          <div class="report-progress" aria-hidden="true"><i></i></div>
+          <ul class="report-list">
+            <li data-status="ok" data-found="ok" data-self="ok" data-me="ok"
+                data-chip-found="U redu" data-chip-self="U redu" data-chip-me="U redu">
+              <span class="report-icon" aria-hidden="true"></span>
+              <span class="report-name">Aplikacija radi</span>
+              <span class="report-chip">U redu</span>
+            </li>
+            <li data-status="warn" data-found="warn" data-self="self" data-me="me"
+                data-chip-found="Vidljivi u kodu" data-chip-self="Uz moje upute" data-chip-me="Riješeno">
+              <span class="report-icon" aria-hidden="true"></span>
+              <span class="report-name">API ključevi</span>
+              <span class="report-chip">Vidljivi u kodu</span>
+            </li>
+            <li data-status="warn" data-found="warn" data-self="self" data-me="me"
+                data-chip-found="Ne postoje" data-chip-self="Uz moje upute" data-chip-me="Svaki dan">
+              <span class="report-icon" aria-hidden="true"></span>
+              <span class="report-name">Sigurnosne kopije</span>
+              <span class="report-chip">Ne postoje</span>
+            </li>
+            <li data-status="warn" data-found="warn" data-self="self" data-me="me"
+                data-chip-found="Samo lokalno" data-chip-self="Uz moje upute" data-chip-me="Online">
+              <span class="report-icon" aria-hidden="true"></span>
+              <span class="report-name">Hosting</span>
+              <span class="report-chip">Samo lokalno</span>
+            </li>
+            <li data-status="warn" data-found="warn" data-self="self" data-me="me"
+                data-chip-found="Čekaju" data-chip-self="Gradite Vi" data-chip-me="U izradi">
+              <span class="report-icon" aria-hidden="true"></span>
+              <span class="report-name">Nove funkcije</span>
+              <span class="report-chip">Čekaju</span>
+            </li>
+          </ul>
+          <div class="report-sum" aria-live="polite">
+            <p data-sum="scan">Provjeravam…</p>
+            <p data-sum="found">Dobra osnova. Četiri stvari treba riješiti.</p>
+            <p data-sum="self">Vi popravljate, a ja Vam pokazujem kako i zašto.</p>
+            <p data-sum="me">Sve preuzimam: popravke, nove funkcije, održavanje i hosting.</p>
+          </div>
+        </div>
+
+        <div class="paths">
+          <p class="paths-ask mono">Kako dalje?</p>
+          <button class="path" type="button" data-path="self" aria-pressed="false">
+            <span class="mono">Podrška pri razvoju</span>
+            <strong>Vi popravljate, ja vodim.</strong>
+            <span class="path-desc">Objasnim što ne valja i zašto, a Vi gradite dalje. Pomažem, ne namećem.</span>
+          </button>
+          <button class="path path--me" type="button" data-path="me" aria-pressed="false">
+            <span class="mono">Nastavak razvoja</span>
+            <strong>Ja preuzimam.</strong>
+            <span class="path-desc">Nemate vremena? Popravljam, dodajem što fali, održavam i hostam.</span>
+          </button>
+          <div class="kz-cta">
+            <a href="mailto:erik@eriksoftware.hr?subject=Pregled%20aplikacije">Pošaljite mi aplikaciju →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="proto.js"></script>
+<script>
+(() => {
+  const root = document.querySelector(".review");
+  const rows = [...root.querySelectorAll(".report-list li")];
+  const paths = [...root.querySelectorAll(".path")];
+  const label = root.querySelector(".report-state");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const labels = { scan: "Provjeravam…", found: "Gotovo", self: "Podrška pri razvoju", me: "Nastavak razvoja" };
+  let autoplay = !reduce;
+  let run = 0;
+
+  const setRow = (row, state, animate) => {
+    const status = row.dataset[state];
+    const chip = row.dataset["chip" + state[0].toUpperCase() + state.slice(1)];
+    const changed = row.dataset.status !== status || row.querySelector(".report-chip").textContent !== chip;
+    row.dataset.status = status;
+    row.querySelector(".report-chip").textContent = chip;
+    row.classList.remove("is-new");
+    if (animate && changed) {
+      void row.offsetWidth;
+      row.classList.add("is-new");
+    }
+  };
+
+  // Moves the whole report to a state, one row after another.
+  const setState = async (state, id) => {
+    root.dataset.state = state;
+    label.textContent = labels[state];
+    paths.forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.path === state)));
+    for (const row of rows) {
+      if (id !== run) return;
+      setRow(row, state, !reduce);
+      if (!reduce) await sleep(120);
+    }
+  };
+
+  const scan = async (id) => {
+    root.dataset.state = "scan";
+    label.textContent = labels.scan;
+    paths.forEach((p) => p.setAttribute("aria-pressed", "false"));
+    rows.forEach((row) => (row.dataset.status = "wait"));
+    for (const row of rows) {
+      await sleep(520);
+      if (id !== run) return;
+      setRow(row, "found", true);
+    }
+    await setState("found", id);
+  };
+
+  const demo = async () => {
+    const id = ++run;
+    await scan(id);
+    for (const state of ["self", "me"]) {
+      await sleep(3000);
+      if (id !== run || !autoplay) return;
+      await setState(state, id);
+    }
+    autoplay = false;
+  };
+
+  paths.forEach((path) =>
+    path.addEventListener("click", () => {
+      autoplay = false;
+      const id = ++run;
+      const next = path.getAttribute("aria-pressed") === "true" ? "found" : path.dataset.path;
+      setState(next, id);
+    })
+  );
+
+  if (reduce || !("IntersectionObserver" in window)) return;
+  rows.forEach((row) => (row.dataset.status = "wait"));
+  root.dataset.state = "scan";
+  label.textContent = labels.scan;
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+    if (autoplay) demo();
+  }, { threshold: 0.5 });
+  observer.observe(root.querySelector(".report"));
+})();
+</script>
+</body>
+</html>

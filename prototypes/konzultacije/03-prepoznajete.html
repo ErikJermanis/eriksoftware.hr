@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Konzultacije · 03 Prepoznajete li se?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link rel="stylesheet" href="../../public/styles.css" />
+    <link rel="stylesheet" href="proto.css" />
+    <style>
+      /* ==========================================================================
+   03 · Prepoznajete li se?
+   Five things people building with AI actually say. The visitor picks the
+   one that sounds like them (a highlighter marks it) and gets my answer,
+   plus which service that is. Cycles on its own until the first tap.
+   Without JS: every sentence is listed with its answer.
+   ========================================================================== */
+      .mirror {
+        border: 1px solid var(--carbon);
+        background: var(--paper);
+        box-shadow: 8px 8px 0 var(--blue);
+      }
+      .mirror-q {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--carbon);
+      }
+      .mirror-q::before {
+        width: 8px;
+        height: 8px;
+        background: var(--gold);
+        content: "";
+      }
+      .mirror-list {
+        margin: 0;
+        padding: 6px 0;
+        list-style: none;
+      }
+      .mirror-opt {
+        display: flex;
+        width: 100%;
+        min-height: 48px;
+        align-items: center;
+        gap: 14px;
+        padding: 6px 16px;
+        border: 0;
+        background: none;
+        color: var(--muted);
+        cursor: pointer;
+        font: 500 18px/1.3 var(--sans);
+        letter-spacing: -0.01em;
+        text-align: left;
+      }
+      .mirror-opt::before {
+        width: 14px;
+        height: 14px;
+        flex: none;
+        border: 1px solid var(--carbon);
+        background: var(--paper);
+        content: "";
+        transition:
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .mirror-opt:hover {
+        color: var(--carbon);
+      }
+      .mirror-opt[aria-checked="true"] {
+        color: var(--carbon);
+      }
+      .mirror-opt[aria-checked="true"]::before {
+        background: var(--carbon);
+        box-shadow: inset 0 0 0 3px var(--paper);
+      }
+      /* Highlighter swipe behind the chosen sentence. */
+      .mirror-opt span {
+        padding: 0 2px;
+        background: linear-gradient(var(--gold), var(--gold)) 0 88% / 0 42% no-repeat;
+        transition: background-size 0.45s cubic-bezier(0.6, 0, 0.2, 1);
+      }
+      .mirror-opt[aria-checked="true"] span {
+        background-size: 100% 42%;
+      }
+
+      .mirror-answers {
+        position: relative;
+        display: grid;
+        border-top: 1px solid var(--carbon);
+        background-color: var(--stock);
+        background-image:
+          linear-gradient(rgb(188 185 175 / 35%) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(188 185 175 / 35%) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .mirror-a {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: 14px;
+        align-content: start;
+        padding: 20px 16px 24px;
+      }
+      .mirror-a img {
+        display: block;
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        box-shadow: 3px 3px 0 var(--blue);
+      }
+      .mirror-reply {
+        margin: 0 0 6px;
+        font-size: 23px;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+      }
+      .mirror-detail {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .mirror-tag {
+        display: inline-block;
+        padding: 3px 8px;
+        background: var(--blue);
+        color: #fff;
+        font: 600 11px/1.4 var(--mono);
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+      .mirror-quote {
+        display: none;
+      }
+      .mirror-timer {
+        display: none;
+      }
+
+      /* With JS: one answer at a time, all stacked in one cell so nothing jumps. */
+      .js .mirror-a {
+        grid-area: 1 / 1;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(6px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0s linear 0.3s;
+      }
+      .js .mirror-a.is-active {
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        transition:
+          opacity 0.3s ease 0.1s,
+          transform 0.3s ease 0.1s;
+      }
+      .js .mirror-a.is-active .mirror-tag {
+        animation: tag-stamp 0.35s cubic-bezier(0.3, 1.6, 0.6, 1) both 0.35s;
+      }
+      .js .mirror-timer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: block;
+        height: 3px;
+      }
+      .mirror-timer i {
+        position: absolute;
+        inset: 0;
+        background: var(--blue);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+      .mirror.is-playing .mirror-timer i {
+        animation: timer 5s linear forwards;
+      }
+      .mirror.is-paused .mirror-timer i {
+        animation-play-state: paused;
+      }
+      .mirror:not(.is-playing) .mirror-timer {
+        display: none;
+      }
+      html:not(.js) .mirror-list {
+        display: none;
+      }
+      html:not(.js) .mirror-quote {
+        display: block;
+        margin: 0 0 8px;
+        color: var(--muted);
+      }
+      html:not(.js) .mirror-a + .mirror-a {
+        border-top: 1px solid var(--rule);
+      }
+
+      @media (min-width: 961px) {
+        .mirror {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        }
+        .mirror-pick {
+          padding-bottom: 14px;
+        }
+        .mirror-q {
+          padding: 16px 28px;
+        }
+        .mirror-list {
+          padding: 14px 0;
+        }
+        .mirror-opt {
+          min-height: 56px;
+          padding: 8px 28px;
+          font-size: 21px;
+        }
+        .mirror-answers {
+          border-top: 0;
+          border-left: 1px solid var(--carbon);
+        }
+        .mirror-a {
+          grid-template-columns: 56px minmax(0, 1fr);
+          gap: 20px;
+          align-content: center;
+          padding: 40px 36px;
+        }
+        .mirror-a img {
+          width: 56px;
+          height: 56px;
+        }
+        .mirror-reply {
+          font-size: 32px;
+          letter-spacing: -0.03em;
+        }
+        .mirror-detail {
+          font-size: 17px;
+        }
+      }
+
+      @keyframes tag-stamp {
+        from {
+          opacity: 0;
+          transform: scale(1.5);
+        }
+      }
+      @keyframes timer {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .mirror *,
+        .mirror *::before {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main">
+      <section class="section consulting-section" id="konzultacije" aria-labelledby="consulting-title">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Konzultacije</span>
+            <div>
+              <h2 id="consulting-title">Gradite vlastiti software uz&nbsp;AI?</h2>
+              <p>
+                Podržavam to, danas zbilja svatko može graditi vlastiti software. Pružam podršku i savjetovanje kako bi
+                Vaš proizvod bio kvalitetan alat te štitim vaše poslovanje od gubitka podataka ili drugih sigurnosnih
+                rizika.
+              </p>
+            </div>
+          </div>
+
+          <div class="mirror">
+            <div class="mirror-pick">
+              <p class="mirror-q mono" id="mirror-q">Prepoznajete li se?</p>
+              <div class="mirror-list" role="radiogroup" aria-labelledby="mirror-q">
+                <button class="mirror-opt" type="button" role="radio" aria-checked="true" aria-controls="mirror-a-1">
+                  <span>„AI se vrti u krug.”</span>
+                </button>
+                <button
+                  class="mirror-opt"
+                  type="button"
+                  role="radio"
+                  aria-checked="false"
+                  aria-controls="mirror-a-2"
+                  tabindex="-1"
+                >
+                  <span>„Ne znam odakle početi.”</span>
+                </button>
+                <button
+                  class="mirror-opt"
+                  type="button"
+                  role="radio"
+                  aria-checked="false"
+                  aria-controls="mirror-a-3"
+                  tabindex="-1"
+                >
+                  <span>„Je li ovo sigurno?”</span>
+                </button>
+                <button
+                  class="mirror-opt"
+                  type="button"
+                  role="radio"
+                  aria-checked="false"
+                  aria-controls="mirror-a-4"
+                  tabindex="-1"
+                >
+                  <span>„Kako ovo staviti online?”</span>
+                </button>
+                <button
+                  class="mirror-opt"
+                  type="button"
+                  role="radio"
+                  aria-checked="false"
+                  aria-controls="mirror-a-5"
+                  tabindex="-1"
+                >
+                  <span>„Nemam vremena za dalje.”</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="mirror-answers" aria-live="polite">
+              <div class="mirror-a is-active" id="mirror-a-1">
+                <img src="../../public/profil_web.jpg" width="56" height="56" alt="" />
+                <div>
+                  <p class="mirror-quote">„AI se vrti u krug.”</p>
+                  <p class="mirror-reply">Nađemo grešku zajedno.</p>
+                  <p class="mirror-detail">I pokažem Vam kako je sljedeći put riješiti sami.</p>
+                  <span class="mirror-tag">Podrška pri razvoju</span>
+                </div>
+              </div>
+              <div class="mirror-a" id="mirror-a-2">
+                <img src="../../public/profil_web.jpg" width="56" height="56" alt="" />
+                <div>
+                  <p class="mirror-quote">„Ne znam odakle početi.”</p>
+                  <p class="mirror-reply">Krenimo od prvog koraka.</p>
+                  <p class="mirror-detail">Pomažem Vam odabrati alate i složiti plan, bez nametanja svojih rješenja.</p>
+                  <span class="mirror-tag">Podrška pri razvoju</span>
+                </div>
+              </div>
+              <div class="mirror-a" id="mirror-a-3">
+                <img src="../../public/profil_web.jpg" width="56" height="56" alt="" />
+                <div>
+                  <p class="mirror-quote">„Je li ovo sigurno?”</p>
+                  <p class="mirror-reply">Pregledam aplikaciju prije nego što je pustite u rad.</p>
+                  <p class="mirror-detail">I jasno Vam kažem što je u redu, a što treba popraviti.</p>
+                  <span class="mirror-tag">Provjera sigurnosti</span>
+                </div>
+              </div>
+              <div class="mirror-a" id="mirror-a-4">
+                <img src="../../public/profil_web.jpg" width="56" height="56" alt="" />
+                <div>
+                  <p class="mirror-quote">„Kako ovo staviti online?”</p>
+                  <p class="mirror-reply">Online, sigurno i s kopijama.</p>
+                  <p class="mirror-detail">Pomažem Vam postaviti aplikaciju ili je hostam umjesto Vas.</p>
+                  <span class="mirror-tag">Nastavak razvoja</span>
+                </div>
+              </div>
+              <div class="mirror-a" id="mirror-a-5">
+                <img src="../../public/profil_web.jpg" width="56" height="56" alt="" />
+                <div>
+                  <p class="mirror-quote">„Nemam vremena za dalje.”</p>
+                  <p class="mirror-reply">Preuzimam tamo gdje ste stali.</p>
+                  <p class="mirror-detail">Dodajem što fali, održavam i hostam. Vi se bavite poslom.</p>
+                  <span class="mirror-tag">Nastavak razvoja</span>
+                </div>
+              </div>
+              <span class="mirror-timer" aria-hidden="true"><i></i></span>
+            </div>
+          </div>
+
+          <div class="kz-cta">
+            <a href="mailto:erik@eriksoftware.hr?subject=Konzultacije">Pišite mi →</a>
+            <span>erik@eriksoftware.hr</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="proto.js"></script>
+    <script>
+      (() => {
+        const root = document.querySelector(".mirror");
+        const opts = [...root.querySelectorAll(".mirror-opt")];
+        const answers = [...root.querySelectorAll(".mirror-a")];
+        const timer = root.querySelector(".mirror-timer i");
+        let index = 0;
+        let autoplay = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        const show = (i) => {
+          index = (i + opts.length) % opts.length;
+          opts.forEach((opt, n) => {
+            const on = n === index;
+            opt.setAttribute("aria-checked", String(on));
+            opt.tabIndex = on ? 0 : -1;
+            answers[n].classList.toggle("is-active", on);
+          });
+          // Restart the countdown bar.
+          timer.style.animation = "none";
+          void timer.offsetWidth;
+          timer.style.animation = "";
+        };
+
+        const takeOver = (i) => {
+          autoplay = false;
+          root.classList.remove("is-playing");
+          show(i);
+        };
+
+        opts.forEach((opt, n) => {
+          opt.addEventListener("click", () => takeOver(n));
+          opt.addEventListener("keydown", (event) => {
+            const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+            if (!step) return;
+            event.preventDefault();
+            takeOver(index + step);
+            opts[index].focus();
+          });
+        });
+
+        timer.addEventListener("animationend", () => {
+          if (!autoplay) return;
+          if (index === opts.length - 1) {
+            autoplay = false;
+            root.classList.remove("is-playing");
+            return;
+          }
+          show(index + 1);
+        });
+
+        const pause = (on) => root.classList.toggle("is-paused", on);
+        root.addEventListener("mouseenter", () => pause(true));
+        root.addEventListener("mouseleave", () => pause(false));
+        root.addEventListener("focusin", () => pause(true));
+        root.addEventListener("focusout", () => pause(false));
+
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(
+            ([entry]) => {
+              if (entry.isIntersecting && autoplay) root.classList.add("is-playing");
+              if (!entry.isIntersecting) pause(true);
+              else if (!root.matches(":hover")) pause(false);
+            },
+            { threshold: 0.5 },
+          ).observe(root);
+        }
+
+        show(0);
+      })();
+    </script>
+  </body>
+</html>

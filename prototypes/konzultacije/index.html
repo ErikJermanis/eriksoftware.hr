@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konzultacije · prijedlozi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../public/styles.css">
+<style>
+.ix {
+  padding: clamp(48px, 7vw, 96px) 0;
+}
+.ix h1 {
+  margin: 20px 0 14px;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+}
+.ix-lead {
+  max-width: 700px;
+  margin-bottom: 40px;
+  color: var(--muted);
+}
+.ix-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--carbon);
+  list-style: none;
+}
+.ix-list a {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--carbon);
+  text-decoration: none;
+}
+.ix-list a:hover strong {
+  color: var(--blue);
+}
+.ix-list strong {
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.ix-list p {
+  grid-column: 2 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+.ix-list .mono:last-of-type {
+  color: var(--blue);
+}
+@media (max-width: 700px) {
+  .ix-list a {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+  .ix-list .ix-tag {
+    grid-column: 2;
+  }
+}
+</style>
+</head>
+<body>
+<main class="ix">
+  <div class="wrap">
+    <span class="eyebrow">Prototipovi · ne objavljuje se</span>
+    <h1>„Konzultacije” — pet prijedloga</h1>
+    <p class="ix-lead">Svaka stranica prikazuje samo tu sekciju, sa stvarnim zaglavljem i stilovima stranice. Strelicama ‹ › na vrhu prelazite s jedne varijante na drugu. Najbolje ih je pogledati na mobitelu ili u uskom prozoru.</p>
+    <ol class="ix-list">
+      <li><a href="00-trenutno.html">
+        <span class="step-number">00</span><strong>Trenutna verzija</strong><span class="mono ix-tag">za usporedbu</span>
+        <p>Postojeća sekcija, nepromijenjena.</p>
+      </a></li>
+      <li><a href="01-petlja.html">
+        <span class="step-number">01</span><strong>Kad AI zapne</strong><span class="mono ix-tag">animacija</span>
+        <p>Razgovor s AI-jem koji „popravlja” istu grešku u krug, dok se ne pridruži Erik. Dva kratka razgovora, jedan za svaku uslugu. Sam se odvrti kad dođete do njega.</p>
+      </a></li>
+      <li><a href="02-trake.html">
+        <span class="step-number">02</span><strong>Tko vozi?</strong><span class="mono ix-tag">dijagram</span>
+        <p>Svaka usluga je jedna traka projekta: žuto radite Vi, plavo radim ja. Najjednostavnija varijanta, razumije se na prvi pogled.</p>
+      </a></li>
+      <li><a href="03-prepoznajete.html">
+        <span class="step-number">03</span><strong>Prepoznajete li se?</strong><span class="mono ix-tag">interaktivno</span>
+        <p>Pet rečenica koje posjetitelj sam izgovara („AI se vrti u krug”, „Je li ovo sigurno?”…). Odabere svoju i dobije Erikov odgovor i pravu uslugu.</p>
+      </a></li>
+      <li><a href="04-ilustracije.html">
+        <span class="step-number">04</span><strong>Tri ilustracije</strong><span class="mono ix-tag">ilustracije</span>
+        <p>Zapeli ste? Je li sigurno? Nemate vremena? Tri plošne ilustracije u stilu bloga, sa sitnim animacijama. Na mobitelu kompaktni redovi, bez listanja.</p>
+      </a></li>
+      <li><a href="05-pregled.html">
+        <span class="step-number">05</span><strong>Pregled aplikacije</strong><span class="mono ix-tag">maketa</span>
+        <p>Primjer pregleda nečije AI aplikacije: što je u redu, što treba popraviti. Dvije usluge su dva načina kako dalje, a izvještaj se mijenja ovisno o odabiru.</p>
+      </a></li>
+    </ol>
+  </div>
+</main>
+</body>
+</html>
