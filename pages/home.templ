@@ -44,33 +44,201 @@ templ Home() {
 					<span class="eyebrow">Proces</span>
 					<div>
 						<h2 id="process-title">Kako radim?</h2>
-						<p>Moj proces sastoji se od 4 koraka. U prva dva koraka radim zajedno s Vama gdje dolazimo do idejnog rješenja. Vaš trošak u ova dva koraka je samo vrijeme, a ako vidimo da nema prostora za poboljšanje, dalje niti ne idemo.</p>
+						<p>Četiri koraka, od prvog razgovora do alata koji koristite svaki dan.</p>
 					</div>
 				</div>
-				<ol class="process-list">
-					<li class="process-step">
-						<span class="step-number">01</span>
-						<h3>Otkrivanje potrebe</h3>
-						<p>Razgovaramo o Vašem poslovanju, te zajedno identificiramo što se može automatizirati.</p>
-					</li>
-					<li class="process-step">
-						<span class="step-number">02</span>
-						<h3>Predstavljanje idejnog rješenja</h3>
-						<p>Na temelju prethodno otkrivenih potreba, skiciram idejno rješenje i pokazujem Vam konkretno kakve će rezultate nositi. Tek kada ste očarani rezultatom idemo na idući korak.</p>
-					</li>
-					<li class="process-step">
-						<span class="step-number">03</span>
-						<h3>Izrada</h3>
-						<p>Rješenje gradim koristeći AI, no vodim se strogim standardima sigurnosti i kvalitete. Dugogodišnje iskustvo softverskog inženjera mi pomaže da gradim sigurne, kvalitetne i održive alate.</p>
-					</li>
-					<li class="process-step">
-						<span class="step-number">04</span>
-						<h3>Puštanje u rad</h3>
-						<p>U najkraćem mogućem roku dostavljam gotovo rješenje koje počinjete koristiti odmah jer je napravljeno u potpunosti po Vašoj mjeri, učenje i prilagodba nisu potrebni.</p>
-					</li>
-				</ol>
+				<div class="story">
+					<div class="story-tabs" role="tablist" aria-label="Koraci procesa">
+						<button class="story-tab" type="button" role="tab" id="story-tab-1" aria-controls="story-panel-1" aria-selected="true">
+							<span class="step-number">01</span><span class="story-tab-title">Otkrivanje potrebe</span><span class="story-bar"><i></i></span>
+						</button>
+						<button class="story-tab" type="button" role="tab" id="story-tab-2" aria-controls="story-panel-2" aria-selected="false" tabindex="-1">
+							<span class="step-number">02</span><span class="story-tab-title">Idejno rješenje</span><span class="story-bar"><i></i></span>
+						</button>
+						<button class="story-tab" type="button" role="tab" id="story-tab-3" aria-controls="story-panel-3" aria-selected="false" tabindex="-1">
+							<span class="step-number">03</span><span class="story-tab-title">Izrada</span><span class="story-bar"><i></i></span>
+						</button>
+						<button class="story-tab" type="button" role="tab" id="story-tab-4" aria-controls="story-panel-4" aria-selected="false" tabindex="-1">
+							<span class="step-number">04</span><span class="story-tab-title">Puštanje u rad</span><span class="story-bar"><i></i></span>
+						</button>
+					</div>
+					<div class="story-stage">
+						<div class="story-panels">
+							<div class="story-panel is-active" role="tabpanel" id="story-panel-1" aria-labelledby="story-tab-1">
+								<div class="story-visual" aria-hidden="true">
+									<div class="mock">
+										<div class="mock-head"><span>Bilješke s razgovora</span><i></i></div>
+										<ul class="mock-list">
+											<li><span>Ručni unos narudžbi</span><b class="mock-tag mock-tag--blue">automatizirati</b></li>
+											<li><span>Ponude i podsjetnici</span><b class="mock-tag mock-tag--blue">automatizirati</b></li>
+											<li><span>Razgovor s kupcima</span><b class="mock-tag">ostaje Vama</b></li>
+										</ul>
+									</div>
+								</div>
+								<div class="story-copy">
+									<span class="story-tag">Razgovaramo.</span>
+									<h3>Otkrivanje potrebe</h3>
+									<p>Razgovaramo o Vašem poslovanju i zajedno identificiramo što se može automatizirati.</p>
+								</div>
+							</div>
+							<div class="story-panel" role="tabpanel" id="story-panel-2" aria-labelledby="story-tab-2">
+								<div class="story-visual" aria-hidden="true">
+									<div class="mock mock--sketch">
+										<div class="mock-head"><span>Idejno rješenje · skica</span><i></i></div>
+										<div class="mock-body">
+											<p class="mock-label">Vrijeme na ručni posao</p>
+											<div class="mock-bar"><span>Prije</span><i style="--w: 100%"></i></div>
+											<div class="mock-bar"><span>Poslije</span><i class="is-blue" style="--w: 24%"></i></div>
+										</div>
+										<span class="mock-stamp">Idemo dalje ✓</span>
+									</div>
+								</div>
+								<div class="story-copy">
+									<span class="story-tag">Skiciram.</span>
+									<h3>Idejno rješenje</h3>
+									<p>Skiciram rješenje i konkretno Vam pokazujem kakve će rezultate donijeti. Dalje idemo tek kada ste zadovoljni, a ako nema prostora za poboljšanje, tu stajemo.</p>
+								</div>
+							</div>
+							<div class="story-panel" role="tabpanel" id="story-panel-3" aria-labelledby="story-tab-3">
+								<div class="story-visual" aria-hidden="true">
+									<div class="mock mock--term">
+										<div class="mock-head"><span>Izrada</span><i></i></div>
+										<ol class="mock-term">
+											<li>› gradim uz AI</li>
+											<li><b>✓</b> sigurnost</li>
+											<li><b>✓</b> kvaliteta</li>
+											<li><b>✓</b> održivost</li>
+										</ol>
+									</div>
+								</div>
+								<div class="story-copy">
+									<span class="story-tag story-tag--build">Gradim.</span>
+									<h3>Izrada</h3>
+									<p>Rješenje gradim koristeći AI, uz stroge standarde sigurnosti i kvalitete. Dugogodišnje iskustvo softverskog inženjera pomaže mi graditi sigurne i održive alate.</p>
+								</div>
+							</div>
+							<div class="story-panel" role="tabpanel" id="story-panel-4" aria-labelledby="story-tab-4">
+								<div class="story-visual" aria-hidden="true">
+									<div class="mock mock--live">
+										<div class="mock-toast">
+											<span class="mock-check">✓</span>
+											<div><strong>Rješenje je pušteno u rad</strong><span>Spremno za korištenje</span></div>
+										</div>
+										<dl class="mock-stats">
+											<div><dt>Učenje</dt><dd>0 h</dd></div>
+											<div><dt>Prilagodba</dt><dd>0 h</dd></div>
+										</dl>
+									</div>
+								</div>
+								<div class="story-copy">
+									<span class="story-tag story-tag--build">Koristite.</span>
+									<h3>Puštanje u rad</h3>
+									<p>U najkraćem mogućem roku dostavljam gotovo rješenje. Napravljeno je po Vašoj mjeri, pa ga koristite odmah, bez učenja i prilagodbe.</p>
+								</div>
+							</div>
+						</div>
+						<div class="story-nav">
+							<span class="story-count"><b>01</b> / 04</span>
+							<button class="story-btn" type="button" data-dir="-1" aria-label="Prethodni korak">←</button>
+							<button class="story-btn" type="button" data-dir="1" aria-label="Sljedeći korak">→</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
+		<script>
+			(() => {
+				const story = document.querySelector(".story");
+				const tabs = [...story.querySelectorAll(".story-tab")];
+				const panels = [...story.querySelectorAll(".story-panel")];
+				const count = story.querySelector(".story-count b");
+				const stage = story.querySelector(".story-stage");
+				const compact = matchMedia("(max-width: 960px)");
+				let index = 0;
+				let autoplay = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+				const show = (i) => {
+					index = (i + tabs.length) % tabs.length;
+					tabs.forEach((tab, n) => {
+						const on = n === index;
+						tab.setAttribute("aria-selected", String(on));
+						tab.tabIndex = on ? 0 : -1;
+						tab.classList.toggle("is-done", n < index);
+						panels[n].classList.toggle("is-active", on);
+					});
+					count.textContent = String(index + 1).padStart(2, "0");
+				};
+
+				// Any manual navigation ends autoplay for good.
+				const takeOver = (i) => {
+					autoplay = false;
+					story.classList.remove("is-playing");
+					show(i);
+				};
+
+				tabs.forEach((tab, n) => {
+					tab.addEventListener("click", () => takeOver(n));
+					tab.addEventListener("keydown", (event) => {
+						const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+						if (!step) return;
+						event.preventDefault();
+						takeOver(index + step);
+						tabs[index].focus();
+					});
+					tab.querySelector(".story-bar i").addEventListener("animationend", () => {
+						if (!autoplay) return;
+						if (index === tabs.length - 1) {
+							autoplay = false;
+							story.classList.remove("is-playing");
+							return;
+						}
+						show(index + 1);
+					});
+				});
+
+				story.querySelectorAll(".story-btn").forEach((button) =>
+					button.addEventListener("click", (event) => {
+						event.stopPropagation();
+						takeOver(index + Number(button.dataset.dir));
+					})
+				);
+
+				// Stories-style taps on phones: left third goes back, the rest forward.
+				stage.addEventListener("click", (event) => {
+					if (!compact.matches || event.target.closest("button, a")) return;
+					const box = stage.getBoundingClientRect();
+					takeOver(index + (event.clientX - box.left < box.width / 3 ? -1 : 1));
+				});
+
+				// Pause while hovered, pressed or focused, and while off-screen.
+				const pause = (on) => story.classList.toggle("is-paused", on);
+				story.addEventListener("mouseenter", () => pause(true));
+				story.addEventListener("mouseleave", () => pause(false));
+				stage.addEventListener("pointerdown", (event) => event.pointerType !== "mouse" && pause(true));
+				stage.addEventListener("pointerup", () => pause(false));
+				stage.addEventListener("pointercancel", () => pause(false));
+				story.addEventListener("focusin", () => pause(true));
+				story.addEventListener("focusout", () => pause(false));
+
+				if ("IntersectionObserver" in window) {
+					const observer = new IntersectionObserver(([entry]) => {
+						if (entry.isIntersecting && autoplay) story.classList.add("is-playing");
+						if (!entry.isIntersecting) pause(true);
+						else if (!story.matches(":hover")) pause(false);
+						// Replay the first mock once the card first comes into view.
+						if (entry.isIntersecting && !story.dataset.seen) {
+							story.dataset.seen = "1";
+							panels[index].classList.remove("is-active");
+							void panels[index].offsetWidth;
+							panels[index].classList.add("is-active");
+						}
+					}, { threshold: 0.5 });
+					observer.observe(story);
+				}
+
+				show(0);
+			})();
+		</script>
 
 		<section class="section consulting-section" id="konzultacije" aria-labelledby="consulting-title">
 			<div class="wrap">
