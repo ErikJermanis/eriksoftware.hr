@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero · prijedlozi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../public/styles.css?v=hero2">
+<style>
+.ix {
+  padding: clamp(48px, 7vw, 96px) 0;
+}
+.ix h1 {
+  margin: 20px 0 14px;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+}
+.ix-lead {
+  max-width: 700px;
+  margin-bottom: 40px;
+  color: var(--muted);
+}
+.ix-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--carbon);
+  list-style: none;
+}
+.ix-list a {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--carbon);
+  text-decoration: none;
+}
+.ix-list a:hover strong {
+  color: var(--blue);
+}
+.ix-list strong {
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.ix-list p {
+  grid-column: 2 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+.ix-list .mono:last-of-type {
+  color: var(--blue);
+}
+@media (max-width: 700px) {
+  .ix-list a {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+  .ix-list .ix-tag {
+    grid-column: 2;
+  }
+}
+</style>
+</head>
+<body>
+<main class="ix">
+  <div class="wrap">
+    <span class="eyebrow">Prototipovi · ne objavljuje se</span>
+    <h1>Hero — pet prijedloga</h1>
+    <p class="ix-lead">Svaka stranica prikazuje samo hero, sa stvarnim zaglavljem i stilovima stranice, te početkom sekcije „Kako radim?” ispod. Strelicama ‹ › na vrhu prelazite s jedne varijante na drugu. Najbolje ih je pogledati na mobitelu ili u uskom prozoru.</p>
+    <ol class="ix-list">
+      <li><a href="00-trenutno.html">
+        <span class="step-number">00</span><strong>Trenutna verzija</strong><span class="mono ix-tag">za usporedbu</span>
+        <p>Postojeći hero, nepromijenjen.</p>
+      </a></li>
+      <li><a href="01-precrtano.html">
+        <span class="step-number">01</span><strong>Precrtano</strong><span class="mono ix-tag">tipografija</span>
+        <p>Najmirnija varijanta, samo tekst. Ono s čime vlasnik danas živi („tablice, papiri, bilježnice”) se precrta, a jednostavna zamjena dobije isti žuti marker kao u Konzultacijama. Naslov istakne kome je namijenjen.</p>
+      </a></li>
+      <li><a href="02-ilustracije.html">
+        <span class="step-number">02</span><strong>Ilustracije</strong><span class="mono ix-tag">ilustracije</span>
+        <p>Plošni crteži u stilu naslovnica bloga. Kartica „Moj pristup” crta zapetljani put od A do B, pa onaj ravni. Svaka usluga ima jedan mali pokret koji je objašnjava. Na mobitelu kompaktni redovi.</p>
+      </a></li>
+      <li><a href="03-po-mjeri.html">
+        <span class="step-number">03</span><strong>Po mjeri</strong><span class="mono ix-tag">maketa</span>
+        <p>Mali prozor alata koji pretipkava za koga je napravljen: Vašu pekaru, Vaš autoservis, Vaše računovodstvo… Vlasnik prepozna svoj posao. Jedan krug, pa stane na „Vaš posao”.</p>
+      </a></li>
+      <li><a href="04-spojeno.html">
+        <span class="step-number">04</span><strong>Sve spojeno</strong><span class="mono ix-tag">dijagram</span>
+        <p>Jedan mali dijagram: programi koje već koristite, jedan jednostavan alat u sredini i online s desne strane, a posao tiho teče kroz njih. Usluge su legenda dijagrama.</p>
+      </a></li>
+      <li><a href="05-dok-radite.html">
+        <span class="step-number">05</span><strong>Dok Vi radite</strong><span class="mono ix-tag">obavijesti</span>
+        <p>Rezultat umjesto procesa: obavijesti koje vlasnik dobije kad software radi sam. Svaka usluga nosi istu ikonu kao njezina obavijest. Uz naslov i lice, da se odmah vidi s kim razgovarate.</p>
+      </a></li>
+    </ol>
+  </div>
+</main>
+</body>
+</html>

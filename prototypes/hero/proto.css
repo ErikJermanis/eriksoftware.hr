@@ -1,0 +1,102 @@
+/* Prototype chrome only — not part of any variant. */
+.proto-bar {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px;
+  background: var(--carbon);
+  color: var(--paper);
+  font: 600 11px/1.3 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.proto-bar a {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  padding: 0 6px;
+  color: inherit;
+  text-decoration: none;
+}
+.proto-bar a:hover {
+  color: var(--gold);
+}
+.proto-bar-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--gold);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.proto-bar nav {
+  display: flex;
+}
+.proto-bar nav a {
+  min-width: 34px;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.proto-next {
+  padding-bottom: 40px;
+  border-bottom: 0;
+}
+.proto-next .section-head {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Shared by every new variant (01–05): the same copy column as today, a bit
+   less air on phones so the whole hero fits in about 1.5 screens.
+   ========================================================================== */
+.hx {
+  padding-bottom: clamp(48px, 6vw, 72px);
+}
+.hx .hero-grid {
+  align-items: center;
+}
+.hx-strip {
+  margin-top: clamp(48px, 7vw, 96px);
+}
+/* One reusable "graph paper" surface, same as the Kako radim mock-ups. */
+.hx-paper {
+  background-color: var(--stock);
+  background-image:
+    linear-gradient(rgb(188 185 175 / 35%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(188 185 175 / 35%) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: -1px -1px;
+}
+
+@media (max-width: 960px) {
+  /* One column; never let a card's content push the page wider. */
+  .hx .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Same cap as today's card, so drawings don't blow up on tablets. */
+  .hx .hero-grid > aside {
+    max-width: 560px;
+  }
+}
+@media (max-width: 700px) {
+  .hx.hero {
+    padding-top: 44px;
+  }
+  .hx h1 {
+    margin: 18px 0 20px;
+  }
+  .hx .hero-lead {
+    margin-bottom: 16px;
+  }
+  .hx .hero-grid {
+    gap: 36px;
+  }
+  .hx-strip {
+    margin-top: 40px;
+  }
+}

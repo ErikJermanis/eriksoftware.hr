@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero · 01 Precrtano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="../../public/styles.css?v=hero2">
+<link rel="stylesheet" href="proto.css?v=hero2">
+<style>
+/* ==========================================================================
+   01 · Precrtano
+   Pure typography, the quietest option. What a business owner lives with
+   today is struck through, and the simple alternative steps forward. The
+   card uses the same gold highlighter as Konzultacije, and the title marks
+   who it is for. No pictures, no loops: everything moves once and stays.
+   Without JS (or with reduced motion) it is all simply shown struck through
+   and highlighted.
+   ========================================================================== */
+.v1-mark {
+  background: linear-gradient(var(--gold), var(--gold)) 0 92% / 100% 30% no-repeat;
+  color: inherit;
+  transition: background-size 0.9s cubic-bezier(0.6, 0, 0.2, 1) 0.15s;
+}
+.js .v1-title:not(.is-in) .v1-mark {
+  background-size: 0 30%;
+}
+
+/* Struck-through "before" and highlighted "after", shared by card and strip. */
+.v1-was {
+  position: relative;
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s ease var(--strike, 0s);
+}
+.v1-was::after {
+  position: absolute;
+  top: 54%;
+  right: -3px;
+  left: -3px;
+  height: 2px;
+  background: var(--carbon);
+  content: "";
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.6, 0, 0.2, 1) var(--strike, 0s);
+}
+.v1-now span {
+  margin: 0 -2px;
+  padding: 0 2px;
+  background: linear-gradient(var(--gold), var(--gold)) 0 88% / 100% 42% no-repeat;
+  transition: background-size 0.5s cubic-bezier(0.6, 0, 0.2, 1) var(--mark, 0s);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.js [data-in]:not(.is-in) .v1-was {
+  color: var(--carbon);
+}
+.js [data-in]:not(.is-in) .v1-was::after {
+  transform: scaleX(0);
+}
+.js [data-in]:not(.is-in) .v1-now span {
+  background-size: 0 42%;
+}
+/* In the strip the new line simply steps forward; only the card is highlighted,
+   so the hero has two marks, not seven. */
+.v1-line .v1-now span {
+  background: none;
+}
+.js .v1-strip:not(.is-in) .v1-line .v1-now {
+  color: var(--rule);
+}
+
+/* Card */
+.v1-card {
+  padding: 26px;
+  border: 1px solid var(--carbon);
+  background: var(--stock);
+  box-shadow: 8px 8px 0 var(--blue);
+}
+.v1-card > .mono {
+  display: block;
+  margin-bottom: 26px;
+}
+.v1-swap {
+  display: grid;
+  gap: 18px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.v1-swap .v1-was {
+  margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.v1-swap .v1-now {
+  display: block;
+  font-size: 29px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.v1-swap li:nth-child(1) { --strike: 0.7s; --mark: 1.1s; }
+.v1-swap li:nth-child(2) { --strike: 1.5s; --mark: 1.9s; }
+.v1-card > p {
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 16px;
+}
+
+/* Strip of services */
+.v1-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--carbon);
+  border-left: 1px solid var(--carbon);
+}
+.v1-svc {
+  padding: 22px 22px 26px;
+  border-right: 1px solid var(--carbon);
+  border-bottom: 1px solid var(--carbon);
+}
+.v1-svc h2 {
+  margin: 0 0 26px;
+}
+.v1-line {
+  margin: 0 0 14px;
+}
+.v1-line .v1-was {
+  margin-bottom: 4px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.v1-line .v1-now {
+  display: block;
+  transition: color 0.4s ease var(--mark, 0s);
+  font-size: 22px;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+}
+.v1-svc > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.v1-svc:nth-child(1) { --strike: 0.2s; --mark: 0.5s; }
+.v1-svc:nth-child(2) { --strike: 0.45s; --mark: 0.75s; }
+.v1-svc:nth-child(3) { --strike: 0.7s; --mark: 1s; }
+
+@media (max-width: 700px) {
+  .v1-card {
+    padding: 20px;
+  }
+  .v1-card > .mono {
+    margin-bottom: 18px;
+  }
+  .v1-swap {
+    gap: 14px;
+    margin-bottom: 0;
+  }
+  /* Phones: the struck/new pairs are the content; the longer sentences
+     stay on desktop so the hero is about a screen shorter. */
+  .v1-card > p,
+  .v1-svc > p:last-child {
+    display: none;
+  }
+  .v1-swap .v1-now {
+    font-size: 26px;
+  }
+  .v1-strip {
+    grid-template-columns: 1fr;
+  }
+  .v1-svc {
+    padding: 18px 18px 20px;
+  }
+  .v1-svc h2 {
+    margin-bottom: 14px;
+  }
+  .v1-line {
+    margin: 0;
+  }
+  .v1-line .v1-now {
+    font-size: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v1-mark,
+  .v1-was,
+  .v1-was::after,
+  .v1-now span {
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<main id="main">
+  <section class="hero hx" aria-labelledby="home-title">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Erik Jermaniš</span>
+          <h1 id="home-title" class="v1-title" data-in>Software i automatizacija za <mark class="v1-mark">male i srednje poduzetnike</mark></h1>
+          <p class="hero-lead">Pomažem Vam efikasnije raditi svoj posao izradom prilagođenih aplikacija, procesa i alata.</p>
+          <p>Rješenja koja radim u potpunosti su prilagođena Vama i Vašem poslovanju, stoga nije potrebno trošiti vrijeme na prilagodbu i učenje još jednog alata, već su rezultati jasno vidljivi od prvog dana.</p>
+        </div>
+        <aside class="v1-card" aria-label="Moj pristup" data-in>
+          <span class="mono">Moj pristup</span>
+          <ul class="v1-swap">
+            <li><s class="v1-was">Komplicirani sustavi</s><strong class="v1-now"><span>Jednostavna rješenja.</span></strong></li>
+            <li><s class="v1-was">Velika obećanja</s><strong class="v1-now"><span>Konkretni rezultati.</span></strong></li>
+          </ul>
+          <p>Čvrsto vjerujem da se jednostavnim rješenjima mogu postići veliki rezultati. Gradim efikasan software bez nepotrebnih komplikacija.</p>
+        </aside>
+      </div>
+      <div class="v1-strip hx-strip" aria-label="Usluge" data-in>
+        <article class="v1-svc">
+          <h2 class="mono">In-house alati</h2>
+          <p class="v1-line"><s class="v1-was">tablice, papiri, bilježnice</s><strong class="v1-now"><span>Jedan alat po Vašoj mjeri.</span></strong></p>
+          <p>Gradim alate koji se integriraju u Vaše poslovanje i rade s Vašim postojećim softwareom.</p>
+        </article>
+        <article class="v1-svc">
+          <h2 class="mono">Automatizacija</h2>
+          <p class="v1-line"><s class="v1-was">ručno prepisivanje</s><strong class="v1-now"><span>Ponavljajući posao radi se sam.</span></strong></p>
+          <p>Automatiziram poslovne procese softwareom uz vidljive rezultate i uštedu vremena.</p>
+        </article>
+        <article class="v1-svc">
+          <h2 class="mono">Web rješenja</h2>
+          <p class="v1-line"><s class="v1-was">briga o serveru</s><strong class="v1-now"><span>Hosting i održavanje prepustite meni.</span></strong></p>
+          <p>Izrađujem prilagođen software i web sustave, te nudim hosting i održavanje.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="proto.js?v=hero2"></script>
+</body>
+</html>
