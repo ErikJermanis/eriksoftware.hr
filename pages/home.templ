@@ -10,33 +10,158 @@ templ Home() {
 			<div class="wrap">
 				<div class="hero-grid">
 					<div class="hero-copy">
-						<span class="eyebrow">Erik Jermaniš</span>
+						<span class="hero-person">
+							<img src="/assets/profil_web.jpg" width="34" height="34" alt=""/>
+							<span>Erik Jermaniš<small>softverski inženjer</small></span>
+						</span>
 						<h1 id="home-title">Software i automatizacija za male i srednje poduzetnike</h1>
 						<p class="hero-lead">Pomažem Vam efikasnije raditi svoj posao izradom prilagođenih aplikacija, procesa i alata.</p>
 						<p>Rješenja koja radim u potpunosti su prilagođena Vama i Vašem poslovanju, stoga nije potrebno trošiti vrijeme na prilagodbu i učenje još jednog alata, već su rezultati jasno vidljivi od prvog dana.</p>
 					</div>
 					<aside class="hero-card" aria-label="Moj pristup">
-						<span class="mono">Moj pristup</span>
-						<strong>Jednostavna rješenja.<br/>Konkretni rezultati.</strong>
-						<p>Čvrsto vjerujem da se jednostavnim rješenjima mogu postići veliki rezultati. Gradim efikasan software bez nepotrebnih komplikacija.</p>
+						<div class="hero-stage" aria-hidden="true">
+							<div class="mock fit-win">
+								<div class="mock-head"><span>Vaš alat</span><i></i></div>
+								<p class="fit-for"><span class="mono">Napravljeno za</span><span class="fit-who">Vašu pekaru</span><i class="fit-caret"></i></p>
+								<ul class="mock-list fit-rows">
+									<li><span>Narudžbe za sutra</span><b class="fit-n">14</b></li>
+									<li><span>Popis za dostavu</span><b class="mock-tag mock-tag--blue">automatski</b></li>
+									<li><span>Računi kupcima</span><b class="mock-tag mock-tag--blue">automatski</b></li>
+								</ul>
+							</div>
+						</div>
+						<div class="hero-body">
+							<span class="mono">Moj pristup</span>
+							<strong>Jednostavna rješenja.<br/>Konkretni rezultati.</strong>
+							<p>Čvrsto vjerujem da se jednostavnim rješenjima mogu postići veliki rezultati. Gradim efikasan software bez nepotrebnih komplikacija.</p>
+						</div>
 					</aside>
 				</div>
-				<div class="signal-strip" aria-label="Usluge">
-					<article class="signal">
+				<div class="services" aria-label="Usluge">
+					<article class="service">
+						<div class="service-band" aria-hidden="true">
+							<ul class="service-chips">
+								<li class="service-chip" style="--d: 0.3s">Tablice <b>✓</b></li>
+								<li class="service-chip" style="--d: 0.5s">E-mail <b>✓</b></li>
+								<li class="service-chip" style="--d: 0.7s">Blagajna <b>✓</b></li>
+							</ul>
+						</div>
 						<h2 class="mono">In-house alati</h2>
 						<p>Gradim alate koji se integriraju u Vaše poslovanje i rade s Vašim postojećim softwareom.</p>
 					</article>
-					<article class="signal">
+					<article class="service">
+						<div class="service-band" aria-hidden="true">
+							<ul class="service-chips">
+								<li class="service-chip">Narudžba</li>
+								<li class="service-arrow" style="--d: 0.5s">→</li>
+								<li class="service-chip">Tablica</li>
+								<li class="service-arrow" style="--d: 0.8s">→</li>
+								<li class="service-chip service-chip--done" style="--d: 1.1s">Račun <b>✓</b></li>
+							</ul>
+						</div>
 						<h2 class="mono">Automatizacija</h2>
 						<p>Automatiziram poslovne procese softwareom uz vidljive rezultate i uštedu vremena.</p>
 					</article>
-					<article class="signal">
+					<article class="service">
+						<div class="service-band" aria-hidden="true">
+							<div class="service-url"><i class="service-lock"></i><span>vasa-tvrtka.hr</span><b class="service-live">online</b></div>
+						</div>
 						<h2 class="mono">Web rješenja</h2>
 						<p>Izrađujem prilagođen software i web sustave, te nudim hosting i održavanje.</p>
 					</article>
 				</div>
+				<div class="services-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
 			</div>
 		</section>
+		<script>
+			(() => {
+				const card = document.querySelector(".hero-card");
+				const strip = document.querySelector(".services");
+				const who = card.querySelector(".fit-who");
+				const rows = card.querySelector(".fit-rows");
+				const dots = [...document.querySelectorAll(".services-dots i")];
+				const A = "automatski";
+				// Who the tool window was "made for": one pass, then it settles on "Vaš posao".
+				const kinds = [
+					["Vašu pekaru", [["Narudžbe za sutra", "14"], ["Popis za dostavu", A], ["Računi kupcima", A]]],
+					["Vaš autoservis", [["Termini danas", "6"], ["Podsjetnici za servis", A], ["Ponude za dijelove", A]]],
+					["Vaše računovodstvo", [["Novi računi", "23"], ["Upis u knjige", A], ["Podsjetnici za plaćanje", A]]],
+					["Vašu trgovinu", [["Narudžbe s weba", "9"], ["Stanje zaliha", A], ["Otpremnice", A]]],
+					["Vaš posao", [["Sve na jednom mjestu", "✓"], ["Ono što se ponavlja", A], ["Ono što je važno", "ostaje Vama"]]],
+				];
+				const last = kinds[kinds.length - 1];
+				const render = ([, list]) => {
+					rows.innerHTML = list
+						.map(([label, value], n) => {
+							const tag = n === 0
+								? `<b class="fit-n">${value}</b>`
+								: `<b class="mock-tag${value === A ? " mock-tag--blue" : ""}">${value}</b>`;
+							return `<li><span>${label}</span>${tag}</li>`;
+						})
+						.join("");
+				};
+
+				// Phones: keep the position marker under the swiped services in step.
+				strip.addEventListener("scroll", () => {
+					const cards = [...strip.children];
+					const gap = (el) => Math.abs(el.offsetLeft - cards[0].offsetLeft - strip.scrollLeft);
+					const n = cards.reduce((best, el, i) => (gap(el) < gap(cards[best]) ? i : best), 0);
+					dots.forEach((dot, i) => dot.classList.toggle("is-on", i === n));
+				}, { passive: true });
+
+				const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+				if (calm || !("IntersectionObserver" in window)) {
+					if (calm) {
+						who.textContent = last[0];
+						render(last);
+					}
+					strip.classList.add("is-in");
+					card.classList.add("is-done");
+					return;
+				}
+
+				function* script() {
+					for (let n = 1; n < kinds.length; n++) {
+						yield 2600;
+						rows.classList.add("is-out");
+						while (who.textContent.length) {
+							who.textContent = who.textContent.slice(0, -1);
+							yield 30;
+						}
+						render(kinds[n]);
+						for (const ch of kinds[n][0]) {
+							who.textContent += ch;
+							yield 60;
+						}
+						yield 120;
+						rows.classList.remove("is-out");
+					}
+					card.classList.add("is-done");
+				}
+				const steps = script();
+				const step = () => {
+					// Hold still while the card is off-screen.
+					if (!card.classList.contains("is-live")) return void setTimeout(step, 300);
+					const next = steps.next();
+					if (!next.done) setTimeout(step, next.value);
+				};
+
+				// .is-in once first seen (one-off moves), .is-live while on screen (loops).
+				let started = false;
+				const observer = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => {
+					if (isIntersecting) target.classList.add("is-in");
+					target.classList.toggle("is-live", isIntersecting);
+					if (target === card && isIntersecting && !started) {
+						started = true;
+						step();
+					}
+				}), { threshold: 0.35 });
+				// Let the fonts settle first so the hero does not animate mid-load.
+				const begin = () => setTimeout(() => [card, strip].forEach((el) => observer.observe(el)), 250);
+				const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+				Promise.race([fonts, new Promise((r) => setTimeout(r, 1000))]).then(begin);
+			})();
+		</script>
 
 		<section class="section process-section" id="kako-radim" aria-labelledby="process-title">
 			<div class="wrap">
