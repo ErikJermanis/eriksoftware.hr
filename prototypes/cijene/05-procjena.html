@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 · Procjena · Cijene</title>
+<meta name="description" content="Prilagođene aplikacije, automatizacija i AI konzultacije za male i srednje poduzetnike. Konzultacije 80 € po satu, izrada od 800 €, hosting od 30 € mjesečno.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="../../public/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="../../public/styles.css">
+<link rel="stylesheet" href="proto.css">
+<!-- Generated: the homepage from pages/home.templ plus this variant's pricing. Amounts are made-up examples. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://eriksoftware.hr/#organization",
+  "name": "Erik Software",
+  "url": "https://eriksoftware.hr/",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Hrvatska"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Usluge i cijene",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Izrada softwarea i automatizacija po mjeri"
+        },
+        "description": "Fiksna cijena, dogovorena prije početka. Većina projekata košta 2.000–8.000 €.",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": 800,
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": false
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Hosting i održavanje"
+        },
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "minPrice": 30,
+          "priceCurrency": "EUR",
+          "unitCode": "MON",
+          "unitText": "mjesečno",
+          "valueAddedTaxIncluded": false
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI konzultacije"
+        },
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": 80,
+          "priceCurrency": "EUR",
+          "unitCode": "HUR",
+          "unitText": "sat",
+          "valueAddedTaxIncluded": false
+        }
+      }
+    ]
+  }
+}
+</script>
+<style>
+/* 05 · Procjena — three questions, an instant range (never one number), how
+   long it takes and when it pays for itself. The rules behind the range are
+   written out in plain text below, for people and for search and AI tools. */
+.v5-section {
+  background: var(--paper);
+}
+.v5 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 0 clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+.v5-form {
+  border-top: 1px solid var(--carbon);
+}
+.v5-q {
+  margin: 0;
+  padding: 20px 0 22px;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.v5-q legend {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.v5-q legend small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.v5-opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.v5-opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.v5-opt span {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.25;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.v5-opt span::before {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  border: 1px solid currentColor;
+  content: "";
+}
+.v5-opt:hover span {
+  background: var(--stock);
+}
+.v5-opt input:checked + span {
+  background: var(--carbon);
+  color: var(--paper);
+}
+.v5-opt input:checked + span::before {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.v5-opt input:focus-visible + span {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+.v5-hours {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+.v5-hours input {
+  width: 100%;
+  accent-color: var(--blue);
+}
+.v5-hours output {
+  min-width: 112px;
+  font: 600 14px/1 var(--mono);
+  text-align: right;
+}
+
+.v5-form {
+  grid-column: 1;
+}
+.v5-how {
+  grid-column: 1;
+}
+.v5-result {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  position: sticky;
+  top: 100px;
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--blue);
+}
+.v5-result-body {
+  padding: 24px 24px 22px;
+  background-color: var(--stock);
+  background-image:
+    linear-gradient(rgb(188 185 175 / 35%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(188 185 175 / 35%) 1px, transparent 1px);
+  background-position: -1px -1px;
+  background-size: 20px 20px;
+}
+.v5-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+.v5-range {
+  margin: 0 0 22px;
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.v5-range.is-tick {
+  animation: story-stamp 0.3s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+.v5-rows {
+  margin: 0;
+  border-top: 1px solid var(--carbon);
+  background: var(--paper);
+}
+.v5-rows div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--carbon);
+  border-top: 0;
+}
+.v5-rows dt {
+  color: var(--muted);
+  font-size: 15px;
+}
+.v5-rows dd {
+  margin: 0;
+  font: 600 13px/1.4 var(--mono);
+  text-align: right;
+}
+.v5-rows dd b {
+  padding: 0 2px;
+  background: linear-gradient(var(--gold), var(--gold)) 0 88% / 100% 42% no-repeat;
+}
+.v5-assume {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.v5-cta {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--carbon);
+  background: var(--carbon);
+  color: var(--paper);
+  font: 600 12px/1.4 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.v5-cta:hover {
+  background: var(--blue);
+  color: #fff;
+}
+.v5-fine {
+  margin: 0;
+  padding: 12px 24px 14px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.v5-how {
+  margin-top: 22px;
+}
+.v5-how summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font: 600 12px/1.4 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.v5-how summary:hover {
+  color: var(--blue);
+}
+.v5-how table {
+  width: 100%;
+  margin-top: 14px;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.v5-how th,
+.v5-how td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+.v5-how th {
+  padding-right: 16px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.v5-how td {
+  font: 600 13px/1.5 var(--mono);
+  text-align: right;
+  white-space: nowrap;
+}
+.v5-also {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  margin: 40px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--carbon);
+  color: var(--muted);
+  font-size: 16px;
+}
+.v5-also b {
+  color: var(--carbon);
+}
+
+@media (max-width: 960px) {
+  .v5 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .v5-form,
+  .v5-how,
+  .v5-result {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .v5-result {
+    position: static;
+    max-width: 560px;
+  }
+  .v5-how {
+    margin-top: 0;
+  }
+}
+@media (max-width: 700px) {
+  .v5-q legend {
+    font-size: 18px;
+  }
+  .v5-opt span {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+  .v5-result-body {
+    padding: 20px 18px 18px;
+  }
+  .v5-cta,
+  .v5-fine {
+    padding-inline: 18px;
+  }
+  .v5-also {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+<div class="proto-bar">
+	<a href="index.html">← Sve</a>
+	<span class="proto-bar-title">05 · Procjena</span>
+	<nav aria-label="Prototipovi">
+		<a href="04-razine.html" aria-label="Prethodna varijanta">‹</a>
+		<a href="00-trenutno.html" aria-label="Sljedeća varijanta">›</a>
+	</nav>
+</div>
+<a class="skip-link" href="#main">Preskoči na sadržaj</a>
+<header class="site-header">
+	<div class="wrap header-inner">
+		<a class="brand" href="index.html" aria-label="Erik Software — naslovnica">
+			<img src="../../public/eriksoftware_logo.svg" width="42" height="42" alt="">
+			<span>Erik Software</span>
+		</a>
+		<button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
+			<span class="menu-icon" aria-hidden="true"></span>
+			<span>Izbornik</span>
+		</button>
+		<nav id="site-nav" aria-label="Glavna navigacija">
+				<a href="#kako-radim">Kako radim</a>
+				<a href="#cijene">Cijene</a>
+				<a href="#konzultacije">Konzultacije</a>
+				<a href="#o-meni">O meni</a>
+				<a href="#">Blog</a>
+		</nav>
+	</div>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="home-title">
+	<div class="wrap">
+		<div class="hero-grid">
+			<div class="hero-copy">
+				<span class="hero-person">
+					<img src="../../public/profil_web.jpg" width="34" height="34" alt=""/>
+					<span>Erik Jermaniš<small>softverski inženjer</small></span>
+				</span>
+				<h1 id="home-title">Software i automatizacija za male i srednje poduzetnike</h1>
+				<p class="hero-lead">Pomažem Vam efikasnije raditi svoj posao izradom prilagođenih aplikacija, procesa i alata.</p>
+				<p>Rješenja koja radim u potpunosti su prilagođena Vama i Vašem poslovanju, stoga nije potrebno trošiti vrijeme na prilagodbu i učenje još jednog alata, već su rezultati jasno vidljivi od prvog dana.</p>
+			</div>
+			<aside class="hero-card" aria-label="Moj pristup">
+				<div class="hero-stage" aria-hidden="true">
+					<div class="mock fit-win">
+						<div class="mock-head"><span>Vaš alat</span><i></i></div>
+						<p class="fit-for"><span class="mono">Napravljeno za</span><span class="fit-who">Vašu pekaru</span><i class="fit-caret"></i></p>
+						<ul class="mock-list fit-rows">
+							<li><span>Narudžbe za sutra</span><b class="fit-n">14</b></li>
+							<li><span>Popis za dostavu</span><b class="mock-tag mock-tag--blue">automatski</b></li>
+							<li><span>Računi kupcima</span><b class="mock-tag mock-tag--blue">automatski</b></li>
+						</ul>
+					</div>
+				</div>
+				<div class="hero-body">
+					<span class="mono">Moj pristup</span>
+					<strong>Jednostavna rješenja.<br/>Konkretni rezultati.</strong>
+					<p>Čvrsto vjerujem da se jednostavnim rješenjima mogu postići veliki rezultati. Gradim efikasan software bez nepotrebnih komplikacija.</p>
+				</div>
+			</aside>
+		</div>
+		<div class="services" aria-label="Usluge">
+			<article class="service">
+				<div class="service-band" aria-hidden="true">
+					<ul class="service-chips">
+						<li class="service-chip" style="--d: 0.3s">Tablice <b>✓</b></li>
+						<li class="service-chip" style="--d: 0.5s">E-mail <b>✓</b></li>
+						<li class="service-chip" style="--d: 0.7s">Blagajna <b>✓</b></li>
+					</ul>
+				</div>
+				<h2 class="mono">In-house alati</h2>
+				<p>Gradim alate koji se integriraju u Vaše poslovanje i rade s Vašim postojećim softwareom.</p>
+			</article>
+			<article class="service">
+				<div class="service-band" aria-hidden="true">
+					<ul class="service-chips">
+						<li class="service-chip">Narudžba</li>
+						<li class="service-arrow" style="--d: 0.5s">→</li>
+						<li class="service-chip">Tablica</li>
+						<li class="service-arrow" style="--d: 0.8s">→</li>
+						<li class="service-chip service-chip--done" style="--d: 1.1s">Račun <b>✓</b></li>
+					</ul>
+				</div>
+				<h2 class="mono">Automatizacija</h2>
+				<p>Automatiziram poslovne procese softwareom uz vidljive rezultate i uštedu vremena.</p>
+			</article>
+			<article class="service">
+				<div class="service-band" aria-hidden="true">
+					<div class="service-url"><i class="service-lock"></i><span>vasa-tvrtka.hr</span><b class="service-live">online</b></div>
+				</div>
+				<h2 class="mono">Web rješenja</h2>
+				<p>Izrađujem prilagođen software i web sustave, te nudim hosting i održavanje.</p>
+			</article>
+		</div>
+		<div class="services-dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
+	</div>
+</section>
+<script>
+	(() => {
+		const card = document.querySelector(".hero-card");
+		const strip = document.querySelector(".services");
+		const who = card.querySelector(".fit-who");
+		const rows = card.querySelector(".fit-rows");
+		const dots = [...document.querySelectorAll(".services-dots i")];
+		const A = "automatski";
+		// Who the tool window was "made for": one pass, then it settles on "Vaš posao".
+		const kinds = [
+			["Vašu pekaru", [["Narudžbe za sutra", "14"], ["Popis za dostavu", A], ["Računi kupcima", A]]],
+			["Vaš autoservis", [["Termini danas", "6"], ["Podsjetnici za servis", A], ["Ponude za dijelove", A]]],
+			["Vaše računovodstvo", [["Novi računi", "23"], ["Upis u knjige", A], ["Podsjetnici za plaćanje", A]]],
+			["Vašu trgovinu", [["Narudžbe s weba", "9"], ["Stanje zaliha", A], ["Otpremnice", A]]],
+			["Vaš posao", [["Sve na jednom mjestu", "✓"], ["Ono što se ponavlja", A], ["Ono što je važno", "ostaje Vama"]]],
+		];
+		const last = kinds[kinds.length - 1];
+		const render = ([, list]) => {
+			rows.innerHTML = list
+				.map(([label, value], n) => {
+					const tag = n === 0
+						? `<b class="fit-n">${value}</b>`
+						: `<b class="mock-tag${value === A ? " mock-tag--blue" : ""}">${value}</b>`;
+					return `<li><span>${label}</span>${tag}</li>`;
+				})
+				.join("");
+		};
+
+		// Phones: keep the position marker under the swiped services in step.
+		strip.addEventListener("scroll", () => {
+			const cards = [...strip.children];
+			const gap = (el) => Math.abs(el.offsetLeft - cards[0].offsetLeft - strip.scrollLeft);
+			const n = cards.reduce((best, el, i) => (gap(el) < gap(cards[best]) ? i : best), 0);
+			dots.forEach((dot, i) => dot.classList.toggle("is-on", i === n));
+		}, { passive: true });
+
+		const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+		if (calm || !("IntersectionObserver" in window)) {
+			if (calm) {
+				who.textContent = last[0];
+				render(last);
+			}
+			strip.classList.add("is-in");
+			card.classList.add("is-done");
+			return;
+		}
+
+		function* script() {
+			for (let n = 1; n < kinds.length; n++) {
+				yield 2600;
+				rows.classList.add("is-out");
+				while (who.textContent.length) {
+					who.textContent = who.textContent.slice(0, -1);
+					yield 30;
+				}
+				render(kinds[n]);
+				for (const ch of kinds[n][0]) {
+					who.textContent += ch;
+					yield 60;
+				}
+				yield 120;
+				rows.classList.remove("is-out");
+			}
+			card.classList.add("is-done");
+		}
+		const steps = script();
+		const step = () => {
+			// Hold still while the card is off-screen.
+			if (!card.classList.contains("is-live")) return void setTimeout(step, 300);
+			const next = steps.next();
+			if (!next.done) setTimeout(step, next.value);
+		};
+
+		// .is-in once first seen (one-off moves), .is-live while on screen (loops).
+		let started = false;
+		const observer = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => {
+			if (isIntersecting) target.classList.add("is-in");
+			target.classList.toggle("is-live", isIntersecting);
+			if (target === card && isIntersecting && !started) {
+				started = true;
+				step();
+			}
+		}), { threshold: 0.35 });
+		// Let the fonts settle first so the hero does not animate mid-load.
+		const begin = () => setTimeout(() => [card, strip].forEach((el) => observer.observe(el)), 250);
+		const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+		Promise.race([fonts, new Promise((r) => setTimeout(r, 1000))]).then(begin);
+	})();
+</script>
+
+<section class="section process-section" id="kako-radim" aria-labelledby="process-title">
+	<div class="wrap">
+		<div class="section-head">
+			<span class="eyebrow">Proces</span>
+			<div>
+				<h2 id="process-title">Kako radim?</h2>
+				<p>Četiri koraka, od prvog razgovora do alata koji koristite svaki dan.</p>
+			</div>
+		</div>
+		<div class="story">
+			<div class="story-tabs" role="tablist" aria-label="Koraci procesa">
+				<button class="story-tab" type="button" role="tab" id="story-tab-1" aria-controls="story-panel-1" aria-selected="true">
+					<span class="step-number">01</span><span class="story-tab-title">Otkrivanje potrebe</span><span class="story-bar"><i></i></span>
+				</button>
+				<button class="story-tab" type="button" role="tab" id="story-tab-2" aria-controls="story-panel-2" aria-selected="false" tabindex="-1">
+					<span class="step-number">02</span><span class="story-tab-title">Idejno rješenje</span><span class="story-bar"><i></i></span>
+				</button>
+				<button class="story-tab" type="button" role="tab" id="story-tab-3" aria-controls="story-panel-3" aria-selected="false" tabindex="-1">
+					<span class="step-number">03</span><span class="story-tab-title">Izrada</span><span class="story-bar"><i></i></span>
+				</button>
+				<button class="story-tab" type="button" role="tab" id="story-tab-4" aria-controls="story-panel-4" aria-selected="false" tabindex="-1">
+					<span class="step-number">04</span><span class="story-tab-title">Puštanje u rad</span><span class="story-bar"><i></i></span>
+				</button>
+			</div>
+			<div class="story-stage">
+				<div class="story-panels">
+					<div class="story-panel is-active" role="tabpanel" id="story-panel-1" aria-labelledby="story-tab-1">
+						<div class="story-visual" aria-hidden="true">
+							<div class="mock">
+								<div class="mock-head"><span>Bilješke s razgovora</span><i></i></div>
+								<ul class="mock-list">
+									<li><span>Ručni unos narudžbi</span><b class="mock-tag mock-tag--blue">automatizirati</b></li>
+									<li><span>Ponude i podsjetnici</span><b class="mock-tag mock-tag--blue">automatizirati</b></li>
+									<li><span>Razgovor s kupcima</span><b class="mock-tag">ostaje Vama</b></li>
+								</ul>
+							</div>
+						</div>
+						<div class="story-copy">
+							<span class="story-tag">Razgovaramo.</span>
+							<h3>Otkrivanje potrebe</h3>
+							<p>Razgovaramo o Vašem poslovanju i zajedno identificiramo što se može automatizirati.</p>
+						</div>
+					</div>
+					<div class="story-panel" role="tabpanel" id="story-panel-2" aria-labelledby="story-tab-2">
+						<div class="story-visual" aria-hidden="true">
+							<div class="mock mock--sketch">
+								<div class="mock-head"><span>Idejno rješenje · skica</span><i></i></div>
+								<div class="mock-body">
+									<p class="mock-label">Vrijeme na ručni posao</p>
+									<div class="mock-bar"><span>Prije</span><i style="--w: 100%"></i></div>
+									<div class="mock-bar"><span>Poslije</span><i class="is-blue" style="--w: 24%"></i></div>
+								</div>
+								<span class="mock-stamp">Idemo dalje ✓</span>
+							</div>
+						</div>
+						<div class="story-copy">
+							<span class="story-tag">Skiciram.</span>
+							<h3>Idejno rješenje</h3>
+							<p>Skiciram rješenje i konkretno Vam pokazujem kakve će rezultate donijeti. Dalje idemo tek kada ste zadovoljni, a ako nema prostora za poboljšanje, tu stajemo.</p>
+						</div>
+					</div>
+					<div class="story-panel" role="tabpanel" id="story-panel-3" aria-labelledby="story-tab-3">
+						<div class="story-visual" aria-hidden="true">
+							<div class="mock mock--term">
+								<div class="mock-head"><span>Izrada</span><i></i></div>
+								<ol class="mock-term">
+									<li>› gradim uz AI</li>
+									<li><b>✓</b> sigurnost</li>
+									<li><b>✓</b> kvaliteta</li>
+									<li><b>✓</b> održivost</li>
+								</ol>
+							</div>
+						</div>
+						<div class="story-copy">
+							<span class="story-tag story-tag--build">Gradim.</span>
+							<h3>Izrada</h3>
+							<p>Rješenje gradim koristeći AI, uz stroge standarde sigurnosti i kvalitete. Dugogodišnje iskustvo softverskog inženjera pomaže mi graditi sigurne i održive alate.</p>
+						</div>
+					</div>
+					<div class="story-panel" role="tabpanel" id="story-panel-4" aria-labelledby="story-tab-4">
+						<div class="story-visual" aria-hidden="true">
+							<div class="mock mock--live">
+								<div class="mock-toast">
+									<span class="mock-check">✓</span>
+									<div><strong>Rješenje je pušteno u rad</strong><span>Spremno za korištenje</span></div>
+								</div>
+								<dl class="mock-stats">
+									<div><dt>Učenje</dt><dd>0 h</dd></div>
+									<div><dt>Prilagodba</dt><dd>0 h</dd></div>
+								</dl>
+							</div>
+						</div>
+						<div class="story-copy">
+							<span class="story-tag story-tag--build">Koristite.</span>
+							<h3>Puštanje u rad</h3>
+							<p>U najkraćem mogućem roku dostavljam gotovo rješenje. Napravljeno je po Vašoj mjeri, pa ga koristite odmah, bez učenja i prilagodbe.</p>
+						</div>
+					</div>
+				</div>
+				<div class="story-nav">
+					<span class="story-count"><b>01</b> / 04</span>
+					<button class="story-btn" type="button" data-dir="-1" aria-label="Prethodni korak">←</button>
+					<button class="story-btn" type="button" data-dir="1" aria-label="Sljedeći korak">→</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+	(() => {
+		const story = document.querySelector(".story");
+		const tabs = [...story.querySelectorAll(".story-tab")];
+		const panels = [...story.querySelectorAll(".story-panel")];
+		const count = story.querySelector(".story-count b");
+		const stage = story.querySelector(".story-stage");
+		const compact = matchMedia("(max-width: 960px)");
+		let index = 0;
+		let autoplay = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		const show = (i) => {
+			index = (i + tabs.length) % tabs.length;
+			tabs.forEach((tab, n) => {
+				const on = n === index;
+				tab.setAttribute("aria-selected", String(on));
+				tab.tabIndex = on ? 0 : -1;
+				tab.classList.toggle("is-done", n < index);
+				panels[n].classList.toggle("is-active", on);
+			});
+			count.textContent = String(index + 1).padStart(2, "0");
+		};
+
+		// Any manual navigation ends autoplay for good.
+		const takeOver = (i) => {
+			autoplay = false;
+			story.classList.remove("is-playing");
+			show(i);
+		};
+
+		tabs.forEach((tab, n) => {
+			tab.addEventListener("click", () => takeOver(n));
+			tab.addEventListener("keydown", (event) => {
+				const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+				if (!step) return;
+				event.preventDefault();
+				takeOver(index + step);
+				tabs[index].focus();
+			});
+			tab.querySelector(".story-bar i").addEventListener("animationend", () => {
+				if (!autoplay) return;
+				if (index === tabs.length - 1) {
+					autoplay = false;
+					story.classList.remove("is-playing");
+					return;
+				}
+				show(index + 1);
+			});
+		});
+
+		story.querySelectorAll(".story-btn").forEach((button) =>
+			button.addEventListener("click", (event) => {
+				event.stopPropagation();
+				takeOver(index + Number(button.dataset.dir));
+			})
+		);
+
+		// Stories-style taps on phones: left third goes back, the rest forward.
+		stage.addEventListener("click", (event) => {
+			if (!compact.matches || event.target.closest("button, a")) return;
+			const box = stage.getBoundingClientRect();
+			takeOver(index + (event.clientX - box.left < box.width / 3 ? -1 : 1));
+		});
+
+		// Pause while hovered, pressed or focused, and while off-screen.
+		const pause = (on) => story.classList.toggle("is-paused", on);
+		story.addEventListener("mouseenter", () => pause(true));
+		story.addEventListener("mouseleave", () => pause(false));
+		stage.addEventListener("pointerdown", (event) => event.pointerType !== "mouse" && pause(true));
+		stage.addEventListener("pointerup", () => pause(false));
+		stage.addEventListener("pointercancel", () => pause(false));
+		story.addEventListener("focusin", () => pause(true));
+		story.addEventListener("focusout", () => pause(false));
+
+		if ("IntersectionObserver" in window) {
+			const observer = new IntersectionObserver(([entry]) => {
+				if (entry.isIntersecting && autoplay) story.classList.add("is-playing");
+				if (!entry.isIntersecting) pause(true);
+				else if (!story.matches(":hover")) pause(false);
+				// Replay the first mock once the card first comes into view.
+				if (entry.isIntersecting && !story.dataset.seen) {
+					story.dataset.seen = "1";
+					panels[index].classList.remove("is-active");
+					void panels[index].offsetWidth;
+					panels[index].classList.add("is-active");
+				}
+			}, { threshold: 0.5 });
+			observer.observe(story);
+		}
+
+		show(0);
+	})();
+</script>
+
+<section class="section v5-section" id="cijene" aria-labelledby="v5-title">
+	<div class="wrap">
+		<div class="section-head">
+			<span class="eyebrow">Cijene</span>
+			<div>
+				<h2 id="v5-title">Okvirna cijena u tri klika</h2>
+				<p>Odgovorite na tri pitanja i odmah vidite raspon u kojem će biti cijena. Fiksni iznos dobijete nakon besplatnog razgovora od 30 minuta.</p>
+			</div>
+		</div>
+		<div class="v5">
+			<form class="v5-form" id="v5-form" onsubmit="return false">
+				<fieldset class="v5-q">
+					<legend><span class="step-number">01</span><span>Što Vam treba?</span></legend>
+					<div class="v5-opts">
+						<label class="v5-opt"><input type="radio" name="kind" value="0"><span>Automatizirati jedan posao</span></label>
+						<label class="v5-opt"><input type="radio" name="kind" value="1" checked><span>Alat za moj tim</span></label>
+						<label class="v5-opt"><input type="radio" name="kind" value="2"><span>Sustav za kupce ili više poslovnica</span></label>
+					</div>
+				</fieldset>
+				<fieldset class="v5-q">
+					<legend><span class="step-number">02</span><span>S koliko programa se povezuje?<small>Npr. blagajna, tablice, e-mail, web trgovina, knjigovodstvo.</small></span></legend>
+					<div class="v5-opts">
+						<label class="v5-opt"><input type="radio" name="links" value="0"><span>Nijedan</span></label>
+						<label class="v5-opt"><input type="radio" name="links" value="1" checked><span>Jedan ili dva</span></label>
+						<label class="v5-opt"><input type="radio" name="links" value="2"><span>Tri ili više</span></label>
+					</div>
+				</fieldset>
+				<fieldset class="v5-q">
+					<legend><span class="step-number">03</span><span>Tko će ga koristiti?</span></legend>
+					<div class="v5-opts">
+						<label class="v5-opt"><input type="radio" name="users" value="0"><span>Samo ja</span></label>
+						<label class="v5-opt"><input type="radio" name="users" value="1" checked><span>Do 10 ljudi</span></label>
+						<label class="v5-opt"><input type="radio" name="users" value="2"><span>Više od 10</span></label>
+					</div>
+				</fieldset>
+				<fieldset class="v5-q">
+					<legend><span class="step-number">04</span><span>Koliko sati tjedno sada odlazi na taj posao?<small>Za izračun kada se alat isplati. Nije obavezno.</small></span></legend>
+					<div class="v5-hours">
+						<input type="range" name="hours" min="1" max="30" value="8" aria-label="Sati tjedno">
+						<output id="v5-hours-out">8 sati tjedno</output>
+					</div>
+				</fieldset>
+			</form>
+			<aside class="v5-result" aria-label="Okvirna procjena">
+				<div class="mock-head"><span>Okvirna procjena</span><i></i></div>
+				<div class="v5-result-body" aria-live="polite">
+					<p class="v5-label mono">Izrada bi koštala otprilike</p>
+					<p class="v5-range" id="v5-range">2.600 – 5.700&nbsp;€</p>
+					<dl class="v5-rows">
+						<div><dt>Izrada traje</dt><dd id="v5-time">3–7 tjedana</dd></div>
+						<div><dt>Hosting i održavanje</dt><dd>od 30&nbsp;€&nbsp;/&nbsp;mj.</dd></div>
+						<div><dt>Isplati se za</dt><dd><b id="v5-pay">≈ 6 mjeseci</b></dd></div>
+					</dl>
+					<p class="v5-assume" id="v5-assume">Uz 8 sati tjedno i 20&nbsp;€ po satu Vašeg vremena.</p>
+				</div>
+				<a class="v5-cta" id="v5-mail" href="mailto:erik@eriksoftware.hr?subject=Procjena%20s%20weba">Pošaljite mi ovu procjenu <span aria-hidden="true">→</span></a>
+				<p class="v5-fine">Procjena nije ponuda. Cijene su u eurima, bez PDV-a.</p>
+			</aside>
+			<details class="v5-how">
+				<summary>Kako računam procjenu →</summary>
+				<table>
+					<tbody>
+						<tr><th>Automatizacija jednog posla</th><td>800–1.500&nbsp;€</td></tr>
+						<tr><th>Alat za tim</th><td>2.000–4.000&nbsp;€</td></tr>
+						<tr><th>Sustav za kupce ili više poslovnica</th><td>5.000–9.000&nbsp;€</td></tr>
+						<tr><th>Povezivanje s jednim ili dva programa</th><td>+ 400–1.200&nbsp;€</td></tr>
+						<tr><th>Povezivanje s tri ili više programa</th><td>+ 1.500–3.000&nbsp;€</td></tr>
+						<tr><th>Do 10 korisnika</th><td>+ 10 %</td></tr>
+						<tr><th>Više od 10 korisnika</th><td>+ 25 %</td></tr>
+					</tbody>
+				</table>
+			</details>
+		</div>
+		<p class="v5-also"><span>Gradite sami uz AI? Konzultacije su <b>80&nbsp;€ po satu</b>.</span><span>Provjera sigurnosti aplikacije: <b>od 450&nbsp;€</b>.</span></p>
+	</div>
+</section>
+<script>
+	(() => {
+		const form = document.getElementById("v5-form");
+		const out = {
+			range: document.getElementById("v5-range"),
+			time: document.getElementById("v5-time"),
+			pay: document.getElementById("v5-pay"),
+			assume: document.getElementById("v5-assume"),
+			hours: document.getElementById("v5-hours-out"),
+			mail: document.getElementById("v5-mail"),
+		};
+		// Same rules as the table under the form.
+		const kinds = [
+			["Automatizacija jednog posla", [800, 1500], [1, 2]],
+			["Alat za tim", [2000, 4000], [3, 6]],
+			["Sustav za kupce ili više poslovnica", [5000, 9000], [6, 12]],
+		];
+		const links = [["bez povezivanja", [0, 0], [0, 0]], ["1–2 programa", [400, 1200], [0, 1]], ["3 ili više programa", [1500, 3000], [1, 2]]];
+		const users = [["samo ja", 1], ["do 10 ljudi", 1.1], ["više od 10 ljudi", 1.25]];
+		const HOURLY = 20;
+
+		const eur = (n) => n.toLocaleString("de-DE");
+		const round = (n) => Math.round(n / 100) * 100;
+		// Croatian plural: 1 tjedan, 2–4 tjedna, 5+ tjedana.
+		const plural = (n, one, few, many) => {
+			const a = n % 10, b = n % 100;
+			if (a === 1 && b !== 11) return one;
+			if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return few;
+			return many;
+		};
+
+		const update = () => {
+			const f = new FormData(form);
+			const k = kinds[f.get("kind")], l = links[f.get("links")], u = users[f.get("users")];
+			const hours = Number(f.get("hours"));
+			const min = round((k[1][0] + l[1][0]) * u[1]);
+			const max = round((k[1][1] + l[1][1]) * u[1]);
+			const w1 = k[2][0] + l[2][0], w2 = k[2][1] + l[2][1];
+			const months = Math.ceil((min + max) / 2 / (hours * HOURLY * 4.33));
+
+			const range = `${eur(min)} – ${eur(max)} €`;
+			if (out.range.textContent !== range) {
+				out.range.textContent = range;
+				out.range.classList.remove("is-tick");
+				void out.range.offsetWidth;
+				out.range.classList.add("is-tick");
+			}
+			out.time.textContent = `${w1}–${w2} ${plural(w2, "tjedan", "tjedna", "tjedana")}`;
+			out.pay.textContent = months > 36 ? "više od 3 godine" : `≈ ${months} ${plural(months, "mjesec", "mjeseca", "mjeseci")}`;
+			out.hours.textContent = `${hours} ${plural(hours, "sat", "sata", "sati")} tjedno`;
+			out.assume.textContent = `Uz ${hours} ${plural(hours, "sat", "sata", "sati")} tjedno i ${HOURLY} € po satu Vašeg vremena.`;
+
+			const body = `Pozdrav Erik,\n\nprocjena s Vašeg weba: ${k[0].toLowerCase()}, ${l[0]}, ${u[0]}. Okvirno ${range}.\n\nUkratko o poslu:\n`;
+			out.mail.href = `mailto:erik@eriksoftware.hr?subject=${encodeURIComponent("Procjena s weba")}&body=${encodeURIComponent(body)}`;
+		};
+		form.addEventListener("input", update);
+		form.addEventListener("change", update);
+		update();
+	})();
+</script>
+<section class="section consulting-section" id="konzultacije" aria-labelledby="consulting-title">
+	<div class="wrap">
+		<div class="section-head">
+			<span class="eyebrow">Konzultacije</span>
+			<div>
+				<h2 id="consulting-title">Gradite vlastiti software uz&nbsp;AI?</h2>
+				<p>Podržavam to, danas zbilja svatko može graditi vlastiti software. Pružam podršku i savjetovanje kako bi Vaš proizvod bio kvalitetan alat te štitim Vaše poslovanje od gubitka podataka ili drugih sigurnosnih rizika.</p>
+			</div>
+		</div>
+		<div class="mirror">
+			<div class="mirror-pick">
+				<p class="mirror-q mono" id="mirror-q">Prepoznajete li se?</p>
+				<div class="mirror-list" role="radiogroup" aria-labelledby="mirror-q">
+					<button class="mirror-opt" type="button" role="radio" aria-checked="true" aria-controls="mirror-a-1"><span>„AI se vrti u krug.”</span></button>
+					<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-2" tabindex="-1"><span>„Ne znam odakle početi.”</span></button>
+					<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-3" tabindex="-1"><span>„Je li ovo sigurno?”</span></button>
+					<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-4" tabindex="-1"><span>„Kako ovo staviti online?”</span></button>
+					<button class="mirror-opt" type="button" role="radio" aria-checked="false" aria-controls="mirror-a-5" tabindex="-1"><span>„Nemam vremena za dalje.”</span></button>
+				</div>
+			</div>
+			<div class="mirror-answers" aria-live="polite">
+				<div class="mirror-a is-active" id="mirror-a-1">
+					<img src="../../public/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+					<div>
+						<p class="mirror-quote">„AI se vrti u krug.”</p>
+						<p class="mirror-reply">Nađemo grešku zajedno.</p>
+						<p class="mirror-detail">I pokažem Vam kako je sljedeći put riješiti sami.</p>
+						<span class="mirror-tag">Podrška pri razvoju</span>
+					</div>
+				</div>
+				<div class="mirror-a" id="mirror-a-2">
+					<img src="../../public/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+					<div>
+						<p class="mirror-quote">„Ne znam odakle početi.”</p>
+						<p class="mirror-reply">Krenimo od prvog koraka.</p>
+						<p class="mirror-detail">Pomažem Vam odabrati alate i složiti plan, bez nametanja svojih rješenja.</p>
+						<span class="mirror-tag">Podrška pri razvoju</span>
+					</div>
+				</div>
+				<div class="mirror-a" id="mirror-a-3">
+					<img src="../../public/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+					<div>
+						<p class="mirror-quote">„Je li ovo sigurno?”</p>
+						<p class="mirror-reply">Pregledam aplikaciju prije nego što je pustite u rad.</p>
+						<p class="mirror-detail">I jasno Vam kažem što je u redu, a što treba popraviti.</p>
+						<span class="mirror-tag">Provjera sigurnosti</span>
+					</div>
+				</div>
+				<div class="mirror-a" id="mirror-a-4">
+					<img src="../../public/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+					<div>
+						<p class="mirror-quote">„Kako ovo staviti online?”</p>
+						<p class="mirror-reply">Online, sigurno i s kopijama.</p>
+						<p class="mirror-detail">Pomažem Vam postaviti aplikaciju ili je hostam umjesto Vas.</p>
+						<span class="mirror-tag">Nastavak razvoja</span>
+					</div>
+				</div>
+				<div class="mirror-a" id="mirror-a-5">
+					<img src="../../public/profil_web.jpg" width="56" height="56" alt="" loading="lazy"/>
+					<div>
+						<p class="mirror-quote">„Nemam vremena za dalje.”</p>
+						<p class="mirror-reply">Preuzimam tamo gdje ste stali.</p>
+						<p class="mirror-detail">Dodajem što fali, održavam i hostam. Vi se bavite poslom.</p>
+						<span class="mirror-tag">Nastavak razvoja</span>
+					</div>
+				</div>
+				<span class="mirror-timer" aria-hidden="true"><i></i></span>
+			</div>
+		</div>
+		<div class="consulting-cta">
+			<a href="mailto:erik@eriksoftware.hr?subject=Konzultacije">Pišite mi →</a>
+			<span>erik@eriksoftware.hr</span>
+		</div>
+	</div>
+</section>
+<script>
+	(() => {
+		const root = document.querySelector(".mirror");
+		const opts = [...root.querySelectorAll(".mirror-opt")];
+		const answers = [...root.querySelectorAll(".mirror-a")];
+		const timer = root.querySelector(".mirror-timer i");
+		let index = 0;
+		let autoplay = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		const show = (i) => {
+			index = (i + opts.length) % opts.length;
+			opts.forEach((opt, n) => {
+				const on = n === index;
+				opt.setAttribute("aria-checked", String(on));
+				opt.tabIndex = on ? 0 : -1;
+				answers[n].classList.toggle("is-active", on);
+			});
+			// Restart the countdown bar.
+			timer.style.animation = "none";
+			void timer.offsetWidth;
+			timer.style.animation = "";
+		};
+
+		// Any manual choice ends the auto-cycle for good.
+		const takeOver = (i) => {
+			autoplay = false;
+			root.classList.remove("is-playing");
+			show(i);
+		};
+
+		opts.forEach((opt, n) => {
+			opt.addEventListener("click", () => takeOver(n));
+			opt.addEventListener("keydown", (event) => {
+				const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+				if (!step) return;
+				event.preventDefault();
+				takeOver(index + step);
+				opts[index].focus();
+			});
+		});
+
+		timer.addEventListener("animationend", () => {
+			if (!autoplay) return;
+			if (index === opts.length - 1) {
+				autoplay = false;
+				root.classList.remove("is-playing");
+				return;
+			}
+			show(index + 1);
+		});
+
+		// Pause while hovered or focused, and while off-screen.
+		const pause = (on) => root.classList.toggle("is-paused", on);
+		root.addEventListener("mouseenter", () => pause(true));
+		root.addEventListener("mouseleave", () => pause(false));
+		root.addEventListener("focusin", () => pause(true));
+		root.addEventListener("focusout", () => pause(false));
+
+		if ("IntersectionObserver" in window) {
+			new IntersectionObserver(([entry]) => {
+				if (entry.isIntersecting && autoplay) root.classList.add("is-playing");
+				if (!entry.isIntersecting) pause(true);
+				else if (!root.matches(":hover")) pause(false);
+			}, { threshold: 0.5 }).observe(root);
+		}
+
+		show(0);
+	})();
+</script>
+
+<section class="section about-section" id="o-meni" aria-labelledby="about-title">
+	<div class="wrap">
+		<div class="section-head">
+			<span class="eyebrow">O meni</span>
+			<div>
+				<h2 id="about-title">Tko sam ja?</h2>
+				<div class="about-detail">
+					<img src="../../public/profil_web.jpg" width="165" height="165" alt="Erik Jermaniš" loading="lazy"/>
+					<div class="about-copy">
+						<p>Ja sam Erik, softverski inženjer iz Rijeke. Izradom softwarea bavim se preko 7 godina, te sam kroz karijeru imao prilike raditi na velikim projektima i platformama koje koriste stotine tisuća korisnika diljem svijeta.</p>
+						<p>Gradim kvalitetan, jednostavan i siguran software koji donosi konkretne rezultate, te pomažem poduzetnicima da efektivno i na siguran način koriste AI alate.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</main>
+<footer class="site-footer">
+	<div class="wrap footer-inner">
+		<div class="footer-identity">
+			<span>Erik Jermaniš / software i automatizacija</span>
+			<span>© 2026 ERIK SOFTWARE</span>
+		</div>
+		<div class="footer-links">
+			<a href="mailto:erik@eriksoftware.hr">erik@eriksoftware.hr</a>
+			<a href="#">RSS</a>
+			<a href="#main">Natrag na vrh ↑</a>
+		</div>
+	</div>
+</footer>
+<script>
+	const header = document.querySelector(".site-header");
+	const toggle = header.querySelector(".menu-toggle");
+	const nav = header.querySelector("#site-nav");
+	const closeMenu = () => {
+		header.classList.remove("menu-open");
+		toggle.setAttribute("aria-expanded", "false");
+	};
+	toggle.addEventListener("click", () => {
+		const open = header.classList.toggle("menu-open");
+		toggle.setAttribute("aria-expanded", String(open));
+	});
+	nav.addEventListener("click", (event) => {
+		if (event.target.closest("a")) closeMenu();
+	});
+	document.addEventListener("click", (event) => {
+		if (!header.contains(event.target)) closeMenu();
+	});
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape" && header.classList.contains("menu-open")) {
+			closeMenu();
+			toggle.focus();
+		}
+	});
+	matchMedia("(max-width: 700px)").addEventListener("change", closeMenu);
+</script>
+</body>
+</html>
