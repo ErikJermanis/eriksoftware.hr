@@ -21,14 +21,14 @@
   <div class="wrap gd">
     <span class="eyebrow">Pricing · guide</span>
     <h1>Prices on the site, without boxing yourself in</h1>
-    <p class="ix-lead">Every amount here and in the five variants is a placeholder. The point is which kinds of numbers to publish and how, so that visitors and AI tools get something concrete while you keep room to price each job properly.</p>
+    <p class="ix-lead">Every amount here and in the variants is a placeholder. The point is which kinds of numbers to publish and how, so that visitors and AI tools get something concrete while you keep room to price each job properly.</p>
 
     <ol class="gd-short">
       <li><span><strong>Publish the shape of your prices, not quotes.</strong>Three kinds of number are safe to publish: fixed prices for small, repeatable things; a floor ("od 800 €") for each kind of build; and a typical range ("većina projekata 2.000–8.000 €"). None of them is a quote. The quote is always the written offer.</span></li>
       <li><span><strong>Price the first step, not the whole project.</strong>Your process already contains a natural product: step 02, Idejno rješenje. Make it a small fixed-price step that is credited against the build. Then you never have to price a build up front, because the paid step is what produces the fixed quote.</span></li>
       <li><span><strong>Charge bigger clients more through what they get.</strong>Scope, support level, urgency and value. Never through a secret rate for each client.</span></li>
       <li><span><strong>Use the same numbers everywhere, in plain text.</strong>Use them on the site, in the meta description, in structured data, on Google Business Profile and LinkedIn, with currency, VAT status and a date.</span></li>
-      <li><span><strong>Start with variants 01 and 02 together.</strong>Details are at the end of the guide.</span></li>
+      <li><span><strong>Variant 03 combines 01 and 02, simplified.</strong>One price section with a single number per service and an FAQ, plus prices on the consulting answers. Notes on it are at the end of the guide.</span></li>
     </ol>
 
     <h2>Why a published price doesn't box you in</h2>
@@ -55,11 +55,11 @@
     </ul>
 
     <h2>Charging different clients differently, the honest way</h2>
-    <p>You said you'd like to charge a client who can pay more, more, even for similar work. Published prices don't stop that, as long as the difference lies in what they get. Bigger clients almost always need more of the things below, and listing them publicly (variant 02 does) makes the higher quote easy to explain.</p>
+    <p>You said you'd like to charge a client who can pay more, more, even for similar work. Published prices don't stop that, as long as the difference lies in what they get. Bigger clients almost always need more of the things below, and listing them publicly (variants 02 and 03 do) makes the higher quote easy to explain.</p>
     <ul>
       <li><b>Scope drivers.</b> The number of users and locations, the number of programs it connects to, data migration, permissions and audit history, documentation. A 40-person company has more of all of them.</li>
-      <li><b>Support level.</b> Response time, included hours and priority. Bigger clients pay for certainty: "isti radni dan" costs more than "unutar 2 radna dana" (variant 04).</li>
-      <li><b>Value.</b> A tool that saves a three-person bakery 5 hours a week is worth less than the same tool saving a wholesaler 60 hours a week. Price the outcome and show the payback (variant 05 does this on the page; do it in every offer).</li>
+      <li><b>Support level.</b> Response time, included hours and priority. Bigger clients pay for certainty: "isti radni dan" costs more than "unutar 2 radna dana".</li>
+      <li><b>Value.</b> A tool that saves a three-person bakery 5 hours a week is worth less than the same tool saving a wholesaler 60 hours a week. Price the outcome and show the payback in every offer.</li>
       <li><b>Three options in every written offer.</b> A lean version, the recommended one and a fuller one. The client decides how much to spend. You never negotiate the price down, you only remove scope.</li>
       <li><b>Urgency.</b> A rush fee (say +25–50 %) for jobs that push other work aside.</li>
       <li><b>Publish the standard price and discount openly</b>, rather than publishing low and trying to charge more later. For example: "Obrti i mikro tvrtke: −15 % na prvi projekt." Giving a discount is easy. Explaining why your number is higher than the website's is not.</li>
@@ -81,24 +81,22 @@
     <h2>What AI tools and search engines need</h2>
     <p>An honest caveat first. I found no solid study showing that published prices make AI tools cite you more often. What exists is vendor research: Leapd reports that pricing pages and case studies bring more AI-referred traffic than generic guides, and Lightsite reports that companies' own product and service pages are now the largest group of sources ChatGPT and Perplexity cite. The practical argument is simpler. When someone asks an AI "koliko košta aplikacija po mjeri za mali obrt" or "tko mi može napraviti X do 2.000 €", it can only mention you if your page states numbers it can quote.</p>
     <ul>
-      <li><b>Prices as plain HTML text</b>, not in images and not only produced by JavaScript. The variants keep every price in the HTML, including the hidden process cards in 01 and the rules table under the estimator in 05.</li>
-      <li><b>Questions phrased the way people ask them</b>, each answered directly in its first sentence: "Koliko košta…? Od 800 €…" (variant 02).</li>
+      <li><b>Prices as plain HTML text</b>, not in images and not only produced by JavaScript. The variants keep every price in the HTML, including the process cards in 01 that stay hidden until their step is shown.</li>
+      <li><b>Questions phrased the way people ask them</b>, each answered directly in its first sentence: "Koliko košta…? Od 800 €…" (variants 02 and 03).</li>
       <li><b>Context</b>: currency, VAT status ("bez PDV-a", or that you aren't in the VAT system, whichever is true), what's included, and the date.</li>
       <li><b>The same numbers everywhere</b>: on the site, Google Business Profile, LinkedIn and any directory listing. Conflicting numbers are worse than none.</li>
       <li><b>Structured data.</b> Each variant adds an <code>OfferCatalog</code> (with <code>minPrice</code>, <code>price</code> and <code>unitCode</code>) to the Organization in JSON-LD. When integrating, add <code>hasOfferCatalog</code> to the existing Organization node in <code>pages/layout.templ</code>, using only prices that are visible on the page, as the README already requires.</li>
-      <li><b>The meta description.</b> The variants put the three headline prices in it: "Konzultacije 80 € po satu, izrada od 800 €, hosting od 30 € mjesečno."</li>
+      <li><b>The meta description.</b> The variants put the three headline prices in it. In 03: "Konzultacije 80 € po satu, izrada od 800 €, hosting od 950 € godišnje."</li>
     </ul>
 
-    <h2>The five variants at a glance</h2>
+    <h2>The variants at a glance</h2>
     <div class="gd-table">
       <table>
         <thead><tr><th>Variant</th><th>Where prices show</th><th>How visible</th><th>Best when</th></tr></thead>
         <tbody>
           <tr><td><b><a href="01-prvi-korak.html">01 Prvi korak</a></b></td><td>Service cards, process steps, consulting answers</td><td>Low. Prices appear as you read.</td><td>You want the least "sales" feel</td></tr>
           <tr><td><b><a href="02-cjenik.html">02 Cjenik</a></b></td><td>One section with an FAQ</td><td>High</td><td>You want one place that states everything, for people and AI</td></tr>
-          <tr><td><b><a href="03-primjeri.html">03 Primjeri</a></b></td><td>Typical jobs on a price scale</td><td>Medium</td><td>You have 4–6 real projects to show</td></tr>
-          <tr><td><b><a href="04-razine.html">04 Razine</a></b></td><td>Three levels for each service</td><td>High</td><td>You want to package hosting and consulting</td></tr>
-          <tr><td><b><a href="05-procjena.html">05 Procjena</a></b></td><td>An estimator with a range and payback</td><td>High, interactive</td><td>Your pricing rules have been tested on real offers</td></tr>
+          <tr><td><b><a href="03-spojeno.html">03 Spojeno</a></b></td><td>One section with a single number per service and an FAQ, plus prices on the consulting answers</td><td>High, but short</td><td>You want prices easy to find without a full price list</td></tr>
         </tbody>
       </table>
     </div>
@@ -106,9 +104,9 @@
     <h2>What I would do</h2>
     <div class="gd-pick">
       <span class="mono">Recommendation</span>
-      <p><b>Combine 01 and 02.</b> Keep the prices from 01 in the hero service cards and the process steps, so a visitor sees a number within the first scroll without anything looking like a price list. Then add the compact Cijene section from 02, with its FAQ, before "O meni" as the one place that states everything. Visitors see a number early, AI tools get plain-text answers and markup, and for builds you're committed only to floors and a range.</p>
+      <p><b>Integrate variant 03.</b> It combines 01 and 02, simplified: one Cijene section before "O meni" with a single number per service, the price drivers and the FAQ, plus price tags on the consulting answers. Visitors find a number quickly, AI tools get plain-text answers and markup, and for builds you're committed only to a range and a floor.</p>
       <p><b>The business change matters more than the design:</b> make Idejno rješenje a paid, fixed-price step that is credited against the build. It answers "I can't price a build up front": you don't have to, because you price the step that produces the quote.</p>
-      <p><b>Later:</b> once you have 3–5 projects you can show, add priced examples in the style of 03, using real jobs. Borrow the hosting levels from 04 once you host more than a couple of clients. Build the estimator from 05 only after its rules have held up on real offers.</p>
+      <p><b>Later:</b> once you have 3–5 projects you can show, add a few priced examples of real jobs. Once you host more than a couple of clients, consider hosting levels that differ by response time. A self-serve price estimator only makes sense after your pricing rules have held up on real offers.</p>
     </div>
 
     <h2>Before anything goes live</h2>
