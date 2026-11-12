@@ -3,8 +3,9 @@ package pages
 templ Home() {
 	@layout(metadata{
 		Title: "Erik Jermaniš | Software i automatizacija za poduzetnike",
-		Description: "Prilagođene aplikacije, procesi i alati za male i srednje poduzetnike. Pomažem vam automatizirati repetitivne djelove posla kako biste se mogli fokusirati na ono što je važno.",
+		Description: "Prilagođene aplikacije, automatizacija i AI konzultacije za male i srednje poduzetnike. Konzultacije 80 € po satu, izrada od 800 €, hosting od 950 € godišnje.",
 		Canonical: "https://eriksoftware.hr/",
+		Schema: pricingSchema(),
 	}) {
 		<section class="hero" aria-labelledby="home-title">
 			<div class="wrap">
@@ -219,7 +220,7 @@ templ Home() {
 									</div>
 								</div>
 								<div class="story-copy">
-									<span class="story-tag">Skiciram.</span>
+									<span class="story-tag story-tag--me">Skiciram.</span>
 									<h3>Idejno rješenje</h3>
 									<p>Skiciram rješenje i konkretno Vam pokazujem kakve će rezultate donijeti. Dalje idemo tek kada ste zadovoljni, a ako nema prostora za poboljšanje, tu stajemo.</p>
 								</div>
@@ -237,7 +238,7 @@ templ Home() {
 									</div>
 								</div>
 								<div class="story-copy">
-									<span class="story-tag story-tag--build">Gradim.</span>
+									<span class="story-tag story-tag--me">Gradim.</span>
 									<h3>Izrada</h3>
 									<p>Rješenje gradim koristeći AI, uz stroge standarde sigurnosti i kvalitete. Dugogodišnje iskustvo softverskog inženjera pomaže mi graditi sigurne i održive alate.</p>
 								</div>
@@ -256,7 +257,7 @@ templ Home() {
 									</div>
 								</div>
 								<div class="story-copy">
-									<span class="story-tag story-tag--build">Koristite.</span>
+									<span class="story-tag">Koristite.</span>
 									<h3>Puštanje u rad</h3>
 									<p>U najkraćem mogućem roku dostavljam gotovo rješenje. Napravljeno je po Vašoj mjeri, pa ga koristite odmah, bez učenja i prilagodbe.</p>
 								</div>
@@ -392,7 +393,7 @@ templ Home() {
 								<p class="mirror-quote">„AI se vrti u krug.”</p>
 								<p class="mirror-reply">Nađemo grešku zajedno.</p>
 								<p class="mirror-detail">I pokažem Vam kako je sljedeći put riješiti sami.</p>
-								<span class="mirror-tag">Podrška pri razvoju</span>
+								<span class="mirror-tag">Podrška pri razvoju</span><span class="mirror-price">80&nbsp;€ / sat</span>
 							</div>
 						</div>
 						<div class="mirror-a" id="mirror-a-2">
@@ -401,7 +402,7 @@ templ Home() {
 								<p class="mirror-quote">„Ne znam odakle početi.”</p>
 								<p class="mirror-reply">Krenimo od prvog koraka.</p>
 								<p class="mirror-detail">Pomažem Vam odabrati alate i složiti plan, bez nametanja svojih rješenja.</p>
-								<span class="mirror-tag">Podrška pri razvoju</span>
+								<span class="mirror-tag">Podrška pri razvoju</span><span class="mirror-price">80&nbsp;€ / sat</span>
 							</div>
 						</div>
 						<div class="mirror-a" id="mirror-a-3">
@@ -410,7 +411,7 @@ templ Home() {
 								<p class="mirror-quote">„Je li ovo sigurno?”</p>
 								<p class="mirror-reply">Pregledam aplikaciju prije nego što je pustite u rad.</p>
 								<p class="mirror-detail">I jasno Vam kažem što je u redu, a što treba popraviti.</p>
-								<span class="mirror-tag">Provjera sigurnosti</span>
+								<span class="mirror-tag">Provjera sigurnosti</span><span class="mirror-price">od 450&nbsp;€</span>
 							</div>
 						</div>
 						<div class="mirror-a" id="mirror-a-4">
@@ -419,7 +420,7 @@ templ Home() {
 								<p class="mirror-quote">„Kako ovo staviti online?”</p>
 								<p class="mirror-reply">Online, sigurno i s kopijama.</p>
 								<p class="mirror-detail">Pomažem Vam postaviti aplikaciju ili je hostam umjesto Vas.</p>
-								<span class="mirror-tag">Nastavak razvoja</span>
+								<span class="mirror-tag">Nastavak razvoja</span><span class="mirror-price">hosting od 950&nbsp;€ / god.</span>
 							</div>
 						</div>
 						<div class="mirror-a" id="mirror-a-5">
@@ -428,7 +429,7 @@ templ Home() {
 								<p class="mirror-quote">„Nemam vremena za dalje.”</p>
 								<p class="mirror-reply">Preuzimam tamo gdje ste stali.</p>
 								<p class="mirror-detail">Dodajem što fali, održavam i hostam. Vi se bavite poslom.</p>
-								<span class="mirror-tag">Nastavak razvoja</span>
+								<span class="mirror-tag">Nastavak razvoja</span><span class="mirror-price">fiksna ponuda</span>
 							</div>
 						</div>
 						<span class="mirror-timer" aria-hidden="true"><i></i></span>
@@ -436,7 +437,7 @@ templ Home() {
 				</div>
 				<div class="consulting-cta">
 					<a href="mailto:erik@eriksoftware.hr?subject=Konzultacije">Pišite mi →</a>
-					<span>erik@eriksoftware.hr</span>
+					<span>Konzultacije: <b>80&nbsp;€ po satu</b>.</span>
 				</div>
 			</div>
 		</section>
@@ -509,6 +510,73 @@ templ Home() {
 				show(0);
 			})();
 		</script>
+
+		<section class="section pricing-section" id="cijene" aria-labelledby="pricing-title">
+			<div class="wrap">
+				<div class="section-head">
+					<span class="eyebrow">Cijene</span>
+					<div>
+						<h2 id="pricing-title">Koliko to košta?</h2>
+						<p>Svaki posao je drugačiji i zahtijeva prilagođenu cijenu, ali ovo je okvir koji možete očekivati za većinu poslova.</p>
+					</div>
+				</div>
+				<div class="price-grid">
+					<article class="price-card">
+						<h3 class="mono">Izrada softwarea</h3>
+						<p class="price-amount">2.000–8.000&nbsp;€</p>
+						<p class="price-note"><b>Većina projekata.</b> Manji poslovi kreću od 800&nbsp;€.</p>
+						<p class="price-foot">Fiksna cijena, dogovorena unaprijed</p>
+					</article>
+					<article class="price-card">
+						<h3 class="mono">Hosting i održavanje</h3>
+						<p class="price-amount"><small>od</small> 950&nbsp;€ <small>/ god.</small></p>
+						<p class="price-note">Za software koji izradim ja, ili ga Vi izradite uz AI.</p>
+						<p class="price-foot">Server, kopije i ažuriranja uključeni</p>
+					</article>
+					<article class="price-card">
+						<h3 class="mono">AI konzultacije</h3>
+						<p class="price-amount">80&nbsp;€ <small>/ sat</small></p>
+						<p class="price-note">Za one koji grade vlastiti software uz AI. Ako se dogovori paket od 5 ili više sati, ostvaruje se popust.</p>
+						<p class="price-foot">Online video poziv</p>
+					</article>
+				</div>
+				/* Hidden for now: what moves the price of a build, and price questions with answers.
+				   Uncomment to show them; the styles (.price-more, .price-drivers, .price-faq) are already in styles.css.
+				<div class="price-more">
+					<div>
+						<h3 class="mono">Što pomiče cijenu izrade?</h3>
+						<ul class="price-drivers">
+							<li><span><b>Povezivanje</b>S koliko programa koje već koristite alat mora razgovarati.</span></li>
+							<li><span><b>Korisnici i lokacije</b>Radi li samo za Vas ili za cijeli tim, u više poslovnica.</span></li>
+							<li><span><b>Postojeći podaci</b>Treba li prenijeti podatke iz tablica ili starog programa.</span></li>
+							<li><span><b>Rok</b>Hitni projekti, koji guraju sve ostalo u stranu, koštaju više.</span></li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="mono">Česta pitanja o cijeni</h3>
+						<div class="price-faq">
+							<details open>
+								<summary>Koliko košta izrada aplikacije po mjeri za mali obrt?</summary>
+								<p>Većina projekata košta između 2.000 i 8.000&nbsp;€. Manji poslovi, poput računa koji se sami izdaju iz narudžbi, kreću od 800&nbsp;€. Točnu cijenu dobijete nakon besplatnog razgovora, kao fiksni iznos.</p>
+							</details>
+							<details>
+								<summary>Zašto ne mogu odmah dobiti točnu cijenu?</summary>
+								<p>Zato što ovisi o tome što alat mora raditi i s čime se povezuje. Nakon razgovora od 45 minuta pošaljem Vam pisanu ponudu s fiksnom cijenom i rokom, obično unutar tri radna dana.</p>
+							</details>
+							<details>
+								<summary>Koliko košta hosting i održavanje aplikacije?</summary>
+								<p>Od 950&nbsp;€ godišnje. To uključuje server, SSL certifikat, dnevne sigurnosne kopije, sigurnosna ažuriranja i nadzor rada.</p>
+							</details>
+							<details>
+								<summary>Koliko košta AI konzultacija?</summary>
+								<p>80&nbsp;€ po satu, online putem video poziva. Ako se dogovori paket od više sati, ostvaruje se popust.</p>
+							</details>
+						</div>
+					</div>
+				</div>
+				*/
+			</div>
+		</section>
 
 		<section class="section about-section" id="o-meni" aria-labelledby="about-title">
 			<div class="wrap">

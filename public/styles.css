@@ -623,7 +623,8 @@ p {
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
-.story-tag--build {
+/* Gold (default): something the client does. Blue: something I do. */
+.story-tag--me {
   background: var(--blue);
   color: #fff;
 }
@@ -1298,6 +1299,194 @@ html:not(.js) .mirror-a + .mirror-a {
 .consulting-cta span {
   color: var(--muted);
   font-size: 15px;
+}
+.consulting-cta b {
+  color: var(--carbon);
+}
+/* The price rides next to the service tag of each answer. */
+.mirror-price {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 7px;
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  font: 600 11px/1.4 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  vertical-align: top;
+}
+
+/* Prices: one number per service, never a per-item breakdown. */
+.pricing-section {
+  background: var(--stock);
+}
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--carbon);
+  border-left: 1px solid var(--carbon);
+  background: var(--paper);
+}
+.price-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 22px;
+  border-right: 1px solid var(--carbon);
+  border-bottom: 1px solid var(--carbon);
+}
+.price-card h3 {
+  margin: 0 0 20px;
+}
+.price-amount {
+  margin: 0;
+  font-size: clamp(32px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+.price-amount small {
+  color: var(--muted);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.price-note {
+  margin: 12px 0 22px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.45;
+}
+.price-note b {
+  padding: 0 2px;
+  background: linear-gradient(var(--gold), var(--gold)) 0 88% / 100% 42% no-repeat;
+  color: var(--carbon);
+}
+.price-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: auto 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  color: var(--blue);
+  font: 600 11px/1.5 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.price-foot::before {
+  display: grid;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  place-items: center;
+  background: var(--blue);
+  color: #fff;
+  content: "✓";
+  font-size: 9px;
+}
+/* What moves the price, and the price FAQ. Their markup is commented out in
+   home.templ for now; these styles are ready for when it comes back. */
+.price-more {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 80px);
+  margin-top: clamp(48px, 6vw, 72px);
+}
+.price-more h3 {
+  margin: 0 0 16px;
+}
+.price-drivers {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--carbon);
+  list-style: none;
+}
+.price-drivers li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.45;
+}
+.price-drivers li::before {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid var(--carbon);
+  background: var(--paper);
+  color: var(--blue);
+  content: "↑";
+  font: 600 12px/1 var(--mono);
+}
+.price-drivers b {
+  display: block;
+  color: var(--carbon);
+  font-size: 17px;
+}
+.price-faq {
+  border-top: 1px solid var(--carbon);
+}
+.price-faq details {
+  border-bottom: 1px solid var(--rule);
+}
+.price-faq summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  cursor: pointer;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  list-style: none;
+}
+.price-faq summary::-webkit-details-marker {
+  display: none;
+}
+.price-faq summary::after {
+  flex: none;
+  color: var(--blue);
+  content: "+";
+  font: 600 18px/1 var(--mono);
+}
+.price-faq details[open] summary::after {
+  content: "−";
+}
+.price-faq summary:hover {
+  color: var(--blue);
+}
+.price-faq details p {
+  max-width: 640px;
+  margin: -4px 0 18px;
+  color: var(--muted);
+  font-size: 16px;
+}
+@media (max-width: 960px) {
+  .price-grid,
+  .price-more {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .price-card {
+    padding: 20px 18px 18px;
+  }
+  .price-card h3 {
+    margin-bottom: 14px;
+  }
+  .price-note {
+    margin-bottom: 18px;
+  }
+  .price-faq summary {
+    font-size: 17px;
+  }
 }
 
 .about-section {

@@ -46,6 +46,37 @@ func structuredData(data any) templ.Component {
 	})
 }
 
+// The prices shown in the homepage's "Cijene" section, attached to the shared
+// Organization by its @id. Keep them identical to the visible amounts in home.templ.
+func pricingSchema() map[string]any {
+	offer := func(name, description string, price map[string]any) map[string]any {
+		price["priceCurrency"] = "EUR"
+		o := map[string]any{"@type": "Offer", "itemOffered": map[string]string{"@type": "Service", "name": name}, "priceSpecification": price}
+		if description != "" {
+			o["description"] = description
+		}
+		return o
+	}
+	return map[string]any{
+		"@context": "https://schema.org",
+		"@type":    "Organization",
+		"@id":      blog.BaseURL + "/#organization",
+		"name":     "Erik Software",
+		"hasOfferCatalog": map[string]any{
+			"@type": "OfferCatalog",
+			"name":  "Usluge i cijene",
+			"itemListElement": []any{
+				offer("Izrada softwarea po mjeri", "Većina projekata košta 2.000–8.000 €, manji poslovi od 800 €. Fiksna cijena, dogovorena unaprijed.",
+					map[string]any{"@type": "PriceSpecification", "minPrice": 800}),
+				offer("Hosting i održavanje", "",
+					map[string]any{"@type": "UnitPriceSpecification", "minPrice": 950, "unitCode": "ANN", "unitText": "godišnje"}),
+				offer("AI konzultacije", "",
+					map[string]any{"@type": "UnitPriceSpecification", "price": 80, "unitCode": "HUR", "unitText": "sat"}),
+			},
+		},
+	}
+}
+
 func breadcrumbs(post *blog.Post) map[string]any {
 	items := []map[string]any{
 		{"@type": "ListItem", "position": 1, "name": "Naslovnica", "item": blog.BaseURL + "/"},

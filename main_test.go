@@ -35,6 +35,8 @@ func TestHomepageMetadataAndSchema(t *testing.T) {
 		`<h1 id="home-title">`,
 		`id="kako-radim"`,
 		`id="konzultacije"`,
+		`id="cijene"`,
+		`"hasOfferCatalog"`,
 		`/assets/eriksoftware_logo.svg`,
 	} {
 		if !strings.Contains(page, want) {
